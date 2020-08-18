@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.utilisateurManager;
+import fr.eni.encheres.bo.Utilisateur;
+
 /**
  * Servlet implementation class CreationCompteServlet
  */
@@ -15,11 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 public class CreationCompteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	utilisateurManager mgr = new utilisateurManager();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
 	}
 
@@ -36,6 +38,10 @@ public class CreationCompteServlet extends HttpServlet {
 		String codePostal = request.getParameter("codePostal");
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("mdp");
+		
+		//Utilisateur newUser = Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, null);
+		
+		//mgr.insertUtilisateur(newUser);
 		
 		// TODO changer la redirection vers la liste des enchères
 		request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
