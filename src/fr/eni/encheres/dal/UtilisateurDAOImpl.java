@@ -11,7 +11,11 @@ import java.util.List;
 import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
-
+	
+	// insertion d'un utilisateur via le formulaire d'inscription
+	private static final String INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
+			+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?,?,?)";
+		
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
@@ -44,11 +48,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		
 	}
 	
-	// insertion d'un utilisateur via le formulaire d'inscription
-	private static final String INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
-			+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?)";
-	
-	
 	/*
 	 * @auhtor : Valentin
 	 * 
@@ -70,12 +69,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			pstmt.setString(7, codePostal);
 			pstmt.setString(8, ville);
 			pstmt.setString(9, mdp);
+			pstmt.setInt(10,100);
+			pstmt.setInt(11, 0);
+			
 			
 			pstmt.executeUpdate();	
 			
 		} catch (SQLException e) {
 			// TODO Utiliser un log a la place
 			e.printStackTrace();
+			throw new DALException("Erreur lors de l'insertion", e);
 		}
 
 	}
