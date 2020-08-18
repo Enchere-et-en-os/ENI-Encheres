@@ -12,50 +12,52 @@
 	<h1>ENI-Enchères</h1>
 	<h2 ><small>Mon Profil</small></h2>
 	
-	<form action="/Encheres/Inscription" method="post">
-	<div class="form-group">
-		<label for="Pseudo">Pseudo</label>
-    	<input name="Pseudo" type="text" class="form-control" id="Pseudo"/>
-    	
-   	 	<label for="Nom">Nom</label>
-    	<input name="nom" type="text" class="form-control" id="Nom">
-  	</div>
-  	
-  	<div class="form-group">
-		<label for="Prenom">Prénom</label>
-    	<input name="Prenom" type="text" class="form-control" id="Prenom">
-    	
-   	 	<label for="Email">Email</label>
-    	<input name="Email" type="text" class="form-control" id="Email">
-  	</div>
-  	
- 	<div class="form-group">
-		<label for="Telephone">Téléphone</label>
-    	<input name="Telephone" type="text" class="form-control" id="Telephone">
-    	
-   	 	<label for="Rue">Rue</label>
-    	<input name="Rue" type="text" class="form-control" id="Rue">
-  	</div>
-  	
-  	<div class="form-group">
-		<label for="CodePostal">Code Postal</label>
-    	<input name="CodePostal" type="text" class="form-control" id="CodePostal">
-    	
-   	 	<label for="Rue">Rue</label>
-    	<input name="Rue" type="text" class="form-control" id="Rue">
-  	</div>
-  	
-  	<div class="form-group">
-		<label for="MotDePasse">Mot De Passe</label>
-    	<input name="Mdp" type="password" class="form-control" id="MotDePasse">
-    	
-   	 	<label for="Confirmation">Confirmation</label>
-    	<input name="Confirm" type="password" class="form-control" id="Confirmation">
-  	</div>
-	
-	<button type="submit" class="btn btn-success">Créer</button>
-	<button type="submit" class="btn btn-secondary">Annuler</button>
-	
+	<form action="/ENI-Encheres/Inscription" method="post">
+		<div class="form-group">
+			<label for="Pseudo">Pseudo</label>
+	    	<input name="pseudo" type="text" class="form-control" id="Pseudo"/>
+	    	
+	   	 	<label for="Nom">Nom</label>
+	    	<input name="nom" type="text" class="form-control" id="Nom">
+	  	</div>
+	  	
+	  	<div class="form-group">
+			<label for="Prenom">Prénom</label>
+	    	<input name="prenom" type="text" class="form-control" id="Prenom">
+	    	
+	   	 	<label for="Email">Email</label>
+	    	<input name="email" type="text" class="form-control" id="Email">
+	  	</div>
+	  	
+	 	<div class="form-group">
+			<label for="Telephone">Téléphone</label>
+	    	<input name="telephone" type="text" class="form-control" id="Telephone">
+	    	
+	   	 	<label for="Rue">Rue</label>
+	    	<input name="rue" type="text" class="form-control" id="Rue">
+	  	</div>
+	  	
+	  	<div class="form-group">
+			<label for="CodePostal">Code Postal</label>
+	    	<input name="codePostal" type="text" class="form-control" id="CodePostal">
+	    	
+	   	 	<label for="Ville">Ville</label>
+	    	<input name="ville" type="text" class="form-control" id="Ville">
+	  	</div>
+	  	
+	  	<div class="form-group">
+			<label for="MotDePasse">Mot De Passe</label>
+	    	<input name="mdp" type="password" class="form-control" id="MotDePasse">
+	    	
+	   	 	<label for="Confirmation">Confirmation</label>
+	    	<input name="confirm" type="password" class="form-control" id="Confirmation">
+	  	</div>
+		
+		<button type="submit" class="btn btn-success">Créer</button>
+		<button type="submit" class="btn btn-secondary">Annuler</button>
+		
+		<h2>${pseudo}<h2>
 	</form>
+	
 </body>
 </html>
