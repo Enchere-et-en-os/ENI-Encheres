@@ -10,6 +10,7 @@ public class Utilisateur {
 	private String telephone;
 	private String rue;
 	private String codePostal;
+	private String ville;
 	private String motDePasse;
 	private int credit;
 	private Administrateur administrateur;
@@ -138,6 +139,14 @@ public class Utilisateur {
 		return "Utilisateur [id=" + id + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email="
 				+ email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal=" + codePostal + ", motDePasse="
 				+ motDePasse + ", credit=" + credit + ", administrateur=" + administrateur + "]";
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
 }
