@@ -37,6 +37,7 @@ public class CreationCompteServlet extends HttpServlet {
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("mdp");
 		
+		// TODO changer la redirection vers la liste des enchères
 		request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
 	}
 
