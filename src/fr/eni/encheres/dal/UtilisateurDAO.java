@@ -1,5 +1,10 @@
 package fr.eni.encheres.dal;
 
-public interface UtilisateurDAO {
+import java.util.List;
 
+import fr.eni.encheres.bo.Utilisateur;
+
+public interface UtilisateurDAO {
+	
+	public List<Utilisateur> findAllUtilisateur() throws DALException;
 }
