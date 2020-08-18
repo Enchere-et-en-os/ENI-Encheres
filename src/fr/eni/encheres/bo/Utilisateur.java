@@ -157,12 +157,4 @@ public class Utilisateur {
 				+ motDePasse + ", credit=" + credit + ", administrateur=" + administrateur + "]";
 	}
 
-	public String getVille() {
-		return ville;
-	}
-
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
 }
