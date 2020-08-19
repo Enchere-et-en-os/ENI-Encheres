@@ -16,7 +16,11 @@
 	<h1>ENI-Enchères</h1>
 
 	<form class="col-3" method="POST" action="Connexion">
-	
+		
+		<div class="form-group ">
+			<label for="identifiant">Identifiant :</label> 
+			<input type="hidden" class="form-control" name="rechercheUtilisateur" id="utilisateur" aria-describedby="emailHelp">
+		</div>
 		<div class="form-group ">
 			<label for="identifiant">Identifiant :</label> 
 			<input type="text" class="form-control" name="identifiantInput" id="utilisateur" aria-describedby="emailHelp">

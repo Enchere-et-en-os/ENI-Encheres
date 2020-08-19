@@ -10,28 +10,14 @@ public class Utilisateur {
 	private String telephone;
 	private String rue;
 	private String codePostal;
+	private String ville;
 	private String motDePasse;
 	private int credit;
-	private Administrateur administrateur;
-	
-	
-	
+	private Boolean administrateur;
 
-	public Utilisateur(String pseudo, String motDePasse) {
-		super();
-		this.pseudo = pseudo;
-		this.motDePasse = motDePasse;
-	}
-
-	public Utilisateur(String pseudo, String email, String motDePasse) {
-		super();
-		this.pseudo = pseudo;
-		this.email = email;
-		this.motDePasse = motDePasse;
-	}
-
+	
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String motDePasse, int credit, Administrateur administrateur) {
+			String codePostal, String ville, String motDePasse) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -40,13 +26,27 @@ public class Utilisateur {
 		this.telephone = telephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+
+	}
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville, String motDePasse, int credit) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
-		this.administrateur = administrateur;
 	}
 
 	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String motDePasse, int credit, Administrateur administrateur) {
+			String codePostal, String ville , String motDePasse, int credit) {
 		super();
 		this.id = id;
 		this.pseudo = pseudo;
@@ -56,10 +56,11 @@ public class Utilisateur {
 		this.telephone = telephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
+		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
-		this.administrateur = administrateur;
 	}
+
 
 	public int getId() {
 		return id;
@@ -125,6 +126,14 @@ public class Utilisateur {
 		this.codePostal = codePostal;
 	}
 
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
 	public String getMotDePasse() {
 		return motDePasse;
 	}
@@ -141,11 +150,11 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
-	public Administrateur getAdministrateur() {
+	public Boolean getAdministrateur() {
 		return administrateur;
 	}
 
-	public void setAdministrateur(Administrateur administrateur) {
+	public void setAdministrateur(Boolean administrateur) {
 		this.administrateur = administrateur;
 	}
 

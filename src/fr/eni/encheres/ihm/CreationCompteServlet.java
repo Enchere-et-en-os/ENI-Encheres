@@ -49,7 +49,6 @@ public class CreationCompteServlet extends HttpServlet {
 		
 		Utilisateur newUser = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 		try {
-			newUser.setAdministrateur(false);
 			System.out.println(newUser.toString());
 			mgr.insertUtilisateur(newUser);
 		} catch (BLLException e) {
