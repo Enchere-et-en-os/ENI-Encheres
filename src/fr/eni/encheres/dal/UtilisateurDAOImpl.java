@@ -13,8 +13,8 @@ import fr.eni.encheres.bo.Utilisateur;
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	// insertion d'un utilisateur via le formulaire d'inscription
-	private static final String INSERTUSER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
-			+ " telephone, rue, codePostal, ville, motDePasse, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
+			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 		
 	/**
 	 * Attributs de classe des requêtes sql
@@ -28,7 +28,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public List<Utilisateur> findAllUtilisateur() throws DALException {
 		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
 		
-		try (Connection conn = ConnexionProvider.getConnection()) {
+		try (Connection conn = ConnectionProvider.getConnection()) {
 			Statement stmt = conn.createStatement();
 			
 			ResultSet rs = stmt.executeQuery(SELECTALLUSER);
@@ -56,62 +56,32 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * Insertion en bdd de l'utilisateur via inscription
 	 * */
 	public void insertUtilisateur(Utilisateur user) throws DALException{
-		try (Connection conn = ConnexionProvider.getConnection()){
+		System.out.println("coucou");
+		try (Connection conn = ConnectionProvider.getConnection()){
 			System.out.println("dal");
-			PreparedStatement pstmt = conn.prepareStatement(INSERTUSER, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = conn.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
 			
-			pstmt.setString(1, "e");
-			pstmt.setString(2, "e");
-			pstmt.setString(3, "e");
-			pstmt.setString(4, "e");
-			pstmt.setString(5, "e");
-			pstmt.setString(6, "e");
-			pstmt.setString(7, "e");
-			pstmt.setString(8, "e");
-			pstmt.setString(9, "e");
+			pstmt.setString(1, user.getPseudo());
+			pstmt.setString(2, user.getNom());
+			pstmt.setString(3, user.getPrenom());
+			pstmt.setString(4, user.getEmail());
+			pstmt.setString(5, user.getTelephone());
+			pstmt.setString(6, user.getRue());
+			pstmt.setString(7, user.getCodePostal());
+			pstmt.setString(8, user.getVille());
+			pstmt.setString(9, user.getMotDePasse());
 			pstmt.setInt(10,100);
 			pstmt.setInt(11, 0);
-			pstmt.executeUpdate(INSERTUSER);
+			pstmt.executeUpdate();
 			
-//			pstmt.setString(1, user.getPseudo());
-//			pstmt.setString(2, user.getNom());
-//			pstmt.setString(3, user.getPrenom());
-//			pstmt.setString(4, user.getEmail());
-//			pstmt.setString(5, user.getTelephone());
-//			pstmt.setString(6, user.getRue());
-//			pstmt.setString(7, user.getCodePostal());
-//			pstmt.setString(8, user.getVille());
-//			pstmt.setString(9, user.getMotDePasse());
-//			pstmt.setInt(10,100);
-//			pstmt.setInt(11, 0);
-//			pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
-			ResultSet rs = pstmt.getGeneratedKeys();
-			//INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
-			//+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?,?,?)";
-			
-			Utilisateur utilisateur = null;
-			while(rs.next()) {
-				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), 
-						rs.getString("telephone"), rs.getString("rue"),  rs.getString("codePostal"), 
-						rs.getString("ville"), rs.getString("motDePasse"));
+			ResultSet rsKey = pstmt.getGeneratedKeys();
+			if(rsKey.next()) {
+				user.setId(rsKey.getInt(1));
 			}
-			rs.close();
-			pstmt.close();
-					
-//			pstmt.setString(1, "e");
-//			pstmt.setString(2, "e");
-//			pstmt.setString(3, "e");
-//			pstmt.setString(4, "e");
-//			pstmt.setString(5, "e");
-//			pstmt.setString(6, "e");
-//			pstmt.setString(7, "e");
-//			pstmt.setString(8, "e");
-//			pstmt.setString(9, "e");
-//			pstmt.setInt(10,100);
-//			pstmt.setInt(11, 0);
-		
-			
+			rsKey.close();
+
 		} catch (SQLException e) {
 			// TODO Utiliser un log a la place
 			e.printStackTrace();
