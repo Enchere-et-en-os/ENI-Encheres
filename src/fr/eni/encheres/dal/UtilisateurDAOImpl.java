@@ -15,6 +15,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	// insertion d'un utilisateur via le formulaire d'inscription
 	private static final String INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
 			+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?,?,?)";
+	
+	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
+			+ "rue, codePostal, ville, motDePasse FROM utilisateurs WHERE no_utilisateur = ?";
 		
 	/**
 	 * Attributs de classe des requêtes sql
@@ -81,5 +84,37 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			throw new DALException("Erreur lors de l'insertion", e);
 		}
 
+	}
+	
+	/*
+	 * @auhtor : Samy-Lee
+	 * 
+	 * @param : id
+	 * 
+	 * Selection en bdd de l'utilisateur par son id
+	 * */
+	public Utilisateur selectById (int id) throws DALException {
+		ResultSet rs = null;
+		Utilisateur util = null;
+		
+		
+		try(Connection cnx = ConnexionProvider.getConnection(); 
+				PreparedStatement pstmt = cnx.prepareStatement(SQL_SELECT_BY_ID);){
+			
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				util = new Utilisateur (rs.getInt("no_utilisateur"), rs.getString("pseudo"),  rs.getString("nom"),  
+						rs.getString("prenom"),  rs.getString("email"),  rs.getString("telephone"),  rs.getString("rue"), 
+						rs.getString("codePostal"),  rs.getString("ville"),  rs.getString("motDePasse"), rs.getInt("motDePasse") );
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return util;
+		
 	}
 }
