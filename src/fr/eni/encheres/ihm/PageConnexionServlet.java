@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
 /**
  * Servlet implementation class PageConnexionServlet
  */
 @WebServlet("/Connexion")
 public class PageConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,6 +29,7 @@ public class PageConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 	}
@@ -42,7 +45,8 @@ public class PageConnexionServlet extends HttpServlet {
 //		
 //		request.setAttribute("identifiant", identifiant);
 //		request.setAttribute("motDePasse", motDePasse);
-
+		
+		
 		
 		HttpSession session = request.getSession();
 		

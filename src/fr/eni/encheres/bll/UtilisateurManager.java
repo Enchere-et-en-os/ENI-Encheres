@@ -15,13 +15,22 @@ public class UtilisateurManager {
 	}
 	
 	
+	/**
+	 * @author Samy-Lee
+	 * @param id
+	 * @return Utilisateur
+	 * @throws BLLException
+	 * 
+	 * Selectionne un utilisateur par son ID à l'aide du manager
+	 */
 	public Utilisateur selectById (int id) throws BLLException {
 		Utilisateur utilisateur = null;
 		try {
 		utilisateur = utilisateurDAO.selectById(id);
+		
 		} catch (DALException e) {
 			System.out.println("Erreur selectById manager");
-			throw new BLLException();
+			throw new BLLException();      
 		}
 		return utilisateur;
 	};
