@@ -12,16 +12,22 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
+	// Selection d'un utilisateur dans la BDD par son ID
+	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
+			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
+	
 	// insertion d'un utilisateur via le formulaire d'inscription
-	private static final String INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
+	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
+
 		
 	private static final String SELECT_ID_BY_PSEUDO = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
 	
+
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
-	private String SELECTALLUSER = "SELECT * from UTILISATEURS";
+	private String SQL_SELECT_ALL_USER = "SELECT * from UTILISATEURS";
 	
 	
 	/**
@@ -33,7 +39,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			Statement stmt = conn.createStatement();
 			
-			ResultSet rs = stmt.executeQuery(SELECTALLUSER);
+			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_USER);
 
 			Utilisateur utilisateur = null;
 			while(rs.next()) {
@@ -84,10 +90,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * Insertion en bdd de l'utilisateur via inscription
 	 * */
 	public void insertUtilisateur(Utilisateur user) throws DALException{
-		System.out.println("coucou");
 		try (Connection conn = ConnectionProvider.getConnection()){
 			System.out.println("dal");
-			PreparedStatement pstmt = conn.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, user.getPseudo());
 			pstmt.setString(2, user.getNom());
@@ -102,19 +107,53 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			pstmt.setInt(11, 0);
 			pstmt.executeUpdate();
 			
-			pstmt.executeUpdate();
-			
-			ResultSet rsKey = pstmt.getGeneratedKeys();
-			if(rsKey.next()) {
-				user.setId(rsKey.getInt(1));
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				user.setId(rs.getInt(1));	
 			}
-			rsKey.close();
 
+			
 		} catch (SQLException e) {
 			// TODO Utiliser un log a la place
 			e.printStackTrace();
 			throw new DALException("Erreur lors de l'insertion", e);
 		}
 
+	}
+	
+
+
+	/*
+	 * @auhtor : Samy-Lee
+	 * 
+	 * @param : id
+	 * 
+	 * Selection en bdd de l'utilisateur par son id
+	 * */
+	public Utilisateur selectById (int id) throws DALException {
+		ResultSet rs = null;
+		Utilisateur util = null;
+		
+		//connexion à la base de donnée
+		try(Connection cnx = ConnectionProvider.getConnection(); 
+				//
+				PreparedStatement pstmt = cnx.prepareStatement(SQL_SELECT_BY_ID);){
+			//no_utilisateur == id
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			//récupère les valeurs
+			
+			if(rs.next()) {
+				
+				util = new Utilisateur (rs.getInt("no_utilisateur"), rs.getString("pseudo"),  rs.getString("nom"),  
+						rs.getString("prenom"),  rs.getString("email"),  rs.getString("telephone"),  rs.getString("rue"), 
+						rs.getString("code_postal"),  rs.getString("ville"),  rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur") );
+
+			}
+
+		} catch (SQLException e) {
+			throw new DALException("Erreur lors de l'éxécution de la méthode SelectById de la classe UtilisateurDAOImpl", e);
+		}
+		return util;
 	}
 }

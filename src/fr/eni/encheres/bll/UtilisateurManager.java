@@ -1,7 +1,5 @@
 package fr.eni.encheres.bll;
 
-import java.util.List;
-
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
@@ -12,25 +10,22 @@ public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO;
 	
-	
-	/**
-	 * constructeur utilisateurManager
-	 */
 	public UtilisateurManager() {
 		utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	}
-
-	public  List<Utilisateur> getAllUtilisateur() {
-		List<Utilisateur> listeUtilisateur = null;
+	
+	
+	public Utilisateur selectById (int id) throws BLLException {
+		Utilisateur utilisateur = null;
 		try {
-			listeUtilisateur = utilisateurDAO.findAllUtilisateur();
+		utilisateur = utilisateurDAO.selectById(id);
 		} catch (DALException e) {
-
-			e.printStackTrace();
+			System.out.println("Erreur selectById manager");
+			throw new BLLException();
 		}
-		return listeUtilisateur;
-	}
-		
+		return utilisateur;
+	};
+	
 	
 	public void insertUtilisateur(Utilisateur user) throws BLLException{
 		try {
