@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.bo.Utilisateur;
+
 /**
  * Servlet implementation class PageConnexionServlet
  */
@@ -37,6 +39,8 @@ public class PageConnexionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		//Session ?
+		
 //		String identifiant = request.getParameter("identifiantInput");
 //		String motDePasse = request.getParameter("motDePasseInput");
 //		
@@ -44,18 +48,44 @@ public class PageConnexionServlet extends HttpServlet {
 //		request.setAttribute("motDePasse", motDePasse);
 
 		
-		HttpSession session = request.getSession();
 		
+		// Récupération des paramètres de la requête.
 		String identifiant = request.getParameter("identifiantInput");
 		String motDePasse = request.getParameter("motDePasseInput");
 		
-		session.setAttribute("identifiant", identifiant);
-		session.setAttribute("motDePasse", motDePasse);
-
+		// Soumission des paramètres de la requête à la couche service et récupération du résultat.
+		//Utilisateur utilisateur = new Utilisateur(identifiant, motDePasse);
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("identifiant", identifiant);//samsam
+		session.setAttribute("motDePasse", motDePasse);//password
+		
+		//session.setAttribute("utilisateur", utilisateur);
+		
+		identifiant = (String) session.getAttribute("identifiant");
+		String motDePasseS = (String) session.getAttribute("motDePasse");
 		
 		
+		
+		System.out.println(identifiant + " " + motDePasse);
+	
+		// Réponse à l'utilisateur
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 
+		
+//		
+//		session.setAttribute("identifiant", identifiant);
+//		session.setAttribute("motDePasse", motDePasse);
+//		
+//		String identifiantSession = (String) session.getAttribute(identifiant);
+//		String motDePasseSession = (String) session.getAttribute(motDePasse);
+//		
+//		System.out.println(identifiantSession);
+//		System.out.println(motDePasseSession);
+
+
+			
+		
 	}
 
 }

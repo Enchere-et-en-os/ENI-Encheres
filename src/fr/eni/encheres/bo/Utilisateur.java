@@ -13,6 +13,22 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private Administrateur administrateur;
+	
+	
+	
+
+	public Utilisateur(String pseudo, String motDePasse) {
+		super();
+		this.pseudo = pseudo;
+		this.motDePasse = motDePasse;
+	}
+
+	public Utilisateur(String pseudo, String email, String motDePasse) {
+		super();
+		this.pseudo = pseudo;
+		this.email = email;
+		this.motDePasse = motDePasse;
+	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String motDePasse, int credit, Administrateur administrateur) {
