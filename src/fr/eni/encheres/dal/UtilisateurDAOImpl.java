@@ -16,6 +16,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 		
+	private static final String SELECT_ID_BY_PSEUDO = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
+	
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
@@ -46,6 +48,32 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		}
 		return listeUtilisateur;
 		
+	}
+	
+	
+	/*
+	 * @auhtor : Valentin
+	 * 
+	 * @param : String pseudo
+	 * 
+	 * Selection l'id d'un utilisateur si son param existe
+	 * */
+	public int findPseudo(String pseudo) throws DALException{
+		int id = 0;
+		
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(SELECT_ID_BY_PSEUDO);
+			if(rs.next()) {
+				id = rs.getInt("no_utilisateur");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Echec de findPseudo",  e);
+		}
+		return id;
 	}
 	
 	/*

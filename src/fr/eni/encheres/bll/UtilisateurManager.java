@@ -34,11 +34,19 @@ public class UtilisateurManager {
 	
 	public void insertUtilisateur(Utilisateur user) throws BLLException{
 		try {
-			System.out.println(user.toString());
 			utilisateurDAO.insertUtilisateur(user);
 		} catch(DALException e) {
-			System.out.println("oui");
 			throw new BLLException();
 		}
+	}
+	
+	public int findPseudo(String pseudo) throws BLLException{
+		int i = 0;
+		try {
+			i = utilisateurDAO.findPseudo(pseudo);
+		} catch (DALException e) {
+			throw new BLLException();
+		}
+		return i;
 	}
 }
