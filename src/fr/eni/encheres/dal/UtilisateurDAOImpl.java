@@ -24,14 +24,21 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 
-	private static final String SQL_SELECT_ALL_USER = "SELECT * from UTILISATEURS";
+	private static final String SELECT_ID_BY_PSEUDO = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
+	
 
+	/**
+	 * Attributs de classe des requêtes sql
+	 */
+	private static final String SQL_SELECT_ALL_USER = "SELECT * from UTILISATEURS";
+	
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
 	 */
 	public List<Utilisateur> findAllUtilisateur() throws DALException {
 		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
 
+		
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			Statement stmt = conn.createStatement();
 
@@ -53,6 +60,32 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	}
 
+	
+	/*
+	 * @auhtor : Valentin
+	 * 
+	 * @param : String pseudo
+	 * 
+	 * Selection l'id d'un utilisateur si son param existe
+	 * */
+	public int findPseudo(String pseudo) throws DALException{
+		int id = 0;
+		
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(SELECT_ID_BY_PSEUDO);
+			if(rs.next()) {
+				id = rs.getInt("no_utilisateur");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Echec de findPseudo",  e);
+		}
+		return id;
+	}
+	
 	/*
 	 * @auhtor : Valentin
 	 * 
@@ -60,62 +93,29 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * 
 	 * Insertion en bdd de l'utilisateur via inscription
 	 */
-	public void insertUtilisateur(Utilisateur user) throws DALException {
-		try (Connection conn = ConnectionProvider.getConnection()) {
+	
+	public void insertUtilisateur(Utilisateur user) throws DALException{
+		try (Connection conn = ConnectionProvider.getConnection()){
 			System.out.println("dal");
 			PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
-
-			pstmt.setString(1, "e");
-			pstmt.setString(2, "e");
-			pstmt.setString(3, "e");
-			pstmt.setString(4, "e");
-			pstmt.setString(5, "e");
-			pstmt.setString(6, "e");
-			pstmt.setString(7, "e");
-			pstmt.setString(8, "e");
-			pstmt.setString(9, "e");
-			pstmt.setInt(10, 100);
+			
+			pstmt.setString(1, user.getPseudo());
+			pstmt.setString(2, user.getNom());
+			pstmt.setString(3, user.getPrenom());
+			pstmt.setString(4, user.getEmail());
+			pstmt.setString(5, user.getTelephone());
+			pstmt.setString(6, user.getRue());
+			pstmt.setString(7, user.getCodePostal());
+			pstmt.setString(8, user.getVille());
+			pstmt.setString(9, user.getMotDePasse());
+			pstmt.setInt(10,100);
 			pstmt.setInt(11, 0);
-			pstmt.executeUpdate(SQL_INSERT_USER);
-
-//			pstmt.setString(1, user.getPseudo());
-//			pstmt.setString(2, user.getNom());
-//			pstmt.setString(3, user.getPrenom());
-//			pstmt.setString(4, user.getEmail());
-//			pstmt.setString(5, user.getTelephone());
-//			pstmt.setString(6, user.getRue());
-//			pstmt.setString(7, user.getCodePostal());
-//			pstmt.setString(8, user.getVille());
-//			pstmt.setString(9, user.getMotDePasse());
-//			pstmt.setInt(10,100);
-//			pstmt.setInt(11, 0);
-//			pstmt.executeUpdate();
-
+			pstmt.executeUpdate();
+			
 			ResultSet rs = pstmt.getGeneratedKeys();
-			// INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
-			// + " telephone, rue, codePostal, ville, motDePasse)
-			// values(?,?,?,?,?,?,?,?,?,?,?)";
-
-			Utilisateur utilisateur = null;
-			while (rs.next()) {
-				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
-						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("codePostal"), rs.getString("ville"), rs.getString("motDePasse"));
+			if(rs.next()) {
+				user.setId(rs.getInt(1));	
 			}
-			rs.close();
-			pstmt.close();
-
-//			pstmt.setString(1, "e");
-//			pstmt.setString(2, "e");
-//			pstmt.setString(3, "e");
-//			pstmt.setString(4, "e");
-//			pstmt.setString(5, "e");
-//			pstmt.setString(6, "e");
-//			pstmt.setString(7, "e");
-//			pstmt.setString(8, "e");
-//			pstmt.setString(9, "e");
-//			pstmt.setInt(10,100);
-//			pstmt.setInt(11, 0);
 
 		} catch (SQLException e) {
 			// TODO Utiliser un log a la place
@@ -124,6 +124,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		}
 
 	}
+
+		
 
 	/*
 	 * @auhtor : Samy-Lee
@@ -138,19 +140,17 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		System.out.println("avant try");
 		
 		try (Connection cnx = ConnectionProvider.getConnection();) {
-			System.out.println("après try");
+			
 			PreparedStatement pstmt = cnx.prepareStatement(SQL_SELECT_BY_ID);
-			System.out.println("après cnx.prepareStatement");
-
 			pstmt.setInt(1, id);
-			System.out.println("après pstmt.setInt");
+			
 
 			rs = pstmt.executeQuery();
-			System.out.println("après pstmt.executeQuery");
+			
 
 			
 			if (rs.next()) {
-				System.out.println("dans if");
+				
 				util = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
