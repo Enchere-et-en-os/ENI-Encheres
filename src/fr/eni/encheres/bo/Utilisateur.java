@@ -14,7 +14,7 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private Boolean administrateur;
-	
+
 	
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse) {
@@ -28,8 +28,8 @@ public class Utilisateur {
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
-	}
 
+	}
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse, int credit) {
 		super();
@@ -60,11 +60,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 	}
-	
-	public Utilisateur(int int1, String string, String string2, String string3, String string4, String string5,
-			String string6, String string7, String string8, String string9, int int2, int int3) {
-		// TODO Auto-generated constructor stub
-	}
+
 
 	public int getId() {
 		return id;

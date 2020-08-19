@@ -49,9 +49,10 @@ public class PageConnexionServlet extends HttpServlet {
 		String identifiant = request.getParameter("identifiantInput");
 		String motDePasse = request.getParameter("motDePasseInput");
 		
+		
 		session.setAttribute("identifiant", identifiant);
 		session.setAttribute("motDePasse", motDePasse);
-
+		session.getAttribute(identifiant);
 		
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
