@@ -13,8 +13,8 @@ import fr.eni.encheres.bo.Utilisateur;
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	// insertion d'un utilisateur via le formulaire d'inscription
-	private static final String INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
-			+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERTUSER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
+			+ " telephone, rue, codePostal, ville, motDePasse, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 		
 	/**
 	 * Attributs de classe des requêtes sql
@@ -51,29 +51,66 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	/*
 	 * @auhtor : Valentin
 	 * 
-	 * @param : nom, prenom, pseudo, email, telephone, rue,
-	 * ville, codePostal, mdp
+	 * @param : Utilisateur
 	 * 
 	 * Insertion en bdd de l'utilisateur via inscription
 	 * */
-	public void insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String mdp) throws DALException{
+	public void insertUtilisateur(Utilisateur user) throws DALException{
 		try (Connection conn = ConnexionProvider.getConnection()){
-			PreparedStatement pstmt = conn.prepareStatement(INSERTUSER);
-			pstmt.setString(1, pseudo);
-			pstmt.setString(2, nom);
-			pstmt.setString(3, prenom);
-			pstmt.setString(4, email);
-			pstmt.setString(5, telephone);
-			pstmt.setString(6, rue);
-			pstmt.setString(7, codePostal);
-			pstmt.setString(8, ville);
-			pstmt.setString(9, mdp);
+			System.out.println("dal");
+			PreparedStatement pstmt = conn.prepareStatement(INSERTUSER, PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			pstmt.setString(1, "e");
+			pstmt.setString(2, "e");
+			pstmt.setString(3, "e");
+			pstmt.setString(4, "e");
+			pstmt.setString(5, "e");
+			pstmt.setString(6, "e");
+			pstmt.setString(7, "e");
+			pstmt.setString(8, "e");
+			pstmt.setString(9, "e");
 			pstmt.setInt(10,100);
 			pstmt.setInt(11, 0);
+			pstmt.executeUpdate(INSERTUSER);
 			
+//			pstmt.setString(1, user.getPseudo());
+//			pstmt.setString(2, user.getNom());
+//			pstmt.setString(3, user.getPrenom());
+//			pstmt.setString(4, user.getEmail());
+//			pstmt.setString(5, user.getTelephone());
+//			pstmt.setString(6, user.getRue());
+//			pstmt.setString(7, user.getCodePostal());
+//			pstmt.setString(8, user.getVille());
+//			pstmt.setString(9, user.getMotDePasse());
+//			pstmt.setInt(10,100);
+//			pstmt.setInt(11, 0);
+//			pstmt.executeUpdate();
 			
-			pstmt.executeUpdate();	
+			ResultSet rs = pstmt.getGeneratedKeys();
+			//INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
+			//+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?,?,?)";
+			
+			Utilisateur utilisateur = null;
+			while(rs.next()) {
+				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), 
+						rs.getString("telephone"), rs.getString("rue"),  rs.getString("codePostal"), 
+						rs.getString("ville"), rs.getString("motDePasse"));
+			}
+			rs.close();
+			pstmt.close();
+					
+//			pstmt.setString(1, "e");
+//			pstmt.setString(2, "e");
+//			pstmt.setString(3, "e");
+//			pstmt.setString(4, "e");
+//			pstmt.setString(5, "e");
+//			pstmt.setString(6, "e");
+//			pstmt.setString(7, "e");
+//			pstmt.setString(8, "e");
+//			pstmt.setString(9, "e");
+//			pstmt.setInt(10,100);
+//			pstmt.setInt(11, 0);
+		
 			
 		} catch (SQLException e) {
 			// TODO Utiliser un log a la place

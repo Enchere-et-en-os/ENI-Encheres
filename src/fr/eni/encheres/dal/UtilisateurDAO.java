@@ -8,7 +8,6 @@ public interface UtilisateurDAO {
 	
 	public List<Utilisateur> findAllUtilisateur() throws DALException;
 	
-	void insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String mdp) throws DALException;
+	void insertUtilisateur(Utilisateur user) throws DALException;
 	
 }

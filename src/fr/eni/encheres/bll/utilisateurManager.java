@@ -14,9 +14,9 @@ public class utilisateurManager {
 	public void insertUtilisateur(Utilisateur user) throws BLLException{
 		try {
 			System.out.println(user.toString());
-			utilisateurDAO.insertUtilisateur(user.getPseudo(), user.getNom(), user.getPrenom(), user.getEmail(),
-					user.getTelephone(), user.getRue(), user.getCodePostal(), user.getVille(), user.getMotDePasse());
+			utilisateurDAO.insertUtilisateur(user);
 		} catch(DALException e) {
+			System.out.println("oui");
 			throw new BLLException();
 		}
 	}
