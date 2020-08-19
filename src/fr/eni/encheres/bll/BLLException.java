@@ -1,27 +1,27 @@
 package fr.eni.encheres.bll;
 
-public class BLLExeception extends Exception {
+public class BLLException extends Exception {
 
-	public BLLExeception() {
+	public BLLException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BLLExeception(String message) {
+	public BLLException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BLLExeception(Throwable cause) {
+	public BLLException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BLLExeception(String message, Throwable cause) {
+	public BLLException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BLLExeception(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public BLLException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
 	}
