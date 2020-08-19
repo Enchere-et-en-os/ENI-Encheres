@@ -16,6 +16,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * Attributs de classe des requêtes sql
 	 */
 	private String SELECTALLUSER = "SELECT * from UTILISATEURS";
+	private String SELECTUSERBYID = "SELECT * from UTILISATEURS WHERE ?";
+	private static final String INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
+			+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?)";
 	
 	
 	/**
@@ -30,10 +33,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ResultSet rs = stmt.executeQuery(SELECTALLUSER);
 
 			Utilisateur utilisateur = null;
+			
 			while(rs.next()) {
 				utilisateur = new Utilisateur(rs.getInt("columnIndex"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), 
 						rs.getString("telephone"), rs.getString("rue"),  rs.getString("codePostal"), 
-						rs.getString("ville"), rs.getString("motDePasse"), rs.getInt("credit"), rs.getInt("administrateur"));
+						rs.getString("ville"), rs.getString("motDePasse"), rs.getInt("credit"));
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (SQLException e) {
@@ -44,11 +48,25 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		
 	}
 	
-	// insertion d'un utilisateur via le formulaire d'inscription
-	private static final String INSERTUSER = "INSERT INTO encheres.utilisateur (pseudo, nom, prenom, email,"
-			+ " telephone, rue, codePostal, ville, motDePasse) values(?,?,?,?,?,?,?,?,?)";
+	/**
+	 * méthode de sélection d'un utilisateur par son id
+	 * @throws SQLException 
+	 */
 	
-	
+	public int selectUtilisateurById (int id) throws SQLException {
+		try(Connection conn = ConnexionProvider.getConnection()){
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(SELECTUSERBYID);
+			int idRech = null;
+			if(rs.next()) {
+				
+			}
+			
+			
+		}
+		return id;
+	}
 	/*
 	 * @auhtor : Valentin
 	 * 
@@ -70,7 +88,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			pstmt.setString(7, codePostal);
 			pstmt.setString(8, ville);
 			pstmt.setString(9, mdp);
-			
+			//
 			pstmt.executeUpdate();	
 			
 		} catch (SQLException e) {
