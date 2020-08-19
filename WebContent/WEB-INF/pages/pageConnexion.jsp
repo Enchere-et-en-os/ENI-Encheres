@@ -44,8 +44,8 @@
 
 	<button type="button" class="btn btn-primary">Créer un compte</button>
 	
-	<c:out value="${identifiant }"></c:out>
-	<c:out value="${motDePasse }"></c:out>
+	<c:out value="${utilisateur }"></c:out>
+	<c:out value="${sessionScope.motDePasseS }"></c:out>
 
 </body>
 </html>
