@@ -37,7 +37,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			while(rs.next()) {
 				utilisateur = new Utilisateur(rs.getInt("columnIndex"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), 
 						rs.getString("telephone"), rs.getString("rue"),  rs.getString("codePostal"), 
-						rs.getString("ville"), rs.getString("motDePasse"), rs.getInt("credit"), rs.getInt("administrateur"));
+						rs.getString("ville"), rs.getString("motDePasse"), rs.getInt("credit"));
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (SQLException e) {
