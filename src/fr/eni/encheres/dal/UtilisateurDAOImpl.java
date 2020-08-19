@@ -91,7 +91,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * */
 	public void insertUtilisateur(Utilisateur user) throws DALException{
 		try (Connection conn = ConnectionProvider.getConnection()){
-			System.out.println("dal");
 			PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, user.getPseudo());
