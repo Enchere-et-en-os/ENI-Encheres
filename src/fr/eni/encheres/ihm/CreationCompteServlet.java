@@ -1,12 +1,16 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
@@ -80,12 +84,28 @@ public class CreationCompteServlet extends HttpServlet {
 			erreur = true;
 		}
 		
-		// hashage du mdp puis findallUsers pour comparer avec les autres hash
+		/* 		hashage du mdp puis findallUsers pour comparer avec les autres hash
 		else {
-			String hashMdp = "";
-			List<Utilisateur> list = mgr.fi
+			// TODO hash du mdp
+			String hashMdp= "";
+			
+			try {
+				List<Utilisateur> list = mgr.getAllUtilisateur();
+				for (Utilisateur utilisateur : list) {
+					if(utilisateur.getMotDePasse() == hashMdp) {
+						String messageMdp = "Choissisez un autre mot de passe";
+						request.setAttribute("erreurMdp", messageMdp);
+						erreur = true;
+						break;
+					}
+				}
+				
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
+		*/
 		
 		if(!erreur) {
 			Utilisateur newUser = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);

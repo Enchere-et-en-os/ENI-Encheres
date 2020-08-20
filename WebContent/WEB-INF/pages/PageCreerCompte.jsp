@@ -50,11 +50,11 @@
 	  	<div class="form-group">
 			<label for="MotDePasse">Mot De Passe</label>
 	    	<input name="mdp" type="password" class="form-control" id="MotDePasse">
-	    	<label>${messageMdp}</label>
 	    	
 	   	 	<label for="Confirmation">Confirmation</label>
 	    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation">
 	  	</div>
+	  	<label>${erreurConfirm} ${erreurMdp}</label>
 		
 		<button type="submit" class="btn btn-success">Créer</button>
 		<button type="submit" class="btn btn-secondary">Annuler</button>
