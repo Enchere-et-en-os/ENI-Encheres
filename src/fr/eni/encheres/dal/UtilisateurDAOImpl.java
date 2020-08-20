@@ -39,7 +39,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			Statement stmt = conn.createStatement();
-
+			
 			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_USER);
 
 			Utilisateur utilisateur = null;

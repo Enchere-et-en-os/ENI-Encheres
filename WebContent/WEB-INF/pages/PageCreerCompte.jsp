@@ -15,42 +15,45 @@
 	<form action="/ENI-Encheres/Inscription" method="post">
 		<div class="form-group">
 			<label for="Pseudo">Pseudo</label>
-	    	<input name="pseudo" type="text" class="form-control" id="Pseudo"/>
+	    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo"/>
+	    	<label>${erreurPseudo}</label>
 	    	
 	   	 	<label for="Nom">Nom</label>
-	    	<input name="nom" type="text" class="form-control" id="Nom">
+	    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom">
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="Prenom">Prénom</label>
-	    	<input name="prenom" type="text" class="form-control" id="Prenom">
+	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom">
 	    	
 	   	 	<label for="Email">Email</label>
-	    	<input name="email" type="text" class="form-control" id="Email">
+	    	<input value="${email}" name="email" type="text" class="form-control" id="Email">
+	    	<label>${erreurEmail}</label>
 	  	</div>
 	  	
 	 	<div class="form-group">
 			<label for="Telephone">Téléphone</label>
-	    	<input name="telephone" type="text" class="form-control" id="Telephone">
+	    	<input value="${telephone}" name="telephone" type="text" class="form-control" id="Telephone">
 	    	
 	   	 	<label for="Rue">Rue</label>
-	    	<input name="rue" type="text" class="form-control" id="Rue">
+	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue">
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="CodePostal">Code Postal</label>
-	    	<input name="codePostal" type="text" class="form-control" id="CodePostal">
+	    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal">
 	    	
 	   	 	<label for="Ville">Ville</label>
-	    	<input name="ville" type="text" class="form-control" id="Ville">
+	    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville">
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="MotDePasse">Mot De Passe</label>
 	    	<input name="mdp" type="password" class="form-control" id="MotDePasse">
+	    	<label>${messageMdp}</label>
 	    	
 	   	 	<label for="Confirmation">Confirmation</label>
-	    	<input name="confirm" type="password" class="form-control" id="Confirmation">
+	    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation">
 	  	</div>
 		
 		<button type="submit" class="btn btn-success">Créer</button>
