@@ -15,7 +15,7 @@
 
 	<h1>ENI-Enchères</h1>
 	
-	<form class="col-3" method="POST" action="Connexion">
+	<form class="col-3" method="POST" action="/ENI-Encheres/Connexion">
 		
 		<div class="form-group ">
 			<label for="identifiant">Identifiant :${identifiant}</label> 

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.UtilisateurDAO;
@@ -23,7 +25,7 @@ import fr.eni.encheres.dal.UtilisateurDAO;
 public class PageConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private UtilisateurDAO utilisateurDao;
+	UtilisateurManager mgr = new UtilisateurManager();
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,9 +40,10 @@ public class PageConnexionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			List<Utilisateur> listeDutilisateur = utilisateurDao.findAllUtilisateur();
+			
+			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			System.out.println(listeDutilisateur);
-		} catch (DALException e) {
+		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -58,17 +61,15 @@ public class PageConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String destPage = "pageConnexion.jsp";
+		String destPage = "/WEB-INF/pages/pageConnexion.jsp";
 		try {
 			String identifiant = request.getParameter("identifiant");
 			String motDePasse = request.getParameter("motDePasse");
 			String pseudo = request.getParameter("pseudo");
 			//créer une règle pour vérifier si pseudo ou email rentré
-			List<Utilisateur> listeDutilisateur = utilisateurDao.findAllUtilisateur();
+			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			
-			Utilisateur utilisateur = utilisateurDao.checkLogin(identifiant, motDePasse, pseudo);
-			
-			destPage = "pageConnexion.jsp";
+			Utilisateur utilisateur = mgr.checkLogin(identifiant, motDePasse, pseudo);
 			
 			//mets en mémoire dans la partie mémoire session le nom et le prénom
 			if (utilisateur != null) {
@@ -80,7 +81,7 @@ public class PageConnexionServlet extends HttpServlet {
 				session.setAttribute("listeDutilisateur", listeDutilisateur);
 				session.setAttribute("utilisateur", utilisateur);
 				
-				destPage = "Acceuil.jsp";
+				destPage = "/WEB-INF/pages/Acceuil.jsp";
 				//récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("identifiant");
 				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
@@ -88,16 +89,11 @@ public class PageConnexionServlet extends HttpServlet {
 				 String message = "Email / mot de passe non conforme";
 				request.setAttribute("message", message);
 			}
-		} catch (DALException | ClassNotFoundException | SQLException e) {
+		} catch (BLLException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	
 		request.getRequestDispatcher(destPage).forward(request, response);
-
-		String identifiant = request.getParameter("identifiantInput");
-		String motDePasse = request.getParameter("motDePasseInput");
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 
 		}
 	}
