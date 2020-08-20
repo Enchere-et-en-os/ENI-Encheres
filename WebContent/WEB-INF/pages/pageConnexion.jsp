@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 </head>
 <body>
 
-	<h1>ENI-Enchères</h1>
+	<h1>ENI-EnchÃ¨res</h1>
 	
 	<form class="col-3" method="POST" action="/ENI-Encheres/Connexion">
 		
@@ -30,7 +31,7 @@
 		    <input type="password" class="form-control" name="motDePasse" id="motDePasse">
 		</div>
 		
-		<a href="#">Mot de passe oublié</a>
+		<a href="#">Mot de passe oubliÃ©</a>
 		
 		<div class="form-group form-check">
 			<input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -41,7 +42,7 @@
 		
 	</form>
 
-	<button type="button" class="btn btn-primary">Créer un compte</button>
+	<button type="button" class="btn btn-primary">CrÃ©er un compte</button>
 	
 	<c:out value="${utilisateur }"></c:out>
 	<c:out value="${sessionScope.motDePasseS }"></c:out>

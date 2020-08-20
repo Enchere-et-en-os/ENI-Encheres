@@ -27,14 +27,6 @@ public class PageConnexionServlet extends HttpServlet {
 
 	UtilisateurManager mgr = new UtilisateurManager();
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PageConnexionServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -85,6 +77,7 @@ public class PageConnexionServlet extends HttpServlet {
 				//récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("identifiant");
 				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
+				
 			} else {
 				 String message = "Email / mot de passe non conforme";
 				request.setAttribute("message", message);
