@@ -26,9 +26,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private static final String SELECT_ID_BY_PSEUDO = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
 
-	/**
-	 * Attributs de classe des requêtes sql
-	 */
 	private static final String SQL_SELECT_ALL_USER = "SELECT * from UTILISATEURS";
 
 	/**
@@ -37,10 +34,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public List<Utilisateur> findAllUtilisateur() throws DALException {
 		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
 
-		try (Connection conn = ConnectionProvider.getConnection()) {
-			Statement stmt = conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_USER);
+		rs
 
 			Utilisateur utilisateur = null;
 			while (rs.next()) {
