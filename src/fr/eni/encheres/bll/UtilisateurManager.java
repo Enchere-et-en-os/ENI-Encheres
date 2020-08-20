@@ -34,7 +34,6 @@ public class UtilisateurManager {
 		Utilisateur utilisateur = null;
 		try {
 			utilisateur = utilisateurDAO.checkLogin(email, mot_de_passe, pseudo);
-			System.out.println("manager :"+utilisateur);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException();
