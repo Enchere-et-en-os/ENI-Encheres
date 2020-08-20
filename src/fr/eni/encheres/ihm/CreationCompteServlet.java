@@ -38,7 +38,7 @@ public class CreationCompteServlet extends HttpServlet {
 		String pseudo = request.getParameter("pseudo").trim();
 		
 		// vérification du pseudo : Unicité + alphanumérique
-		String regExpPseudo = "^\\w$";
+		String regExpPseudo = "^[\\w]{3}$";
 		if (!pseudo.matches(regExpPseudo)) {
 			String messagePseudo = "Le Pseudonyme doit contenir uniquement des caractères alphanumériques";
 			request.setAttribute("erreurPseudo", messagePseudo);
@@ -47,7 +47,7 @@ public class CreationCompteServlet extends HttpServlet {
 		}
 
 		try {
-			if(mgr.findPseudo(pseudo) > 0) {
+			if(mgr.findPseudo(pseudo) != null) {
 				String messagePseudo = "Le Pseudonyme est déjà pris";
 				request.setAttribute("erreurPseudo", messagePseudo);
 				pseudo = "";
@@ -55,7 +55,7 @@ public class CreationCompteServlet extends HttpServlet {
 			}
 		} catch (BLLException e) {
 			// TODO Faire les logs
-			System.err.println("mgr");
+			e.printStackTrace();
 		}
 		
 		String nom = request.getParameter("nom").trim();
@@ -77,7 +77,6 @@ public class CreationCompteServlet extends HttpServlet {
 		String ville = request.getParameter("ville").trim();
 		String mdp = request.getParameter("mdp").trim();
 		String confirmMdp = request.getParameter("confirmMdp").trim();
-		System.out.println(mdp + " " + confirmMdp);
 		
 		if (!(mdp.contentEquals(confirmMdp))) {
 			
@@ -114,10 +113,10 @@ public class CreationCompteServlet extends HttpServlet {
 			try {
 				mgr.insertUtilisateur(newUser);
 				// TODO rediriger vers liste enchères
-				response.sendRedirect("/WEB-INF/pages/Accueil.jsp");
+				response.sendRedirect("/WEB-INF/pages/Accueil.jsp"); 
 			} catch (BLLException e) {
 				// TODO Faire les logs
-				System.err.println("mgr");
+				e.printStackTrace();
 			}
 		} else {
 			// on remet les champs valide dans le formulaire + redirection 

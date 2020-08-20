@@ -69,13 +69,13 @@ public class UtilisateurManager {
 		return utilisateur;
 	};
 	
-	public int findPseudo(String pseudo) throws BLLException{
-		int i = 0;
+	public String findPseudo(String pseudo) throws BLLException{
+		String pseudoAcomparer;
 		try {
-			i = utilisateurDAO.findPseudo(pseudo);
+			pseudoAcomparer = utilisateurDAO.findPseudo(pseudo);
 		} catch (DALException e) {
 			throw new BLLException();
 		}
-		return i;
+		return pseudoAcomparer;
 	}
 }
