@@ -18,17 +18,16 @@
 	<form class="col-3" method="POST" action="Connexion">
 		
 		<div class="form-group ">
-			<label for="identifiant">Identifiant :</label> 
-			<input type="hidden" class="form-control" name="rechercheUtilisateur" id="utilisateur" aria-describedby="emailHelp">
-		</div>
-		<div class="form-group ">
-			<label for="identifiant">Identifiant :</label> 
-			<input type="text" class="form-control" name="identifiantInput" id="utilisateur" aria-describedby="emailHelp">
+			<label for="identifiant">Identifiant :${identifiant}</label> 
+			<input type="text" class="form-control" name="identifiant" 
+				id="utilisateur" aria-describedby="emailHelp"
+				 value="<c:out value="${utilisateur.identifiant}"/>"
+			>
 		</div>
 		
 		<div class="form-group">
 			<label for="motDePasse">Mot de passe :</label> 
-		    <input type="password" class="form-control" name="motDePasseInput" id="motDePasse">
+		    <input type="password" class="form-control" name="motDePasse" id="motDePasse">
 		</div>
 		
 		<a href="#">Mot de passe oublié</a>
