@@ -37,7 +37,13 @@ public class PageConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		try {
+			List<Utilisateur> listeDutilisateur = utilisateurDao.findAllUtilisateur();
+			System.out.println(listeDutilisateur);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//récupérer une session
 				HttpSession session = request.getSession();
 				String identifiantDutilisateur = (String) session.getAttribute("identifiant");
@@ -60,52 +66,39 @@ public class PageConnexionServlet extends HttpServlet {
 			//créer une règle pour vérifier si pseudo ou email rentré
 			List<Utilisateur> listeDutilisateur = utilisateurDao.findAllUtilisateur();
 			
-		//	Utilisateur utilisateur = utilisateurDao.checkLogin(identifiant, motDePasse, pseudo);
+			Utilisateur utilisateur = utilisateurDao.checkLogin(identifiant, motDePasse, pseudo);
 			
 			destPage = "pageConnexion.jsp";
 			
 			//mets en mémoire dans la partie mémoire session le nom et le prénom
-			//if (utilisateur != null) {
+			if (utilisateur != null) {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("identifiant", identifiant);
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("listeDutilisateur", listeDutilisateur);
-				//session.setAttribute("utilisateur", utilisateur);
+				session.setAttribute("utilisateur", utilisateur);
 				
 				destPage = "Acceuil.jsp";
 				//récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("identifiant");
 				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
-//			} else {
-//				 String message = "Email / mot de passe non conforme";
-//				request.setAttribute("message", message);
-//			}
-		} catch (DALException e) {
+			} else {
+				 String message = "Email / mot de passe non conforme";
+				request.setAttribute("message", message);
+			}
+		} catch (DALException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	
-		this.getServletContext().getRequestDispatcher(destPage).forward(request, response);
+		request.getRequestDispatcher(destPage).forward(request, response);
 
-		
-//		String identifiant = request.getParameter("identifiantInput");
-//		String motDePasse = request.getParameter("motDePasseInput");
-//		
-//		request.setAttribute("identifiant", identifiant);
-//		request.setAttribute("motDePasse", motDePasse);
-		
-		HttpSession session = request.getSession();
-		
 		String identifiant = request.getParameter("identifiantInput");
 		String motDePasse = request.getParameter("motDePasseInput");
-		
-		session.setAttribute("identifiant", identifiant);
-		session.setAttribute("motDePasse", motDePasse);
-		session.getAttribute(identifiant);
-		
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 
+		}
 	}
 
-}
