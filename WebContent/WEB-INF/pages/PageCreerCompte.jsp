@@ -10,48 +10,51 @@
 <body>
 	<h1>ENI-Enchères</h1>
 	<h2 ><small>Mon Profil</small></h2>
+	<a href="/Profil?pseudo=aze"></a>
 	
 	<form action="/ENI-Encheres/Inscription" method="post">
 		<div class="form-group">
 			<label for="Pseudo">Pseudo</label>
-	    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo"/>
+	    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo" required/>
 	    	<label>${erreurPseudo}</label>
 	    	
 	   	 	<label for="Nom">Nom</label>
-	    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom">
+	    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom" required>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="Prenom">Prénom</label>
-	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom">
+	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom" required>
 	    	
 	   	 	<label for="Email">Email</label>
-	    	<input value="${email}" name="email" type="text" class="form-control" id="Email">
+	    	<input value="${email}" name="email" type="text" class="form-control" id="Email" required>
 	    	<label>${erreurEmail}</label>
 	  	</div>
 	  	
 	 	<div class="form-group">
 			<label for="Telephone">Téléphone</label>
 	    	<input value="${telephone}" name="telephone" type="text" class="form-control" id="Telephone">
+	    	<label>${erreurTel}</label>
 	    	
 	   	 	<label for="Rue">Rue</label>
-	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue">
+	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue" required>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="CodePostal">Code Postal</label>
-	    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal">
+	    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal" required>
+	    	<label>${erreurPost}</label>
 	    	
 	   	 	<label for="Ville">Ville</label>
-	    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville">
+	    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville" required>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="MotDePasse">Mot De Passe</label>
-	    	<input name="mdp" type="password" class="form-control" id="MotDePasse">
+	    	<input name="mdp" type="password" class="form-control" id="MotDePasse" required>
 	    	
 	   	 	<label for="Confirmation">Confirmation</label>
-	    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation">
+	    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation" required>
 	  	</div>
 	  	<label>${erreurConfirm} ${erreurMdp}</label>
 		
