@@ -77,9 +77,11 @@ public class CreationCompteServlet extends HttpServlet {
 		String ville = request.getParameter("ville").trim();
 		String mdp = request.getParameter("mdp").trim();
 		String confirmMdp = request.getParameter("confirmMdp").trim();
+		System.out.println(mdp + " " + confirmMdp);
 		
-		if (mdp != confirmMdp) {
-			String messageConfirm = "Le mot de passe et sa confirmation sont différentes";
+		if (!(mdp.contentEquals(confirmMdp))) {
+			
+			String messageConfirm = "Le mot de passe et sa confirmation sont différents";
 			request.setAttribute("erreurConfirm", messageConfirm);
 			erreur = true;
 		}
@@ -112,12 +114,13 @@ public class CreationCompteServlet extends HttpServlet {
 			try {
 				mgr.insertUtilisateur(newUser);
 				// TODO rediriger vers liste enchères
-				request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+				response.sendRedirect("/WEB-INF/pages/Accueil.jsp");
 			} catch (BLLException e) {
 				// TODO Faire les logs
 				System.err.println("mgr");
 			}
-		} else // on remet les champs valide dans le formulaire + redirection 
+		} else {
+			// on remet les champs valide dans le formulaire + redirection 
 			request.setAttribute("pseudo", pseudo);
 			request.setAttribute("prenom", prenom);
 			request.setAttribute("nom", nom);
@@ -126,7 +129,8 @@ public class CreationCompteServlet extends HttpServlet {
 			request.setAttribute("rue", rue);
 			request.setAttribute("codePostal", codePostal);
 			request.setAttribute("ville", ville);
-			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);		
+			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+		}
+				
 	}
-
 }
