@@ -37,7 +37,12 @@ public class PageConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		try {
+			List<Utilisateur> listeDutilisateur = utilisateurDao.findAllUtilisateur();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//récupérer une session
 				HttpSession session = request.getSession();
 				String identifiantDutilisateur = (String) session.getAttribute("identifiant");
@@ -58,7 +63,7 @@ public class PageConnexionServlet extends HttpServlet {
 			String motDePasse = request.getParameter("motDePasse");
 			String pseudo = request.getParameter("pseudo");
 			//créer une règle pour vérifier si pseudo ou email rentré
-			List<Utilisateur> listeDutilisateur = utilisateurDao.findAllUtilisateur();
+			//List<Utilisateur> listeDutilisateur = utilisateurDao.findAllUtilisateur();
 			
 		//	Utilisateur utilisateur = utilisateurDao.checkLogin(identifiant, motDePasse, pseudo);
 			
@@ -71,7 +76,7 @@ public class PageConnexionServlet extends HttpServlet {
 				session.setAttribute("identifiant", identifiant);
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
-				session.setAttribute("listeDutilisateur", listeDutilisateur);
+				//session.setAttribute("listeDutilisateur", listeDutilisateur);
 				//session.setAttribute("utilisateur", utilisateur);
 				
 				destPage = "Acceuil.jsp";
@@ -82,11 +87,11 @@ public class PageConnexionServlet extends HttpServlet {
 //				 String message = "Email / mot de passe non conforme";
 //				request.setAttribute("message", message);
 //			}
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+//		} catch (DALException e) {
+//			e.printStackTrace();
+//		}
 	
-		this.getServletContext().getRequestDispatcher(destPage).forward(request, response);
+		request.getRequestDispatcher(destPage).forward(request, response);
 
 		
 //		String identifiant = request.getParameter("identifiantInput");

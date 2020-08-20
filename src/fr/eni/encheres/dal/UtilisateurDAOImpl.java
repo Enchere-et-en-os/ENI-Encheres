@@ -15,11 +15,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
-	private static final String SQL_SELECT_ALL_USER = "SELECT (pseudo, nom, prenom, email,\"\r\n" + 
-			"			+ \" telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) FROM utilisateurs";
-	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = "SELECT (pseudo, nom, prenom, email,\"\r\n" + 
-			"			+ \" telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) FROM utilisateurs "
-			+ "WHERE email = ? or password = ? or pseudo=?";
+	private static final String SQL_SELECT_ALL_USER = "SELECT pseudo, nom, prenom, email,\"\r\n" + 
+			"			+ \" telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
+	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = ""
+			+ "SELECT pseudo, nom, prenom, email,telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur "
+			+ "FROM utilisateurs "
+			+ "WHERE email = email or mot_de_passe = mot_de_passe or pseudo= pseudo";
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 	// Selection d'un utilisateur dans la BDD par son ID
@@ -31,9 +32,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
 	 */
 	public List<Utilisateur> findAllUtilisateur() throws DALException {
-		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
+		List<Utilisateur> listeUtilisateur = null;
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
+			listeUtilisateur = new ArrayList<Utilisateur>();
 			Statement stmt = conn.createStatement();
 
 			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_USER);
@@ -44,6 +46,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("codePostal"),rs.getString("ville"), rs.getString("motDePasse"),
 						rs.getInt("credit"));
+				//ajout des utilidateurs 
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (SQLException e) {
