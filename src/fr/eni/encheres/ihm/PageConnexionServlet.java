@@ -27,14 +27,6 @@ public class PageConnexionServlet extends HttpServlet {
 
 	UtilisateurManager mgr = new UtilisateurManager();
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PageConnexionServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -42,17 +34,18 @@ public class PageConnexionServlet extends HttpServlet {
 		try {
 			
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
-			System.out.println(listeDutilisateur);
+			
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//récupérer une session
-				HttpSession session = request.getSession();
-				String identifiantDutilisateur = (String) session.getAttribute("identifiant");
-				
-				//supprimer la session : déconnexion
-				//session.invalidate();
+		HttpSession session = request.getSession();
+		String identifiantDutilisateur = (String) session.getAttribute("identifiant");
+		
+		
+		//supprimer la session : déconnexion
+		//session.invalidate();
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 	}
@@ -61,12 +54,14 @@ public class PageConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String destPage = "/WEB-INF/pages/pageConnexion.jsp";
+		String destPage = "pageConnexion.jsp";
 		try {
 			String identifiant = request.getParameter("identifiant");
 			String motDePasse = request.getParameter("motDePasse");
 			String pseudo = request.getParameter("pseudo");
+			
 			//créer une règle pour vérifier si pseudo ou email rentré
+			
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			
 			Utilisateur utilisateur = mgr.checkLogin(identifiant, motDePasse, pseudo);
@@ -81,10 +76,12 @@ public class PageConnexionServlet extends HttpServlet {
 				session.setAttribute("listeDutilisateur", listeDutilisateur);
 				session.setAttribute("utilisateur", utilisateur);
 				
-				destPage = "/WEB-INF/pages/Acceuil.jsp";
+				destPage = "Acceuil.jsp";
 				//récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("identifiant");
 				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
+				System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
+				System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
 			} else {
 				 String message = "Email / mot de passe non conforme";
 				request.setAttribute("message", message);

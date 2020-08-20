@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" import="fr.eni.encheres.bo.Utilisateur"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,16 +12,17 @@
 	crossorigin="anonymous">
 </head>
 <body>
+   <%--  <% Utilisateur u = (Utilisateur) session.getAttribute("utilisateur"); %> --%>
 
 	<h1>ENI-Enchères</h1>
 	
 	<form class="col-3" method="POST" action="/ENI-Encheres/Connexion">
 		
 		<div class="form-group ">
-			<label for="identifiant">Identifiant :${identifiant}</label> 
+			<label for="identifiant">Identifiant :${pseudo}</label> 
 			<input type="text" class="form-control" name="identifiant" 
 				id="utilisateur" aria-describedby="emailHelp"
-				 value="<c:out value="${utilisateur.identifiant}"/>"
+				 value="<c:out value="${identifiant}"/>"
 			>
 		</div>
 		

@@ -15,11 +15,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
-	private static final String SQL_SELECT_ALL_USER = "SELECT pseudo, nom, prenom, email,\"\r\n" + 
-			"			+ \" telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
-	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = "SELECT pseudo, nom, prenom, email,telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur "
-			+ "FROM utilisateurs "
-			+ "WHERE email = ? or mot_de_passe = ? or pseudo = ?";
+	private static final String SQL_SELECT_ALL_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
+	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = "SELECT pseudo, nom, prenom, email,telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs "
+			+ "WHERE email = ? or mot_de_passe = ? or pseudo= ?";
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 	// Selection d'un utilisateur dans la BDD par son ID
@@ -35,24 +33,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		List<Utilisateur> listeUtilisateur = null;
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
+			
 			listeUtilisateur = new ArrayList<Utilisateur>();
 			Statement stmt = conn.createStatement();
 			
 			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_USER);
 
-
 			Utilisateur utilisateur = null;
-			while (rs.next()) {
-				utilisateur = new Utilisateur(rs.getInt("columnIndex"), rs.getString("pseudo"), rs.getString("nom"),
+			while(rs.next()) {
+				utilisateur = new Utilisateur( rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("codePostal"),rs.getString("ville"), rs.getString("motDePasse"),
+						rs.getString("code_postal"),rs.getString("ville"), rs.getString("mot_de_passe"),
 						rs.getInt("credit"));
 				//ajout des utilidateurs 
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("Echec de findAllUtilisateur", e);
+			throw new DALException("Echec de la recherche des utilisateurs", e);
 		}
 		return listeUtilisateur;
 	}
@@ -70,19 +68,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			pStmt.setString(1, email);
 			pStmt.setString(2, mot_de_passe);
 			pStmt.setString(3, pseudo);
-			
-			System.out.println("pStmt" + pStmt);
-			
 			ResultSet rs = pStmt.executeQuery();
-			
-			System.out.println("rs"+ rs);
 			
 			Utilisateur utilisateur = null;
 			if(rs.next()) {
 				utilisateur = new Utilisateur(
 						rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("codePostal"),rs.getString("ville"), rs.getString("motDePasse"), rs.getInt("credit"));
+						rs.getString("code_postal"),rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"));
 			}
 			
 			System.out.println("utilisateur dale :" + utilisateur);
