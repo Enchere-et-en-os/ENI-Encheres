@@ -26,7 +26,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
 	private static final String SELECT_ID_BY_PSEUDO = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
-
+	
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
 	 */
@@ -42,7 +42,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			while (rs.next()) {
 				utilisateur = new Utilisateur(rs.getInt("columnIndex"), rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("codePostal"), rs.getString("ville"), rs.getString("motDePasse"),
+						rs.getString("codePostal"),rs.getString("ville"), rs.getString("motDePasse"),
 						rs.getInt("credit"));
 				listeUtilisateur.add(utilisateur);
 			}

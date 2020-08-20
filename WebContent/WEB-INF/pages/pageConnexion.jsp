@@ -14,7 +14,7 @@
 <body>
 
 	<h1>ENI-Enchères</h1>
-
+	
 	<form class="col-3" method="POST" action="Connexion">
 		
 		<div class="form-group ">
