@@ -11,26 +11,22 @@ import java.util.List;
 import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
-
+	
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
-
+	private static final String SQL_SELECT_ALL_USER = "SELECT (pseudo, nom, prenom, email,\"\r\n" + 
+			"			+ \" telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) FROM utilisateurs";
+	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = "SELECT (pseudo, nom, prenom, email,\"\r\n" + 
+			"			+ \" telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) FROM utilisateurs "
+			+ "WHERE email = ? or password = ? or pseudo=?";
+	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
+			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 	// Selection d'un utilisateur dans la BDD par son ID
 	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
-
-	// insertion d'un utilisateur via le formulaire d'inscription
-	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
-			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
-
 	private static final String SELECT_ID_BY_PSEUDO = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
-
-	/**
-	 * Attributs de classe des requêtes sql
-	 */
-	private static final String SQL_SELECT_ALL_USER = "SELECT * from UTILISATEURS";
-
+	
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
 	 */
@@ -46,7 +42,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			while (rs.next()) {
 				utilisateur = new Utilisateur(rs.getInt("columnIndex"), rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("codePostal"), rs.getString("ville"), rs.getString("motDePasse"),
+						rs.getString("codePostal"),rs.getString("ville"), rs.getString("motDePasse"),
 						rs.getInt("credit"));
 				listeUtilisateur.add(utilisateur);
 			}
@@ -55,7 +51,42 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			throw new DALException("Echec de findAllUtilisateur", e);
 		}
 		return listeUtilisateur;
+	}
 
+	/**
+	 * méthode pour récupérer un utilisateur avec son password et son pseudo
+	 * pour effectuer les contrôles login/logoff
+	 * @throws DALException 
+	 */
+	public Utilisateur checkLogin(String email, String mot_de_passe, String pseudo) throws SQLException, ClassNotFoundException, DALException {
+		
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(SQL_SELECT_EMAIL_PASSWORD_PSEUDO);
+			
+			pStmt.setString(1, email);
+			pStmt.setString(2, mot_de_passe);
+			pStmt.setString(3, pseudo);
+			
+			System.out.println("pStmt" + pStmt);
+			
+			ResultSet rs = pStmt.executeQuery();
+			
+			System.out.println("rs"+ rs);
+			
+			Utilisateur utilisateur = null;
+			if(rs.next()) {
+				utilisateur = new Utilisateur(
+						rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("codePostal"),rs.getString("ville"), rs.getString("motDePasse"), rs.getInt("credit"));
+			}
+			
+			System.out.println("utilisateur dale :" + utilisateur);
+			return utilisateur;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Echec de la vérification",  e);
+		}
 	}
 
 	/*
@@ -91,6 +122,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * Insertion en bdd de l'utilisateur via inscription
 	 * */
 	public void insertUtilisateur(Utilisateur user) throws DALException{
+		
 		try (Connection conn = ConnectionProvider.getConnection()){
 
 			PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
