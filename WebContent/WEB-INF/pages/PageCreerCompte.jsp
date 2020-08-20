@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-<title>Création de compte - Encheres</title>
+<title>CrÃ©ation de compte - Encheres</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
+	<h1>ENI-EnchÃ¨res</h1>
 	<h2 ><small>Mon Profil</small></h2>
 	
 	<form action="/ENI-Encheres/Inscription" method="post">
@@ -23,7 +22,7 @@
 	  	</div>
 	  	
 	  	<div class="form-group">
-			<label for="Prenom">Prénom</label>
+			<label for="Prenom">PrÃ©nom</label>
 	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom">
 	    	
 	   	 	<label for="Email">Email</label>
@@ -32,7 +31,7 @@
 	  	</div>
 	  	
 	 	<div class="form-group">
-			<label for="Telephone">Téléphone</label>
+			<label for="Telephone">TÃ©lÃ©phone</label>
 	    	<input value="${telephone}" name="telephone" type="text" class="form-control" id="Telephone">
 	    	
 	   	 	<label for="Rue">Rue</label>
@@ -56,7 +55,7 @@
 	  	</div>
 	  	<label>${erreurConfirm} ${erreurMdp}</label>
 		
-		<button type="submit" class="btn btn-success">Créer</button>
+		<button type="submit" class="btn btn-success">CrÃ©er</button>
 		<button type="submit" class="btn btn-secondary">Annuler</button>
 		
 	</form>

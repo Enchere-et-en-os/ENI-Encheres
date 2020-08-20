@@ -15,6 +15,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
+
 	private static final String SQL_SELECT_ALL_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
 	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = "SELECT pseudo, nom, prenom, email,telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs "
 			+ "WHERE email = ? or mot_de_passe = ? or pseudo= ?";
@@ -23,7 +24,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	// Selection d'un utilisateur dans la BDD par son ID
 	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
-	private static final String SELECT_ID_BY_PSEUDO = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
 
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
@@ -99,23 +100,23 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * 
 	 * Selection l'id d'un utilisateur si son param existe
 	 */
-	public int findPseudo(String pseudo) throws DALException {
-		int id = 0;
+	public String findPseudo(String pseudo) throws DALException {
+		String pseudoBdd = null;
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			Statement stmt = conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery(SELECT_ID_BY_PSEUDO);
+			PreparedStatement pstmt = conn.prepareStatement(SELECT_PSEUDO);
+			pstmt.setNString(1, pseudo);
 			
+			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				id = rs.getInt("no_utilisateur");
+				pseudoBdd = rs.getString("pseudo");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException("Echec de findPseudo", e);
 		}
-		return id;
+		return pseudoBdd;
 	}
 
 	/*

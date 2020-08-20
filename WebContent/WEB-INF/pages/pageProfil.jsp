@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%-- <%@ taglib prefix="f"  uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,7 +19,7 @@
 	  	</div>
 	  	
 	  	<div class="form-group">
-			<label for="Prenom">Prénom</label>
+			<label for="Prenom">PrÃ©nom</label>
 	    	<input value="${utilisateur.prenom}" name="prenom" type="text" class="form-control" id="Prenom">
 	    	
 	   	 	<label for="Email">Email</label>
@@ -27,7 +27,7 @@
 	  	</div>
 	  	
 	 	<div class="form-group">
-			<label for="Telephone">Téléphone</label>
+			<label for="Telephone">TÃ©lÃ©phone</label>
 	    	<input value="${utilisateur.telephone}" name="telephone" type="text" class="form-control" id="Telephone">
 	    	
 	   	 	<label for="Rue">Rue</label>
@@ -51,8 +51,8 @@
 	    	<input name="confirm" type="password" class="form-control" id="Confirmation">
 	  	</div>
 		
-		<!-- hidden si l'id de l'utilisateur affihcé n'est pas 
-		le même que celui consultant la page -->
+		<!-- hidden si l'id de l'utilisateur affihcÃ© n'est pas 
+		le mÃªme que celui consultant la page -->
 		<button type="submit" class="btn btn-secondary">Modifier</button>
 		
 </body>
