@@ -31,13 +31,30 @@ public class CreationCompteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pseudo = request.getParameter("pseudo").trim();
+		
+		// vérification du pseudo : Unicité + alphanumérique
+		String regExpPseudo = "^\\w$";
+		if (!pseudo.matches(regExpPseudo)) {
+			// TODO message d'erreur concernant les charactères
+		}
+
+		try {
+			if(mgr.findPseudo(pseudo) > 0) {
+				// TODO message d'erreur concernant unicité
+			}
+		} catch (BLLException e) {
+			// TODO Faire les logs
+			System.err.println("mgr");
+		}
+		
+		
 		String nom = request.getParameter("nom").trim();
 		String prenom = request.getParameter("prenom").trim();
 		String email = request.getParameter("email").trim();
 		
 		// vérification de l'email via expression régulière
-		String regExp = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
-        if(!email.matches( regExp )) {
+		String regExpEmail = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
+        if(!email.matches( regExpEmail )) {
         	// TODO message d'erreur concernant l'email
         }
         	
@@ -49,7 +66,6 @@ public class CreationCompteServlet extends HttpServlet {
 		
 		Utilisateur newUser = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 		try {
-			System.out.println(newUser.toString());
 			mgr.insertUtilisateur(newUser);
 		} catch (BLLException e) {
 			// TODO Faire les logs

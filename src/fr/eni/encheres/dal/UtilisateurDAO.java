@@ -13,4 +13,10 @@ public interface UtilisateurDAO {
 	
 	void insertUtilisateur(Utilisateur user) throws DALException;
 	
+
+	public int findPseudo(String pseudo) throws DALException;
+
+	public Utilisateur selectById (int id) throws DALException;
+
+	
 }

@@ -15,13 +15,16 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
+
 /**
  * Servlet implementation class PageConnexionServlet
  */
 @WebServlet("/Connexion")
 public class PageConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
     private UtilisateurDAO utilisateurDao;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -82,8 +85,27 @@ public class PageConnexionServlet extends HttpServlet {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-		
+	
 		this.getServletContext().getRequestDispatcher(destPage).forward(request, response);
+
+		
+//		String identifiant = request.getParameter("identifiantInput");
+//		String motDePasse = request.getParameter("motDePasseInput");
+//		
+//		request.setAttribute("identifiant", identifiant);
+//		request.setAttribute("motDePasse", motDePasse);
+		
+		HttpSession session = request.getSession();
+		
+		String identifiant = request.getParameter("identifiantInput");
+		String motDePasse = request.getParameter("motDePasseInput");
+		
+		session.setAttribute("identifiant", identifiant);
+		session.setAttribute("motDePasse", motDePasse);
+		session.getAttribute(identifiant);
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
+
 	}
 
 }
