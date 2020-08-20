@@ -1,12 +1,16 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
@@ -30,23 +34,29 @@ public class CreationCompteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean erreur = false;
 		String pseudo = request.getParameter("pseudo").trim();
 		
 		// vérification du pseudo : Unicité + alphanumérique
 		String regExpPseudo = "^\\w$";
 		if (!pseudo.matches(regExpPseudo)) {
-			// TODO message d'erreur concernant les charactères
+			String messagePseudo = "Le Pseudonyme doit contenir uniquement des caractères alphanumériques";
+			request.setAttribute("erreurPseudo", messagePseudo);
+			pseudo = "";
+			erreur = true;
 		}
 
 		try {
 			if(mgr.findPseudo(pseudo) > 0) {
-				// TODO message d'erreur concernant unicité
+				String messagePseudo = "Le Pseudonyme est déjà pris";
+				request.setAttribute("erreurPseudo", messagePseudo);
+				pseudo = "";
+				erreur = true;
 			}
 		} catch (BLLException e) {
 			// TODO Faire les logs
 			System.err.println("mgr");
 		}
-		
 		
 		String nom = request.getParameter("nom").trim();
 		String prenom = request.getParameter("prenom").trim();
@@ -55,7 +65,10 @@ public class CreationCompteServlet extends HttpServlet {
 		// vérification de l'email via expression régulière
 		String regExpEmail = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
         if(!email.matches( regExpEmail )) {
-        	// TODO message d'erreur concernant l'email
+        	String messageEmail = "Veuillez entrer une adresse mail valide";
+        	request.setAttribute("erreurEmail", messageEmail);
+        	email = "";
+        	erreur = true;
         }
         	
 		String telephone = request.getParameter("telephone").trim();
@@ -63,17 +76,57 @@ public class CreationCompteServlet extends HttpServlet {
 		String codePostal = request.getParameter("codePostal").trim();
 		String ville = request.getParameter("ville").trim();
 		String mdp = request.getParameter("mdp").trim();
+		String confirmMdp = request.getParameter("confirmMdp").trim();
 		
-		Utilisateur newUser = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
-		try {
-			mgr.insertUtilisateur(newUser);
-		} catch (BLLException e) {
-			// TODO Faire les logs
-			System.err.println("mgr");
+		if (mdp != confirmMdp) {
+			String messageConfirm = "Le mot de passe et sa confirmation sont différentes";
+			request.setAttribute("erreurConfirm", messageConfirm);
+			erreur = true;
 		}
 		
-		// TODO changer la redirection vers la liste des enchères
-		request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+		/* 		hashage du mdp puis findallUsers pour comparer avec les autres hash
+		else {
+			// TODO hash du mdp
+			String hashMdp= "";
+			
+			try {
+				List<Utilisateur> list = mgr.getAllUtilisateur();
+				for (Utilisateur utilisateur : list) {
+					if(utilisateur.getMotDePasse() == hashMdp) {
+						String messageMdp = "Choissisez un autre mot de passe";
+						request.setAttribute("erreurMdp", messageMdp);
+						erreur = true;
+						break;
+					}
+				}
+				
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		*/
+		
+		if(!erreur) {
+			Utilisateur newUser = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
+			try {
+				mgr.insertUtilisateur(newUser);
+				// TODO rediriger vers liste enchères
+				request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+			} catch (BLLException e) {
+				// TODO Faire les logs
+				System.err.println("mgr");
+			}
+		} else // on remet les champs valide dans le formulaire + redirection 
+			request.setAttribute("pseudo", pseudo);
+			request.setAttribute("prenom", prenom);
+			request.setAttribute("nom", nom);
+			request.setAttribute("email", email);
+			request.setAttribute("telephone", telephone);
+			request.setAttribute("rue", rue);
+			request.setAttribute("codePostal", codePostal);
+			request.setAttribute("ville", ville);
+			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);		
 	}
 
 }
