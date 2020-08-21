@@ -70,9 +70,10 @@ public class UtilisateurManager {
 		}
 		return utilisateur;
 	};
+	
+	public Utilisateur selectByPseudo(String pseudo) throws BLLException{
+		Utilisateur util = null;
 
-	public Utilisateur selectByPseudo(String pseudo) throws BLLException {
-		Utilisateur util;
 		try {
 			util = utilisateurDAO.selectByPseudo(pseudo);
 		} catch (DALException e) {
