@@ -17,7 +17,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 */
 	private static final String SQL_SELECT_ALL_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
 	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = "SELECT pseudo, nom, prenom, email,telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs "
-			+ "WHERE email = ? or mot_de_passe = ? or pseudo= ?";
+			+ "WHERE email = ? and mot_de_passe = ? and pseudo= ?";
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 	// Selection d'un utilisateur dans la BDD par son ID
@@ -53,37 +53,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			throw new DALException("Echec de la recherche des utilisateurs", e);
 		}
 		return listeUtilisateur;
-	}
-
-	/**
-	 * méthode pour récupérer un utilisateur avec son password et son pseudo
-	 * pour effectuer les contrôles login/logoff
-	 * @throws DALException 
-	 */
-	public Utilisateur checkLogin(String email, String mot_de_passe, String pseudo) throws SQLException, ClassNotFoundException, DALException {
-		
-		try (Connection conn = ConnectionProvider.getConnection()) {
-			PreparedStatement pStmt = conn.prepareStatement(SQL_SELECT_EMAIL_PASSWORD_PSEUDO);
-			
-			pStmt.setString(1, email);
-			pStmt.setString(2, mot_de_passe);
-			pStmt.setString(3, pseudo);
-			ResultSet rs = pStmt.executeQuery();
-			
-			Utilisateur utilisateur = null;
-			if(rs.next()) {
-				utilisateur = new Utilisateur(
-						rs.getString("pseudo"), rs.getString("nom"),
-						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("code_postal"),rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"));
-			}
-			
-
-			return utilisateur;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DALException("Echec de la vérification",  e);
-		}
 	}
 
 	/*
