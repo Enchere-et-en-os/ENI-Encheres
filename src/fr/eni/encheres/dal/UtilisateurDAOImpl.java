@@ -11,7 +11,7 @@ import java.util.List;
 import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
-	
+
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
@@ -23,8 +23,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	// Selection d'un utilisateur dans la BDD par son ID
 	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
-	private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, " + 
-			"rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
+			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = ?";
 
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
@@ -33,19 +33,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		List<Utilisateur> listeUtilisateur = null;
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			
+
 			listeUtilisateur = new ArrayList<Utilisateur>();
 			Statement stmt = conn.createStatement();
-			
+
 			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_USER);
 
 			Utilisateur utilisateur = null;
-			while(rs.next()) {
-				utilisateur = new Utilisateur( rs.getString("pseudo"), rs.getString("nom"),
-						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("code_postal"),rs.getString("ville"), rs.getString("mot_de_passe"),
+			while (rs.next()) {
+				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
 						rs.getInt("credit"));
-				//ajout des utilidateurs 
+				// ajout des utilidateurs
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (SQLException e) {
@@ -56,33 +56,34 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	/**
-	 * méthode pour récupérer un utilisateur avec son password et son pseudo
-	 * pour effectuer les contrôles login/logoff
-	 * @throws DALException 
+	 * méthode pour récupérer un utilisateur avec son password et son pseudo pour
+	 * effectuer les contrôles login/logoff
+	 * 
+	 * @throws DALException
 	 */
-	public Utilisateur checkLogin(String email, String mot_de_passe, String pseudo) throws SQLException, ClassNotFoundException, DALException {
-		
+	public Utilisateur checkLogin(String email, String mot_de_passe, String pseudo)
+			throws SQLException, ClassNotFoundException, DALException {
+
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(SQL_SELECT_EMAIL_PASSWORD_PSEUDO);
-			
+
 			pStmt.setString(1, email);
 			pStmt.setString(2, mot_de_passe);
 			pStmt.setString(3, pseudo);
 			ResultSet rs = pStmt.executeQuery();
-			
+
 			Utilisateur utilisateur = null;
-			if(rs.next()) {
-				utilisateur = new Utilisateur(
-						rs.getString("pseudo"), rs.getString("nom"),
-						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("code_postal"),rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"));
+			if (rs.next()) {
+				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
+						rs.getInt("credit"));
 			}
-			
 
 			return utilisateur;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("Echec de la vérification",  e);
+			throw new DALException("Echec de la vérification", e);
 		}
 	}
 
@@ -91,7 +92,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * 
 	 * @param : String pseudo
 	 * 
-	 * Sélectionne un utilisateur 
+	 * Sélectionne un utilisateur
 	 */
 	public Utilisateur selectByPseudo(String pseudo) throws DALException {
 		ResultSet rs = null;
@@ -125,10 +126,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * @param : Utilisateur
 	 * 
 	 * Insertion en bdd de l'utilisateur via inscription
-	 * */
-	public void insertUtilisateur(Utilisateur user) throws DALException{
-		
-		try (Connection conn = ConnectionProvider.getConnection()){
+	 */
+	public void insertUtilisateur(Utilisateur user) throws DALException {
+
+		try (Connection conn = ConnectionProvider.getConnection()) {
 
 			PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
 

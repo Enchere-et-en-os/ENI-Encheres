@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class ConnectionProvider {
 	private static DataSource dataSource;
-	
+
 	static {
 		Context context;
 		try {
@@ -19,10 +19,10 @@ public class ConnectionProvider {
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
+
 	public static Connection getConnection() throws SQLException {
 		return dataSource.getConnection();
 	}
 }
-

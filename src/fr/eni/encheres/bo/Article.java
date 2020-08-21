@@ -15,11 +15,9 @@ public class Article {
 	private Categorie categorie;
 	private String imageUrl;
 
-	
-	
-
 	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie, String imageUrl) {
+			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,
+			String imageUrl) {
 		super();
 		this.nom = nom;
 		this.description = description;
@@ -30,11 +28,12 @@ public class Article {
 		EtatEnum = etatEnum;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
-		this.imageUrl  = imageUrl;
+		this.imageUrl = imageUrl;
 	}
 
 	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,  String imageUrl) {
+			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,
+			String imageUrl) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -46,7 +45,7 @@ public class Article {
 		EtatEnum = etatEnum;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
-		this.imageUrl  = imageUrl;
+		this.imageUrl = imageUrl;
 	}
 
 	public int getId() {
@@ -120,8 +119,6 @@ public class Article {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
-	
 
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
