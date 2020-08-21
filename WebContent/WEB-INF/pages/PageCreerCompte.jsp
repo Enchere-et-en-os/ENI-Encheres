@@ -10,7 +10,6 @@
 <body>
 	<h1>ENI-Enchères</h1>
 	<h2 ><small>Mon Profil</small></h2>
-	<a href="/Profil?pseudo=aze"></a>
 	
 	<form action="/ENI-Encheres/Inscription" method="post">
 		<div class="form-group">
@@ -20,11 +19,13 @@
 	    	
 	   	 	<label for="Nom">Nom</label>
 	    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom" required>
+	  		<label>${erreurNom}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="Prenom">Prénom</label>
 	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom" required>
+	    	<label>${erreurPrenom}</label>
 	    	
 	   	 	<label for="Email">Email</label>
 	    	<input value="${email}" name="email" type="text" class="form-control" id="Email" required>
@@ -38,6 +39,7 @@
 	    	
 	   	 	<label for="Rue">Rue</label>
 	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue" required>
+	  		<label>${erreurRue}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
@@ -47,6 +49,7 @@
 	    	
 	   	 	<label for="Ville">Ville</label>
 	    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville" required>
+	  		<label>${erreurVille}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
@@ -62,6 +65,8 @@
 		<button type="submit" class="btn btn-secondary">Annuler</button>
 		
 	</form>
+	
+	<a href="Profil?pseudo=aze">aze</a>
 	
 </body>
 </html>

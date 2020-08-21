@@ -22,6 +22,11 @@ import fr.eni.encheres.bo.Utilisateur;
 @WebServlet("/Inscription")
 public class CreationCompteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	static final String REGEXGENERAL = "^[\\w]{3,}$";
+	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
+	static final String REGEXTEL = "^[0-9]{10}$";
+	static final String REGEXPOST = "^[0-9]{5}$";
 
 	UtilisateurManager mgr = new UtilisateurManager();
 	
@@ -36,10 +41,10 @@ public class CreationCompteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean erreur = false;
 		String pseudo = request.getParameter("pseudo").trim();
-		
+		// TODO vérification via regex des entrées utilisateurs du form
 		// vérification du pseudo : Unicité + alphanumérique
-		String regExpPseudo = "^[\\w]{3,}$";
-		if (!pseudo.matches(regExpPseudo)) {
+		
+		if (!pseudo.matches(REGEXGENERAL)) {
 			String messagePseudo = "Le Pseudonyme doit contenir uniquement des caractères alphanumériques";
 			request.setAttribute("erreurPseudo", messagePseudo);
 			pseudo = "";
@@ -59,12 +64,26 @@ public class CreationCompteServlet extends HttpServlet {
 		}
 		
 		String nom = request.getParameter("nom").trim();
+		
+		if(!nom.matches( REGEXGENERAL )) {
+		   	String messageNom = "Veuillez entrer un Nom";
+		   	request.setAttribute("erreurNom", messageNom);
+		    nom = "";
+		  	erreur = true;
+		 }
+		
 		String prenom = request.getParameter("prenom").trim();
+		
+		if(!prenom.matches( REGEXGENERAL )) {
+		   	String messagePrenom = "Veuillez entrer un Prenom";
+		   	request.setAttribute("erreurPrenom", messagePrenom);
+		    prenom = "";
+		  	erreur = true;
+		 }
+		
 		String email = request.getParameter("email").trim();
 		
-		// vérification de l'email via expression régulière
-		String regExpEmail = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
-        if(!email.matches( regExpEmail )) {
+        if(!email.matches( REGEXEMAIL )) {
         	String messageEmail = "Veuillez entrer une adresse mail valide";
         	request.setAttribute("erreurEmail", messageEmail);
         	email = "";
@@ -73,9 +92,7 @@ public class CreationCompteServlet extends HttpServlet {
         	
 		String telephone = request.getParameter("telephone").trim();
 		
-		// vérification du téléphone
-		String regExpTel = "^[0-9]{10}$";
-		if(!telephone.matches( regExpTel )) {
+		if(!telephone.matches( REGEXTEL )) {
         	String messageTel = "Veuillez entrer un numéro de téléphone valide";
         	request.setAttribute("erreurTel", messageTel);
         	telephone = "";
@@ -83,33 +100,44 @@ public class CreationCompteServlet extends HttpServlet {
         }
 		
 		String rue = request.getParameter("rue").trim();
+		
+		if(!rue.matches( REGEXGENERAL )) {
+		   	String messageRue = "Veuillez entrer une Rue";
+		   	request.setAttribute("erreurRue", messageRue);
+		    rue = "";
+		  	erreur = true;
+		 }
+		
 		String codePostal = request.getParameter("codePostal").trim();
 		
-		// vérification du code Postal
-				String regExpPost = "^[0-9]{6}$";
-				if(!codePostal.matches( regExpPost )) {
-		        	String messagePost = "Veuillez entrer un Code Postal valide";
-		        	request.setAttribute("erreurPost", messagePost);
-		        	codePostal = "";
-		        	erreur = true;
-		        }
+		if(!codePostal.matches( REGEXPOST )) {
+		   	String messagePost = "Veuillez entrer un Code Postal";
+		   	request.setAttribute("erreurPost", messagePost);
+		    codePostal = "";
+		  	erreur = true;
+		 }
 		
 		String ville = request.getParameter("ville").trim();
 		
+		if(!ville.matches( REGEXGENERAL )) {
+		   	String messageVille = "Veuillez entrer une Ville";
+		   	request.setAttribute("erreurVille", messageVille);
+		    ville = "";
+		  	erreur = true;
+		 }
 		
 		String mdp = request.getParameter("mdp").trim();
 		String confirmMdp = request.getParameter("confirmMdp").trim();
 		
+		//TODO regex
+
 		if (!(mdp.contentEquals(confirmMdp))) {
-			
 			String messageConfirm = "Le mot de passe et sa confirmation sont différents";
 			request.setAttribute("erreurConfirm", messageConfirm);
 			erreur = true;
 		}
-		
- 		//hashage du mdp puis findallUsers pour comparer avec les autres hash
-		
-		// TODO hash du mdp
+
+		// TODO hash du mdp puis findallUsers pour comparer avec les autres hash
 		String hashMdp= "";
 			
 		try {
