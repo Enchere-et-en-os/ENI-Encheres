@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%-- <%@ taglib prefix="f"  uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
+	<h1>ENI-EnchÃ¨res</h1>
 	<h2 ><small>Mon Profil</small></h2>
 	
 	<form action="/ENI-Encheres/ModificationProfil" method="post">
@@ -21,7 +21,7 @@
 	  	</div>
 	  	
 	  	<div class="form-group">
-			<label for="Prenom">Prénom</label>
+			<label for="Prenom">PrÃ©nom</label>
 	    	<input name="prenom" type="text" class="form-control" id="Prenom">
 	    	
 	   	 	<label for="Email">Email</label>
@@ -29,7 +29,7 @@
 	  	</div>
 	  	
 	 	<div class="form-group">
-			<label for="Telephone">Téléphone</label>
+			<label for="Telephone">TÃ©lÃ©phone</label>
 	    	<input name="telephone" type="text" class="form-control" id="Telephone">
 	    	
 	   	 	<label for="Rue">Rue</label>
@@ -56,7 +56,7 @@
 	  	</div>
 	  	
 	  	<div>
-	  		<label for="credit">Crédit</label>
+	  		<label for="credit">CrÃ©dit</label>
 	  		<p id="credit">${utilisateur.credit}</p>
 	  	</div>
 		

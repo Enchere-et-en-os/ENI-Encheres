@@ -34,7 +34,6 @@ public class UtilisateurManager {
 		Utilisateur utilisateur = null;
 		try {
 			utilisateur = utilisateurDAO.checkLogin(email, mot_de_passe, pseudo);
-			System.out.println("manager :"+utilisateur);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException();
@@ -69,13 +68,13 @@ public class UtilisateurManager {
 		return utilisateur;
 	};
 	
-	public int findPseudo(String pseudo) throws BLLException{
-		int i = 0;
+	public Utilisateur selectByPseudo(String pseudo) throws BLLException{
+		Utilisateur util;
 		try {
-			i = utilisateurDAO.findPseudo(pseudo);
+			util = utilisateurDAO.selectByPseudo(pseudo);
 		} catch (DALException e) {
 			throw new BLLException();
 		}
-		return i;
+		return util;
 	}
 }

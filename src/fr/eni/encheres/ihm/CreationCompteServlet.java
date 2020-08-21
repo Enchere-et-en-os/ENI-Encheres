@@ -38,7 +38,7 @@ public class CreationCompteServlet extends HttpServlet {
 		String pseudo = request.getParameter("pseudo").trim();
 		
 		// vérification du pseudo : Unicité + alphanumérique
-		String regExpPseudo = "^\\w$";
+		String regExpPseudo = "^[\\w]{3}$";
 		if (!pseudo.matches(regExpPseudo)) {
 			String messagePseudo = "Le Pseudonyme doit contenir uniquement des caractères alphanumériques";
 			request.setAttribute("erreurPseudo", messagePseudo);
@@ -47,7 +47,7 @@ public class CreationCompteServlet extends HttpServlet {
 		}
 
 		try {
-			if(mgr.findPseudo(pseudo) > 0) {
+			if(mgr.selectByPseudo(pseudo) != null) {
 				String messagePseudo = "Le Pseudonyme est déjà pris";
 				request.setAttribute("erreurPseudo", messagePseudo);
 				pseudo = "";
@@ -55,7 +55,7 @@ public class CreationCompteServlet extends HttpServlet {
 			}
 		} catch (BLLException e) {
 			// TODO Faire les logs
-			System.err.println("mgr");
+			e.printStackTrace();
 		}
 		
 		String nom = request.getParameter("nom").trim();
@@ -72,52 +72,75 @@ public class CreationCompteServlet extends HttpServlet {
         }
         	
 		String telephone = request.getParameter("telephone").trim();
+		
+		// vérification du téléphone
+		String regExpTel = "^[0-9]{10}$";
+		if(!telephone.matches( regExpTel )) {
+        	String messageTel = "Veuillez entrer un numéro de téléphone valide";
+        	request.setAttribute("erreurTel", messageTel);
+        	telephone = "";
+        	erreur = true;
+        }
+		
 		String rue = request.getParameter("rue").trim();
 		String codePostal = request.getParameter("codePostal").trim();
+		
+		// vérification du code Postal
+				String regExpPost = "^[0-9]{6}$";
+				if(!codePostal.matches( regExpPost )) {
+		        	String messagePost = "Veuillez entrer un Code Postal valide";
+		        	request.setAttribute("erreurPost", messagePost);
+		        	codePostal = "";
+		        	erreur = true;
+		        }
+		
 		String ville = request.getParameter("ville").trim();
+		
+		
 		String mdp = request.getParameter("mdp").trim();
 		String confirmMdp = request.getParameter("confirmMdp").trim();
 		
-		if (mdp != confirmMdp) {
-			String messageConfirm = "Le mot de passe et sa confirmation sont différentes";
+		if (!(mdp.contentEquals(confirmMdp))) {
+			
+			String messageConfirm = "Le mot de passe et sa confirmation sont différents";
 			request.setAttribute("erreurConfirm", messageConfirm);
 			erreur = true;
 		}
 		
-		/* 		hashage du mdp puis findallUsers pour comparer avec les autres hash
-		else {
-			// TODO hash du mdp
-			String hashMdp= "";
+ 		//hashage du mdp puis findallUsers pour comparer avec les autres hash
+		
+		// TODO hash du mdp
+		String hashMdp= "";
 			
-			try {
-				List<Utilisateur> list = mgr.getAllUtilisateur();
-				for (Utilisateur utilisateur : list) {
-					if(utilisateur.getMotDePasse() == hashMdp) {
-						String messageMdp = "Choissisez un autre mot de passe";
-						request.setAttribute("erreurMdp", messageMdp);
-						erreur = true;
-						break;
-					}
+		try {
+			List<Utilisateur> list = mgr.getAllUtilisateur();
+			for (Utilisateur utilisateur : list) {
+				if(utilisateur.getMotDePasse() == hashMdp) {
+					String messageMdp = "Choissisez un autre mot de passe";
+					request.setAttribute("erreurMdp", messageMdp);
+					erreur = true;
+					break;
 				}
-				
-			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+				
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		*/
+		
 		
 		if(!erreur) {
 			Utilisateur newUser = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 			try {
 				mgr.insertUtilisateur(newUser);
 				// TODO rediriger vers liste enchères
-				request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+				response.sendRedirect("/WEB-INF/pages/Accueil.jsp"); 
 			} catch (BLLException e) {
 				// TODO Faire les logs
-				System.err.println("mgr");
+				e.printStackTrace();
 			}
-		} else // on remet les champs valide dans le formulaire + redirection 
+		} else {
+			// on remet les champs valide dans le formulaire + redirection 
 			request.setAttribute("pseudo", pseudo);
 			request.setAttribute("prenom", prenom);
 			request.setAttribute("nom", nom);
@@ -126,7 +149,8 @@ public class CreationCompteServlet extends HttpServlet {
 			request.setAttribute("rue", rue);
 			request.setAttribute("codePostal", codePostal);
 			request.setAttribute("ville", ville);
-			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);		
+			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+		}
+				
 	}
-
 }
