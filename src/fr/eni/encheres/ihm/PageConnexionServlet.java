@@ -42,6 +42,7 @@ public class PageConnexionServlet extends HttpServlet {
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			//récupérer une session
 			HttpSession session = request.getSession();
+	
 			String identifiantDutilisateur = (String) session.getAttribute("identifiant");
 			System.out.println(listeDutilisateur);
 		} catch (BLLException e) {
@@ -77,14 +78,19 @@ public class PageConnexionServlet extends HttpServlet {
 				       .findFirst().orElse(null);
 			
 			System.out.println("filtre" + utilisateurConfirmeBDD );
-
+			
+			for(Utilisateur utilisateur : listeDutilisateur) {
+				if(pseudo.equals(utilisateur.getPseudo())) {
+					return;
+				}
+			}
+			
 			if (utilisateurConfirmeBDD != null) {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
-				session.setAttribute("listeDutilisateur", listeDutilisateur);
-				
+			
 				//récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
 				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
@@ -103,6 +109,16 @@ public class PageConnexionServlet extends HttpServlet {
 		
 
 		}
+/**
+ * REGEXGENERAL = "^[\\w]{3,}$";
+	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
+	static final String REGEXTEL = "^[0-9]{10}$";
+	static final String REGEXPOST = "^[0-9]{5}$";
+ * @param messageErreur
+ * @param valeurParametre = request.getParameter()
+ * @return
+ */
 	}
+
 
 

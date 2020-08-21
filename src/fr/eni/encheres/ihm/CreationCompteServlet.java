@@ -16,6 +16,7 @@ import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.ihm.model.ConnexionForm;
 
 /**
  * Servlet implementation class CreationCompteServlet
@@ -46,13 +47,14 @@ public class CreationCompteServlet extends HttpServlet {
 		boolean erreur = false;
 		String pseudo = request.getParameter("pseudo").trim();
 		
-		if (!pseudo.matches(REGEXGENERAL)) {
-			String messagePseudo = "Le Pseudonyme doit contenir uniquement des caractères alphanumériques";
-			request.setAttribute("erreurPseudo", messagePseudo);
-			pseudo = "";
-			erreur = true;
-		}
-
+//		if (!pseudo.matches(REGEXGENERAL)) {
+//			String messagePseudo = "Le Pseudonyme doit contenir uniquement des caractères alphanumériques";
+//			request.setAttribute("erreurPseudo", messagePseudo);
+//			pseudo = "";
+//			erreur = true;
+//		}
+		request.setAttribute("erreurPseudo", ConnexionForm.regStringValeur(pseudo, "pseudo"));
+		
 		try {
 			if (mgr.selectByPseudo(pseudo) != null) {
 				String messagePseudo = "Le Pseudonyme est déjà pris";
@@ -67,12 +69,13 @@ public class CreationCompteServlet extends HttpServlet {
 
 		String nom = request.getParameter("nom").trim();
 		
-		if(!nom.matches( REGEXGENERAL )) {
-		   	String messageNom = "Veuillez entrer un Nom";
-		   	request.setAttribute("erreurNom", messageNom);
-		    nom = "";
-		  	erreur = true;
-		 }
+//		if(!nom.matches( REGEXGENERAL )) {
+//		   	String messageNom = "Veuillez entrer un Nom";
+//		   	request.setAttribute("erreurNom", messageNom);
+//		    nom = "";
+//		  	erreur = true;
+//		 }
+		ConnexionForm.regStringValeur(nom, "nom");
 		
 		String prenom = request.getParameter("prenom").trim();
 		
