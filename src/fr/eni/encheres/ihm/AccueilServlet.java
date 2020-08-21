@@ -23,23 +23,28 @@ public class AccueilServlet extends HttpServlet {
 	private ArticleManager articleManager = new ArticleManager();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//		try {
-//			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
-//		} catch (BLLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
 

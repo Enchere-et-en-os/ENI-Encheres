@@ -15,51 +15,74 @@ import fr.eni.encheres.bo.Utilisateur;
 /**
  * Servlet implementation class AfficherProfilServlet
  */
-@WebServlet("/Profil2")
+@WebServlet("/Profil")
 public class AfficherProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		UtilisateurManager mgr = new UtilisateurManager();
-		
+
 		// TODO recupérer le nom de l'utilisateur choisit
-		String pseudoProfil = request.getParameter("pseudo");
 		Utilisateur util;
 		boolean profilUtilisateur;
+
+		HttpSession session = request.getSession();
 		
+		/*
+		 * @Author : Valentin
+		 * 
+		 * Vérifie si le parametre pseudo désigne un utilisateur existant
+		 * Si il n'existe pas, afficher la page de son profil
+		 * Sinon page 404 
+		 */
 		try {
-			util = mgr.selectByPseudo(pseudoProfil);
-			request.setAttribute("pseudo", util.getPseudo());
-			request.setAttribute("nom", util.getNom());
-			request.setAttribute("prenom", util.getPrenom());
-			request.setAttribute("email", util.getEmail());
-			request.setAttribute("telephone", util.getTelephone());
-			request.setAttribute("rue", util.getRue());
-			request.setAttribute("codePostal", util.getCodePostal());
-			request.setAttribute("ville", util.getVille());
-			
-			HttpSession session = request.getSession();
-			
-			// Vérifie si le pseudo du profil affiché == psuedo stocké en session
-			if(session.getAttribute("pseudo").equals(util.getPseudo())) {
-				// création d'un bool pour savoir si la jsp doit afficher la bouton modifier
-				profilUtilisateur = true;
+			util = mgr.selectByPseudo(request.getParameter("pseudo"));
+			if(util == null){
+				if(session == null) {
+					// TODO redirection page 404
+					response.sendRedirect("erreur404");
+				} else {
+					request.setAttribute("pseudo", session.getAttribute("pseudo"));
+					request.setAttribute("nom", session.getAttribute("nom"));
+					request.setAttribute("prenom", session.getAttribute("prenom"));
+					request.setAttribute("email", session.getAttribute("email"));
+					request.setAttribute("telephone", session.getAttribute("telephone"));
+					request.setAttribute("rue", session.getAttribute("rue"));
+					request.setAttribute("codePostal", session.getAttribute("codePostal"));
+					request.setAttribute("ville", session.getAttribute("ville"));
+				}
+			} else {
+				request.setAttribute("pseudo", util.getPseudo());
+				request.setAttribute("nom", util.getNom());
+				request.setAttribute("prenom", util.getPrenom());
+				request.setAttribute("email", util.getEmail());
+				request.setAttribute("telephone", util.getTelephone());
+				request.setAttribute("rue", util.getRue());
+				request.setAttribute("codePostal", util.getCodePostal());
+				request.setAttribute("ville", util.getVille());
 			}
 			
+			
+			// Vérifie si le pseudo du profil affiché == psuedo stocké en session
+//			if(session.getAttribute("pseudo").equals(util.getPseudo())) {
+//				// création d'un bool pour savoir si la jsp doit afficher la bouton modifier
+//				profilUtilisateur = true;
+//			}
+
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		request.getRequestDispatcher("/WEB-INF/pages/pageProfil.jsp").forward(request, response);
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/pageModifierProfil.jsp").forward(request, response);
 	}
 
 }

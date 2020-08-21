@@ -9,9 +9,9 @@ import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
 public class UtilisateurManager {
-	
+
 	private UtilisateurDAO utilisateurDAO;
-	
+
 	/**
 	 * constructeur utilisateurManager
 	 */
@@ -19,7 +19,7 @@ public class UtilisateurManager {
 		utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	}
 
-	public  List<Utilisateur> getAllUtilisateur() throws BLLException{
+	public List<Utilisateur> getAllUtilisateur() throws BLLException {
 		List<Utilisateur> listeUtilisateur = null;
 		try {
 			listeUtilisateur = utilisateurDAO.findAllUtilisateur();
@@ -29,36 +29,40 @@ public class UtilisateurManager {
 		}
 		return listeUtilisateur;
 	}
-	
-	public void insertUtilisateur(Utilisateur user) throws BLLException{
+
+	public void insertUtilisateur(Utilisateur user) throws BLLException {
+
 		try {
 			utilisateurDAO.insertUtilisateur(user);
-		} catch(DALException e) {
+		} catch (DALException e) {
 			throw new BLLException();
 		}
 	}
+
 	/**
 	 * @author Samy-Lee
 	 * @param id
 	 * @return Utilisateur
 	 * @throws BLLException
 	 * 
-	 * Selectionne un utilisateur par son ID à l'aide du manager
+	 *                      Selectionne un utilisateur par son ID à l'aide du
+	 *                      manager
 	 */
-	public Utilisateur selectById (int id) throws BLLException {
+	public Utilisateur selectById(int id) throws BLLException {
 		Utilisateur utilisateur = null;
 		try {
-		utilisateur = utilisateurDAO.selectById(id);
-		
+			utilisateur = utilisateurDAO.selectById(id);
+
 		} catch (DALException e) {
 			System.out.println("Erreur selectById manager");
-			throw new BLLException();      
+			throw new BLLException();
 		}
 		return utilisateur;
 	};
 	
 	public Utilisateur selectByPseudo(String pseudo) throws BLLException{
-		Utilisateur util;
+		Utilisateur util = null;
+
 		try {
 			util = utilisateurDAO.selectByPseudo(pseudo);
 		} catch (DALException e) {

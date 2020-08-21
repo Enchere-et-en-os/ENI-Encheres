@@ -88,8 +88,9 @@ public class PageConnexionServlet extends HttpServlet {
 				//récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
 				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
-				System.out.println("identifiantDeLutilisateur : " + identifiantDeLutilisateur);
-				System.out.println("motDePasseDeLutilisateur : " + motDePasseDeLutilisateur);
+				System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
+				System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
+				System.out.println();
 				response.sendRedirect("/WEB-INF/pages/Accueil.jsp" );
 			} else {
 				 String message = "Email / mot de passe non conforme";
@@ -99,7 +100,7 @@ public class PageConnexionServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("/WEB-INF/pages/pageConnexion.jsp");
+		
 
 		}
 	}

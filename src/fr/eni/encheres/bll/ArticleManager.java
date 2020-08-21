@@ -8,17 +8,17 @@ import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 
 public class ArticleManager {
-	
+
 	private ArticleDAO articleDAO;
-	
+
 	public ArticleManager() {
 		articleDAO = DAOFactory.getArticleDAO();
 	}
-	
-	public List<Article> SelectAllArticles() throws BLLException{
-		
+
+	public List<Article> SelectAllArticles() throws BLLException {
+
 		List<Article> listeArticle = null;
-		
+
 		try {
 			listeArticle = articleDAO.SelectAllArticles();
 		} catch (DALException e) {
@@ -26,6 +26,6 @@ public class ArticleManager {
 			throw new BLLException();
 		}
 		return listeArticle;
-		
+
 	}
 }

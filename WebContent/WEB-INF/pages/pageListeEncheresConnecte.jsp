@@ -18,22 +18,63 @@
 <body>
 	<h1>ENI-Enchere</h1>
 
-	<a href="Connexion">S'inscrire - Se connecter</a>
+	<a href="">S'inscrire - Se connecter</a>
 	<h2>Liste des enchères</h2>
 
 
 	<label for="basic-url">Filtre :</label>
 	<div class="input-group mb-3">
 		<div class="input-group flex-nowrap">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="addon-wrapping">search</span>
-			</div>
 			<input type="text" class="form-control"
 				placeholder="Le nom de l'article contient" aria-label="Username"
 				aria-describedby="addon-wrapping">
 		</div>
 	</div>
-
+	
+	
+	
+	
+	<div class="container ">
+		<div class="row ">
+			<div class="form-check col-sm">
+		  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+		  <label class="form-check-label" for="exampleRadios1">
+		    Achats
+		  </label>
+		  <div>
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">Enchères ouvertes</label>
+		  </div>
+		   <div>
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">Mes enchères</label>
+		  </div>
+		   <div>
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">Mes enchères remportées</label>
+		  </div>
+		  
+		</div>
+		<div class="form-check col-sm">
+		  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+		  <label class="form-check-label" for="exampleRadios2">
+		    Mes ventes
+		  </label>
+		  <div>
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">Mes ventes en cours</label>
+		  </div>
+		   <div>
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">Ventes non débutées</label>
+		  </div>
+		   <div>
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">Ventes terminées</label>
+		  </div>
+		  		  </div>
+		  
+	</div>
 
 
 	<div class="input-group">
@@ -49,6 +90,8 @@
 			</div>
 		</div>
 	</div>
+</div>
+
 
 
 

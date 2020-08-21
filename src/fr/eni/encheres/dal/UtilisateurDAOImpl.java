@@ -11,20 +11,19 @@ import java.util.List;
 import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
-	
+
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
 	private static final String SQL_SELECT_ALL_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
-	private static final String SQL_SELECT_EMAIL_PASSWORD_PSEUDO = "SELECT pseudo, nom, prenom, email,telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs "
-			+ "WHERE email = ? and mot_de_passe = ? and pseudo= ?";
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 	// Selection d'un utilisateur dans la BDD par son ID
 	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
 	private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, " + 
-			"rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = ?";
+			"rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo = ?";
+
 
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
@@ -33,19 +32,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		List<Utilisateur> listeUtilisateur = null;
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			
+
 			listeUtilisateur = new ArrayList<Utilisateur>();
 			Statement stmt = conn.createStatement();
-			
+
 			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_USER);
 
 			Utilisateur utilisateur = null;
-			while(rs.next()) {
-				utilisateur = new Utilisateur( rs.getString("pseudo"), rs.getString("nom"),
-						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("code_postal"),rs.getString("ville"), rs.getString("mot_de_passe"),
+			while (rs.next()) {
+				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
 						rs.getInt("credit"));
-				//ajout des utilidateurs 
+				// ajout des utilidateurs
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (SQLException e) {
@@ -60,26 +59,25 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * 
 	 * @param : String pseudo
 	 * 
-	 * Sélectionne un utilisateur 
+	 * Sélectionne un utilisateur
 	 */
 	public Utilisateur selectByPseudo(String pseudo) throws DALException {
 		ResultSet rs = null;
 		Utilisateur util = null;
+		
 
 		try (Connection cnx = ConnectionProvider.getConnection();) {
 
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
 			pstmt.setString(1, pseudo);
 			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-
+			
+			while(rs.next()) {
 				util = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"),
 						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
 						rs.getInt("credit"), rs.getBoolean("administrateur"));
-			} else {
-				throw new DALException("L'utilisateur vaut null");
+				
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -94,10 +92,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * @param : Utilisateur
 	 * 
 	 * Insertion en bdd de l'utilisateur via inscription
-	 * */
-	public void insertUtilisateur(Utilisateur user) throws DALException{
-		
-		try (Connection conn = ConnectionProvider.getConnection()){
+	 */
+	public void insertUtilisateur(Utilisateur user) throws DALException {
+
+		try (Connection conn = ConnectionProvider.getConnection()) {
 
 			PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
 

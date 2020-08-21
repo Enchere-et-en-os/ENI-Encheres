@@ -15,9 +15,6 @@ public class Utilisateur {
 	private int credit;
 	private Boolean administrateur;
 
-	
-	
-	
 	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse, int credit, Boolean administrateur) {
 		super();
@@ -34,6 +31,7 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
+
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse) {
 		super();
@@ -48,6 +46,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 
 	}
+
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse, int credit) {
 		super();
@@ -64,7 +63,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville , String motDePasse, int credit) {
+			String codePostal, String ville, String motDePasse, int credit) {
 		super();
 		this.id = id;
 		this.pseudo = pseudo;
@@ -78,7 +77,6 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 	}
-
 
 	public int getId() {
 		return id;

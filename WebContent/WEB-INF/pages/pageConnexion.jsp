@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" import="fr.eni.encheres.bo.Utilisateur"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="UTF-8" import="fr.eni.encheres.bo.Utilisateur"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,42 +13,41 @@
 	crossorigin="anonymous">
 </head>
 <body>
-   <%--  <% Utilisateur u = (Utilisateur) session.getAttribute("utilisateur"); %> --%>
+	<%--  <% Utilisateur u = (Utilisateur) session.getAttribute("utilisateur"); %> --%>
 
 	<h1>ENI-Enchères</h1>
-	
+
 	<form class="col-3" method="POST" action="/ENI-Encheres/Connexion">
-		
+
 		<div class="form-group ">
 			<label for="pseudo">Identifiant :${pseudo}</label> 
 			<input type="text" class="form-control" name="pseudo" 
 				id="pseudo" aria-describedby="emailHelp" required
 			>
 		</div>
-		
+
 		<div class="form-group">
+
 			<label for="motDePasse">Mot de passe :</label> 
 		    <input type="password" class="form-control" 
 				   name="motDePasse" id="motDePasse"
 				   required
 		    >
 		</div>
-		
+
 		<a href="#">Mot de passe oublié</a>
-		
+
 		<div class="form-group form-check">
 			<input type="checkbox" class="form-check-input" id="exampleCheck1">
-			<label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
+			<label class="form-check-label" for="exampleCheck1">Se
+				souvenir de moi</label>
 		</div>
-		
+
 		<button type="submit" class="btn btn-primary">Connexion</button>
-		
+
 	</form>
 
-	<button type="button" class="btn btn-primary">Créer un compte</button>
-	
-	<c:out value="${utilisateur }"></c:out>
-	<c:out value="${sessionScope.motDePasseS }"></c:out>
+	<a href="Inscription"><button type="button" class="btn btn-primary">Créer un compte</button></a>
 
 </body>
 </html>

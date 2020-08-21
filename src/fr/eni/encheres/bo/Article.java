@@ -17,24 +17,8 @@ public class Article {
 
 	
 	
-
-	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie, String imageUrl) {
-		super();
-		this.nom = nom;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-		EtatEnum = etatEnum;
-		this.utilisateur = utilisateur;
-		this.categorie = categorie;
-		this.imageUrl  = imageUrl;
-	}
-
 	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,  String imageUrl) {
+			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -46,7 +30,39 @@ public class Article {
 		EtatEnum = etatEnum;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
-		this.imageUrl  = imageUrl;
+	}
+
+	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,
+			String imageUrl) {
+		super();
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		EtatEnum = etatEnum;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.imageUrl = imageUrl;
+	}
+
+	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,
+			String imageUrl) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		EtatEnum = etatEnum;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.imageUrl = imageUrl;
 	}
 
 	public int getId() {
@@ -120,8 +136,6 @@ public class Article {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
-	
 
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
