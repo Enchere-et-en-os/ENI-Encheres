@@ -23,7 +23,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	// Selection d'un utilisateur dans la BDD par son ID
 	private static final String SQL_SELECT_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, "
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
-	private static final String SELECT_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, " + 
+			"rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = ?";
 
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
@@ -90,25 +91,32 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * 
 	 * @param : String pseudo
 	 * 
-	 * Selection l'id d'un utilisateur si son param existe
+	 * Sélectionne un utilisateur 
 	 */
-	public String findPseudo(String pseudo) throws DALException {
-		String pseudoBdd = null;
+	public Utilisateur selectByPseudo(String pseudo) throws DALException {
+		ResultSet rs = null;
+		Utilisateur util = null;
 
-		try (Connection conn = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = conn.prepareStatement(SELECT_PSEUDO);
-			pstmt.setNString(1, pseudo);
-			
-			ResultSet rs = pstmt.executeQuery();
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			pstmt.setString(1, pseudo);
+			rs = pstmt.executeQuery();
+
 			if (rs.next()) {
-				pseudoBdd = rs.getString("pseudo");
-			}
 
+				util = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
+						rs.getInt("credit"), rs.getBoolean("administrateur"));
+			} else {
+				throw new DALException("L'utilisateur vaut null");
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DALException("Echec de findPseudo", e);
+			throw new DALException(
+					"Erreur lors de l'éxécution de la méthode SelectById de la classe UtilisateurDAOImpl", e);
 		}
-		return pseudoBdd;
+		return util;
 	}
 
 	/*
