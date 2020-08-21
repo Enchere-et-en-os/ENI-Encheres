@@ -32,7 +32,7 @@ public class PageConnexionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			
+			//récupération des utilisateurs
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			
 		} catch (BLLException e) {
@@ -63,9 +63,9 @@ public class PageConnexionServlet extends HttpServlet {
 			//créer une règle pour vérifier si pseudo ou email rentré
 			
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
-			
+			System.out.println("listeDutilisateur : " + listeDutilisateur);
 			Utilisateur utilisateur = mgr.checkLogin(identifiant, motDePasse, pseudo);
-			
+			System.out.println("utilisateur : " + utilisateur);
 			//mets en mémoire dans la partie mémoire session le nom et le prénom
 			if (utilisateur != null) {
 				
@@ -75,7 +75,7 @@ public class PageConnexionServlet extends HttpServlet {
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("listeDutilisateur", listeDutilisateur);
 				session.setAttribute("utilisateur", utilisateur);
-				
+				//redirection accueil
 				destPage = "Acceuil.jsp";
 				//récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("identifiant");

@@ -78,7 +78,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 						rs.getString("code_postal"),rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"));
 			}
 			
-			System.out.println("utilisateur dale :" + utilisateur);
+
 			return utilisateur;
 		} catch (SQLException e) {
 			e.printStackTrace();
