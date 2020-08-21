@@ -15,6 +15,23 @@ public class Article {
 	private Categorie categorie;
 	private String imageUrl;
 
+	
+	
+	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		EtatEnum = etatEnum;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+	}
+
 	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,
 			String imageUrl) {

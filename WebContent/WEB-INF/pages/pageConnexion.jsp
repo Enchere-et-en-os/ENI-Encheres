@@ -42,10 +42,9 @@
 
 	</form>
 
-	<button type="button" class="btn btn-primary">Créer un compte</button>
+	<a href="Inscription"><button type="button" class="btn btn-primary">Créer un compte</button></a>
 
-	<c:out value="${utilisateur }"></c:out>
-	<c:out value="${sessionScope.motDePasseS }"></c:out>
+
 
 </body>
 </html>
