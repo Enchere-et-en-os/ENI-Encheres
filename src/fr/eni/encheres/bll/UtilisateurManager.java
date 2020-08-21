@@ -30,19 +30,8 @@ public class UtilisateurManager {
 		return listeUtilisateur;
 	}
 
-	public Utilisateur checkLogin(String email, String mot_de_passe, String pseudo)
-			throws ClassNotFoundException, SQLException, BLLException {
-		Utilisateur utilisateur = null;
-		try {
-			utilisateur = utilisateurDAO.checkLogin(email, mot_de_passe, pseudo);
-		} catch (DALException e) {
-			e.printStackTrace();
-			throw new BLLException();
-		}
-		return utilisateur;
-	}
-
 	public void insertUtilisateur(Utilisateur user) throws BLLException {
+
 		try {
 			utilisateurDAO.insertUtilisateur(user);
 		} catch (DALException e) {

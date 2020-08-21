@@ -20,14 +20,19 @@
 	<form class="col-3" method="POST" action="/ENI-Encheres/Connexion">
 
 		<div class="form-group ">
-			<label for="identifiant">Identifiant :${pseudo}</label> <input
-				type="text" class="form-control" name="identifiant" id="utilisateur"
-				aria-describedby="emailHelp" value="<c:out value="${identifiant}"/>">
+			<label for="pseudo">Identifiant :${pseudo}</label> 
+			<input type="text" class="form-control" name="pseudo" 
+				id="pseudo" aria-describedby="emailHelp" required
+			>
 		</div>
 
 		<div class="form-group">
-			<label for="motDePasse">Mot de passe :</label> <input type="password"
-				class="form-control" name="motDePasse" id="motDePasse">
+
+			<label for="motDePasse">Mot de passe :</label> 
+		    <input type="password" class="form-control" 
+				   name="motDePasse" id="motDePasse"
+				   required
+		    >
 		</div>
 
 		<a href="#">Mot de passe oublié</a>
@@ -42,10 +47,7 @@
 
 	</form>
 
-	<button type="button" class="btn btn-primary">Créer un compte</button>
-
-	<c:out value="${utilisateur }"></c:out>
-	<c:out value="${sessionScope.motDePasseS }"></c:out>
+	<a href="Inscription"><button type="button" class="btn btn-primary">Créer un compte</button></a>
 
 </body>
 </html>
