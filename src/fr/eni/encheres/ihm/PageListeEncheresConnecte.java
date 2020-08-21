@@ -18,14 +18,7 @@ public class PageListeEncheresConnecte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager articleManager = new ArticleManager();
 
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PageListeEncheresConnecte() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+   
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,6 +28,7 @@ public class PageListeEncheresConnecte extends HttpServlet {
 
 		try {
 			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
+			
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

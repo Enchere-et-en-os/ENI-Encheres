@@ -33,12 +33,11 @@
 	
 	
 	
-	
 	<div class="container ">
 		<div class="row ">
 			<div class="form-check col-sm">
-		  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-		  <label class="form-check-label" for="exampleRadios1">
+		  <input class="form-check-input" type="radio" name="achat" id="achat" value="option1" checked>
+		  <label class="form-check-label" for="achat">
 		    Achats
 		  </label>
 		  <div>
@@ -56,11 +55,11 @@
 		  
 		</div>
 		<div class="form-check col-sm">
-		  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+		  <input class="form-check-input" type="radio" name="vente" id="exampleRadios2" value="option2">
 		  <label class="form-check-label" for="exampleRadios2">
 		    Mes ventes
 		  </label>
-		  <div>
+		  <div  >
 			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
 			  <label class="form-check-label" for="defaultCheck1">Mes ventes en cours</label>
 		  </div>
