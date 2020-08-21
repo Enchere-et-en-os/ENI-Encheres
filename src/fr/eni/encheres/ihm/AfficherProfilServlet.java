@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
@@ -25,8 +26,11 @@ public class AfficherProfilServlet extends HttpServlet {
 		
 		// TODO recupérer le nom de l'utilisateur choisit
 		String pseudoProfil = request.getParameter("pseudo");
+		Utilisateur util;
+		boolean profilUtilisateur;
+		
 		try {
-			Utilisateur util = mgr.selectByPseudo(pseudoProfil);
+			util = mgr.selectByPseudo(pseudoProfil);
 			request.setAttribute("pseudo", util.getPseudo());
 			request.setAttribute("nom", util.getNom());
 			request.setAttribute("prenom", util.getPrenom());
@@ -35,6 +39,14 @@ public class AfficherProfilServlet extends HttpServlet {
 			request.setAttribute("rue", util.getRue());
 			request.setAttribute("codePostal", util.getCodePostal());
 			request.setAttribute("ville", util.getVille());
+			
+			HttpSession session = request.getSession();
+			
+			// Vérifie si le pseudo du profil affiché == psuedo stocké en session
+			if(session.getAttribute("pseudo").equals(util.getPseudo())) {
+				// création d'un bool pour savoir si la jsp doit afficher la bouton modifier
+				profilUtilisateur = true;
+			}
 			
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block

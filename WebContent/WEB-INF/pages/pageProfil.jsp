@@ -12,48 +12,44 @@
 	
 	<div class="form-group">
 			<label for="Pseudo">Pseudo</label>
-	    	<input value="${utilisateur.pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo"/>
+	    	<label class="form-control">${pseudo}</label>
 	    	
 	   	 	<label for="Nom">Nom</label>
-	    	<input value="${utilisateur.nom}" name="nom" type="text" class="form-control" id="Nom">
+	    	<label class="form-control">${nom}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="Prenom">Prénom</label>
-	    	<input value="${utilisateur.prenom}" name="prenom" type="text" class="form-control" id="Prenom">
+	    	<label class="form-control">${prenom}</label>
 	    	
 	   	 	<label for="Email">Email</label>
-	    	<input value="${utilisateur.email}" name="email" type="text" class="form-control" id="Email">
+	    	<label class="form-control">${email}</label>
 	  	</div>
 	  	
 	 	<div class="form-group">
 			<label for="Telephone">Téléphone</label>
-	    	<input value="${utilisateur.telephone}" name="telephone" type="text" class="form-control" id="Telephone">
+	    	<label class="form-control">${telephone}</label>
 	    	
 	   	 	<label for="Rue">Rue</label>
-	    	<input value="${utilisateur.rue}" name="rue" type="text" class="form-control" id="Rue">
+	    	<label class="form-control">${rue}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="CodePostal">Code Postal</label>
-	    	<input value="${utilisateur.codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal">
+	    	<label class="form-control">${codePostal}</label>
 	    	
-	   	 	<label for="Ville">Ville</label>
-	    	<input value="${utilisateur.ville}" name="ville" type="text" class="form-control" id="Ville">
+	   	 	<label>Ville</label>
+	    	<label class="form-control">${ville}</label>
 	  	</div>
 	  	
-	  	<!--  -->
-	  	<div class="form-group">
-			<label for="MotDePasse">Mot De Passe</label>
-	    	<input name="mdp" type="password" class="form-control" id="MotDePasse">
-	    	
-	   	 	<label for="Confirmation">Confirmation</label>
-	    	<input name="confirm" type="password" class="form-control" id="Confirmation">
-	  	</div>
+	  
 		
-		<!-- hidden si l'id de l'utilisateur affihcé n'est pas 
-		le même que celui consultant la page -->
-		<button type="submit" class="btn btn-secondary">Modifier</button>
-		
+		<!-- Si le pseudo en session et le pseudo affiché sont les mêmes 
+		<%-- <%if( ${profilUtilisateur} ){ %> --%>
+		<form action="/ENI-Encheres/ModificationProfil" method="post">
+			<button type="submit" class="btn btn-secondary">Modifier</button>
+		</form>
+		<%-- <% } %> --%>
+		-->
 </body>
 </html>

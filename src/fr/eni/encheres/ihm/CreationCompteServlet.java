@@ -38,7 +38,7 @@ public class CreationCompteServlet extends HttpServlet {
 		String pseudo = request.getParameter("pseudo").trim();
 		
 		// vérification du pseudo : Unicité + alphanumérique
-		String regExpPseudo = "^[\\w]{3}$";
+		String regExpPseudo = "^[\\w]{3,}$";
 		if (!pseudo.matches(regExpPseudo)) {
 			String messagePseudo = "Le Pseudonyme doit contenir uniquement des caractères alphanumériques";
 			request.setAttribute("erreurPseudo", messagePseudo);
