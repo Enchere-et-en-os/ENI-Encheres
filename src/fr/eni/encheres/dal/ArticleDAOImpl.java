@@ -18,7 +18,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	 * Attributs de classe des requêtes sql
 	 */
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
-						+ " date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
+						+ " date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, image_path FROM ARTICLES_VENDUS ";
 	
 	
 	/**
@@ -46,13 +46,13 @@ public class ArticleDAOImpl implements ArticleDAO {
 				dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
 				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), 
 						     dateDebutEnchere, dateFinEnchere, rs.getInt("prix_initial"), 
-						      rs.getInt("prix_vente"), null, null, null);
+						      rs.getInt("prix_vente"), null, null, null, rs.getString("image_path"));
 				listeArticles.add(article);
 			}
 		
 		} catch (SQLException e){
 			e.printStackTrace();
-			throw new DALException("Echec de FindAllArticle", e);
+			throw new DALException("Echec de SelectAllArticle", e);
 		}
 		return listeArticles;
 	}
