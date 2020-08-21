@@ -17,7 +17,6 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
-
 /**
  * Servlet implementation class PageConnexionServlet
  */
@@ -28,70 +27,72 @@ public class PageConnexionServlet extends HttpServlet {
 	UtilisateurManager mgr = new UtilisateurManager();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			
+			// récupération des utilisateurs
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
-			
+
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//récupérer une session
+		// récupérer une session
 		HttpSession session = request.getSession();
 		String identifiantDutilisateur = (String) session.getAttribute("identifiant");
-		
-		
-		//supprimer la session : déconnexion
-		//session.invalidate();
-		
+
+		// supprimer la session : déconnexion
+		// session.invalidate();
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String destPage = "pageConnexion.jsp";
 		try {
 			String identifiant = request.getParameter("identifiant");
 			String motDePasse = request.getParameter("motDePasse");
 			String pseudo = request.getParameter("pseudo");
-			
-			//créer une règle pour vérifier si pseudo ou email rentré
-			
+
+			// créer une règle pour vérifier si pseudo ou email rentré
+
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
-			
+			System.out.println("listeDutilisateur : " + listeDutilisateur);
 			Utilisateur utilisateur = mgr.checkLogin(identifiant, motDePasse, pseudo);
-			
-			//mets en mémoire dans la partie mémoire session le nom et le prénom
+			System.out.println("utilisateur : " + utilisateur);
+			// mets en mémoire dans la partie mémoire session le nom et le prénom
 			if (utilisateur != null) {
-				
+
 				HttpSession session = request.getSession();
 				session.setAttribute("identifiant", identifiant);
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("listeDutilisateur", listeDutilisateur);
 				session.setAttribute("utilisateur", utilisateur);
-				
+				// redirection accueil
 				destPage = "Acceuil.jsp";
-				//récupération de l'identifiant et du mot de passe
+				// récupération de l'identifiant et du mot de passe
 				String identifiantDeLutilisateur = (String) session.getAttribute("identifiant");
 				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
 				System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
 				System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
 			} else {
-				 String message = "Email / mot de passe non conforme";
+				String message = "Email / mot de passe non conforme";
 				request.setAttribute("message", message);
 			}
 		} catch (BLLException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-	
+
 		request.getRequestDispatcher(destPage).forward(request, response);
 
-		}
 	}
-
+}

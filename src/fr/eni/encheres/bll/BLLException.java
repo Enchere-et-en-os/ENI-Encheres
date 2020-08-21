@@ -31,7 +31,5 @@ public class BLLException extends Exception {
 		// TODO Auto-generated method stub
 		return super.getMessage();
 	}
-	
-	
 
 }
