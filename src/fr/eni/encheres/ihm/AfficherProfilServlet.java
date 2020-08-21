@@ -21,14 +21,6 @@ public class AfficherProfilServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		UtilisateurManager mgr = new UtilisateurManager();
-
-		// TODO recupérer le nom de l'utilisateur choisit
-		Utilisateur util;
-		boolean profilUtilisateur;
-
-		HttpSession session = request.getSession();
 		
 		/*
 		 * @Author : Valentin
@@ -37,6 +29,14 @@ public class AfficherProfilServlet extends HttpServlet {
 		 * Si il n'existe pas, afficher la page de son profil
 		 * Sinon page 404 
 		 */
+		UtilisateurManager mgr = new UtilisateurManager();
+
+		// TODO recupérer le nom de l'utilisateur choisit
+		Utilisateur util;
+		int memeProfil = 0;
+
+		HttpSession session = request.getSession();
+		
 		try {
 			util = mgr.selectByPseudo(request.getParameter("pseudo"));
 			if(util == null){
@@ -52,6 +52,7 @@ public class AfficherProfilServlet extends HttpServlet {
 					request.setAttribute("rue", session.getAttribute("rue"));
 					request.setAttribute("codePostal", session.getAttribute("codePostal"));
 					request.setAttribute("ville", session.getAttribute("ville"));
+					memeProfil = 1;
 				}
 			} else {
 				request.setAttribute("pseudo", util.getPseudo());

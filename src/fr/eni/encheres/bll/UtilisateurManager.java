@@ -72,13 +72,29 @@ public class UtilisateurManager {
 	};
 	
 	public Utilisateur selectByPseudo(String pseudo) throws BLLException{
-		Utilisateur util = null;
+		Utilisateur utilisateur = null;
 
 		try {
-			util = utilisateurDAO.selectByPseudo(pseudo);
+			utilisateur = utilisateurDAO.selectByPseudo(pseudo);
 		} catch (DALException e) {
 			throw new BLLException();
 		}
-		return util;
+		return utilisateur;
+	}
+	
+	public void updateById(Utilisateur user) throws BLLException{
+		try {
+			utilisateurDAO.updateById(user);
+		} catch (DALException e) {
+			throw new BLLException();
+		}
+	}
+	
+	public void deleteById(int id) throws BLLException{
+		try {
+			utilisateurDAO.deleteById(id);
+		} catch (DALException e) {
+			throw new BLLException();
+		}
 	}
 }

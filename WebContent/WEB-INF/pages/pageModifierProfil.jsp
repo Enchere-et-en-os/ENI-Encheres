@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="f"  uri="http://java.sun.com/jsf/core"%>
-<%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%> --%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<title>Modification de Profil</title>
 </head>
 <body>
 	<h1>ENI-Enchères</h1>
@@ -14,34 +14,34 @@
 	<form action="/ENI-Encheres/ModificationProfil" method="post">
 		<div class="form-group">
 			<label for="Pseudo">Pseudo</label>
-	    	<input name="pseudo" type="text" class="form-control" id="Pseudo"/>
+	    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo"/>
 	    	
 	   	 	<label for="Nom">Nom</label>
-	    	<input name="nom" type="text" class="form-control" id="Nom">
+	    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom">
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="Prenom">Prénom</label>
-	    	<input name="prenom" type="text" class="form-control" id="Prenom">
+	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom">
 	    	
 	   	 	<label for="Email">Email</label>
-	    	<input name="email" type="text" class="form-control" id="Email">
+	    	<input value="${email}" name="email" type="text" class="form-control" id="Email">
 	  	</div>
 	  	
 	 	<div class="form-group">
 			<label for="Telephone">Téléphone</label>
-	    	<input name="telephone" type="text" class="form-control" id="Telephone">
+	    	<input value="${telephone}" name="telephone" type="text" class="form-control" id="Telephone">
 	    	
 	   	 	<label for="Rue">Rue</label>
-	    	<input name="rue" type="text" class="form-control" id="Rue">
+	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue">
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="CodePostal">Code Postal</label>
-	    	<input name="codePostal" type="text" class="form-control" id="CodePostal">
+	    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal">
 	    	
 	   	 	<label for="Ville">Ville</label>
-	    	<input name="ville" type="text" class="form-control" id="Ville">
+	    	<input value="${ville}" type="text" class="form-control" id="Ville">
 	  	</div>
 	  	
 	  	<div class="form-group">
@@ -56,13 +56,14 @@
 	  	</div>
 	  	
 	  	<div>
-	  		<label for="credit">Crédit</label>
-	  		<p id="credit">${utilisateur.credit}</p>
+	  		<label>Crédit</label>
+	  		<!-- TODO utiliser la méthode consulterCrédit -->
+	  		<p>${utilisateur.credit}</p>
 	  	</div>
 		
-		<button type="submit" class="btn btn-success">Enregistrer</button>
-		<button type="submit" class="btn btn-secondary">Annuler</button>
-		<button type="button" class="btn btn-danger">Supprimer mon Compte</button>
+		<button name="enregistrer" type="submit" class="btn btn-success" >Enregistrer</button>
+		<button name="annuler" type="submit" class="btn btn-secondary">Annuler</button>
+		<button name="supprimer" type="submit" class="btn btn-danger">Supprimer mon Compte</button>
 		
 	</form>
 </body>

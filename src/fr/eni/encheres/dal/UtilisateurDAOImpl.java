@@ -25,8 +25,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
 	private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, " + 
 			"rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo = ?";
-
-
+	private static final String UPDATE_USER = "UPADTE utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, " + 
+			"rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
+	private static final String DELETE_BY_ID = "DELETE FROM utilisateurs WHERE no_utilisateur = ?";
+	
+	
 	/**
 	 * méthode pour récupérer tous les utilisateurs en base de donnée
 	 */
@@ -157,6 +160,58 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			throw new DALException("Erreur lors de l'insertion", e);
 		}
 
+	}
+	
+	/*
+	 * @auhtor : Valentin
+	 * 
+	 * @param : Utilisateur
+	 * 
+	 * Mise à jour de l'utilisateur via page de profil
+	 */
+	public void updateById(Utilisateur user) throws DALException{
+		try (Connection conn = ConnectionProvider.getConnection()) {
+
+			PreparedStatement pstmt = conn.prepareStatement(UPDATE_USER);
+			
+			pstmt.setString(1, user.getPseudo());
+			pstmt.setString(2, user.getNom());
+			pstmt.setString(3, user.getPrenom());
+			pstmt.setString(4, user.getEmail());
+			pstmt.setString(5, user.getTelephone());
+			pstmt.setString(6, user.getRue());
+			pstmt.setString(7, user.getCodePostal());
+			pstmt.setString(8, user.getVille());
+			pstmt.setString(9, user.getMotDePasse());
+			pstmt.setInt(10, user.getId());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Utiliser un log a la place
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la mise à jour", e);
+		}
+	}
+	
+	/*
+	 * @auhtor : Valentin
+	 * 
+	 * @param : id de l'utilisateur
+	 * 
+	 * Suppression des données de l'utilisateur via son id
+	 */
+	public void deleteById(int id)throws DALException{
+		try (Connection conn = ConnectionProvider.getConnection()) {
+
+			PreparedStatement pstmt = conn.prepareStatement(DELETE_BY_ID);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Utiliser un log a la place
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la suppresion", e);
+		}
 	}
 
 	/*

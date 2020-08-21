@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
@@ -101,7 +102,7 @@ public class CreationCompteServlet extends HttpServlet {
         }
 
 		String rue = request.getParameter("rue").trim();
-		
+		 
 		if(!rue.matches( REGEXGENERAL )) {
 		   	String messageRue = "Veuillez entrer une Rue";
 		   	request.setAttribute("erreurRue", messageRue);
@@ -154,7 +155,7 @@ public class CreationCompteServlet extends HttpServlet {
 			}
 
 		} catch (BLLException e) {
-			// TODO Auto-generated catch block
+			// TODO Logs Toujours
 			e.printStackTrace();
 		}
 
@@ -162,8 +163,12 @@ public class CreationCompteServlet extends HttpServlet {
 			Utilisateur newUser = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 			try {
 				mgr.insertUtilisateur(newUser);
-				// TODO rediriger vers liste enchères
-				response.sendRedirect("/WEB-INF/pages/Accueil.jsp");
+//				HttpSession session = request.getSession();
+//				session.setAttribute("pseudo", pseudo);
+//				session.setAttribute("nom", pseudo);
+//				session.setAttribute("prenom", pseudo);
+
+				response.sendRedirect("/WEB-INF/pages/pageListeEncheresConnecte.jsp");
 			} catch (BLLException e) {
 				// TODO Faire les logs
 				e.printStackTrace();
