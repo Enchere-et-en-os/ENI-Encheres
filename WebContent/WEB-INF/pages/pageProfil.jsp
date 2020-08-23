@@ -10,47 +10,45 @@
 <body>
 	<h1>ENI-Enchères</h1>
 	<h2>Profil</h2>
-	
-	  	
+		
 	  	<div class="form-group">
-			<label for="Prenom">Prénom</label>
+			<label>Prénom</label>
 	    	<label class="form-control">${prenom}</label> 	
 	  	</div>
 	  	
 	  	
 	  	<div class="form-group">
-			<label for="CodePostal">Code Postal</label>
+			<label>Code Postal</label>
 	    	<label class="form-control">${codePostal}</label>
 	    	
 	   	 	<label>Ville</label>
 	    	<label class="form-control">${ville}</label>
 	  	</div>
-	  	
-	  
 		
 		<!-- Si le pseudo en session et le pseudo affiché sont les mêmes -->
 		<c:if test="${memeProfil == 1 }">
 		<div class="form-group">
-			<label for="Pseudo">Pseudo</label>
+			<label>Pseudo</label>
 	    	<label class="form-control">${pseudo}</label>
 	    	
-	   	 	<label for="Nom">Nom</label>
+	   	 	<label>Nom</label>
 	    	<label class="form-control">${nom}</label>
 		
-			<label for="Email">Email</label>
+			<label>Email</label>
 	    	<label class="form-control">${email}</label>
 			
-			<label for="Telephone">Téléphone</label>
+			<label>Téléphone</label>
 	    	<label class="form-control">${telephone}</label>
 	    	
-	   	 	<label for="Rue">Rue</label>
+	   	 	<label>Rue</label>
 	    	<label class="form-control">${rue}</label>
+	  		<label>Crédit</label>
+	  		<label>${credit}</label>
 		</div>
 		<form action="/ENI-Encheres/ModificationProfil" method="post">
 			<button type="submit" class="btn btn-secondary">Modifier</button>
 		</form>
+		<p>${messageUpdate}</p>
 		</c:if>
-
-		
 </body>
 </html>
