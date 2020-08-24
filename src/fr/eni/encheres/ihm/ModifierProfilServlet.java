@@ -2,7 +2,6 @@ package fr.eni.encheres.ihm;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,9 +31,11 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 			throws ServletException, IOException {
 
 
+
 		HttpSession session = request.getSession(true);
 		
 		// TODO MÃ©thode
+
 		request.setAttribute("pseudo", session.getAttribute("pseudo"));
 		request.setAttribute("prenom", session.getAttribute("prenom"));
 		request.setAttribute("nom", session.getAttribute("nom"));
@@ -57,20 +58,9 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 		}
 		if (request.getParameter("enregistrer") != null) {
 
-			// TODO vï¿½rifier les donnï¿½es de la requï¿½te (factorisation Inscription ?)
+			// TODO vérifier les données de la requête (factorisation Inscription ?)
 			String id = (String) session.getAttribute("id");
 
-//			String pseudo = request.getParameter("pseudo").trim();
-//			request.setAttribute("erreurPseudo", ConnexionForm.regStringValeur(pseudo, "pseudo"));
-
-//			String nom = request.getParameter("nom");
-//			String prenom = request.getParameter("prenom");
-//			String email = request.getParameter("email");
-//			String telephone = request.getParameter("telephone");
-//			String rue = request.getParameter("rue");
-//			String codePostal = request.getParameter("codePostal");
-//			String ville = request.getParameter("ville");
-//			String nouveauMdp = request.getParameter("nouveauMdp");
 			ArrayList<String> entries = new ArrayList<String>();
 			
 			entries.add("pseudo");

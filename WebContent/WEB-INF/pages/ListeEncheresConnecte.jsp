@@ -34,46 +34,43 @@
 	<p>Bonjour ${pseudo}</p>
 	
 	<div class="container ">
-		<div class="row ">
+		<div class="row " >
 			<div class="form-check col-sm">
-		  <input class="form-check-input" type="radio" name="achat" id="achat" value="option1" checked>
-		  <label class="form-check-label" for="achat">
-		    Achats
-		  </label>
-		  <div>
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">Enchères ouvertes</label>
-		  </div>
-		   <div>
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">Mes enchères</label>
-		  </div>
-		   <div>
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">Mes enchères remportées</label>
-		  </div>
-		  
+			  <input class="form-check-input" type="radio" name="radioAchat" id="achat" value="option1" checked>
+			  <label class="form-check-label" for="achat"> Achats</label>
+				  <div>
+					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+					  <label class="form-check-label" for="defaultCheck1">Enchères ouvertes</label>
+				  </div>
+				   <div>
+					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+					  <label class="form-check-label" for="defaultCheck1">Mes enchères</label>
+				  </div>
+				   <div>
+					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+					  <label class="form-check-label" for="defaultCheck1">Mes enchères remportées</label>
+				  </div>
+			</div>
+			
+			
+			
+			<div class="form-check col-sm">
+			  <input class="form-check-input" type="radio" name="radioVente" id="vente" value="option2">
+			  <label class="form-check-label" for="exampleRadios2">Mes ventes</label>
+			  <div  >
+				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				  <label class="form-check-label" for="defaultCheck1">Mes ventes en cours</label>
+			  </div>
+			   <div>
+				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				  <label class="form-check-label" for="defaultCheck1">Ventes non débutées</label>
+			  </div>
+			   <div>
+				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				  <label class="form-check-label" for="defaultCheck1">Ventes terminées</label>
+			  </div>
+			</div>
 		</div>
-		<div class="form-check col-sm">
-		  <input class="form-check-input" type="radio" name="vente" id="exampleRadios2" value="option2">
-		  <label class="form-check-label" for="exampleRadios2">
-		    Mes ventes
-		  </label>
-		  <div  >
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">Mes ventes en cours</label>
-		  </div>
-		   <div>
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">Ventes non débutées</label>
-		  </div>
-		   <div>
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">Ventes terminées</label>
-		  </div>
-		  		  </div>
-		  
-	</div>
 
 
 	<div class="input-group">
