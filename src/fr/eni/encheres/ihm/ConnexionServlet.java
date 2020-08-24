@@ -33,6 +33,8 @@ public class ConnexionServlet extends HttpServlet {
 
 		String pseudo = request.getParameter("pseudo");
 		String motDePasse = request.getParameter("motDePasse");
+		String id = request.getParameter("id");
+		
 		//reset à zéro si pas de session ouverte
 		if( pseudo == null) pseudo = "";
 		if( motDePasse == null) motDePasse = "";
@@ -40,6 +42,7 @@ public class ConnexionServlet extends HttpServlet {
 		HttpSession session = request.getSession( true );
 		session.setAttribute("pseudo", pseudo);
 		session.setAttribute("motDePasse", motDePasse);
+		session.setAttribute("id", id);
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
 	}
@@ -54,6 +57,7 @@ public class ConnexionServlet extends HttpServlet {
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			String pseudo = request.getParameter("pseudo");
 			String motDePasse = request.getParameter("motDePasse");
+			String id = request.getParameter("id");
 			String email = null;
 			//création de la session
 			HttpSession session = request.getSession();
@@ -67,13 +71,15 @@ public class ConnexionServlet extends HttpServlet {
 			Utilisateur utilisateurConfirmeBDD = 
 				listeDutilisateur.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
 			       .findFirst().orElse(null);
-			
+
 			if (utilisateurConfirmeBDD != null) {
 				System.out.println("connecté");
-				
+				listeDutilisateur.stream();
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
+				session.setAttribute("id", id);
 				session.setAttribute("estConnecte", true);
+				System.out.println("pseudo :" + pseudo + "id :" + id);
 				request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 				
 			} else {

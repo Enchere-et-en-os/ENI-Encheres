@@ -2,7 +2,6 @@ package fr.eni.encheres.ihm;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,9 +15,7 @@ import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.ihm.model.ConnexionForm;
 
-/**
- * Servlet implementation class CreationCompteServlet
- */
+
 @WebServlet("/Inscription")
 public class CreationCompteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,18 +27,14 @@ public class CreationCompteServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		boolean erreur = false;
-
-//		String pseudo = request.getParameter("pseudo").trim();
-//		request.setAttribute("erreurPseudo", ConnexionForm.regStringValeur(pseudo, "pseudo"));
-
-		// TODO Savoir si un message d'erreur Ã  Ã©tÃ© levÃ©e (Constante ?)
+		
+		if(request.getParameter("annuler") != null) {
+			response.sendRedirect("/WEB-INF/pages/profil.jsp");
+		}
 		ArrayList<String> entries = new ArrayList<String>();
 		
 		entries.add("pseudo");
@@ -58,71 +51,20 @@ public class CreationCompteServlet extends HttpServlet {
 		List<String> paramUser = ConnexionForm.checkForm(request, entries);
 		paramUser.add(0, "1");
 		System.out.println(paramUser);
-
-//		String nom = request.getParameter("nom").trim();
-//		request.setAttribute("erreurNom", ConnexionForm.regStringValeur(nom, "nom"));
-//
-//		String prenom = request.getParameter("prenom").trim();
-//		request.setAttribute("erreurPrenom", ConnexionForm.regStringValeur(prenom, "prenom"));
-//
-//		String email = request.getParameter("email").trim();
-//		request.setAttribute("erreurEmail", ConnexionForm.regStringValeur(email, "email"));
-//
-//		String telephone = request.getParameter("telephone").trim();
-//		if (!telephone.isEmpty())
-//			request.setAttribute("erreurTel", ConnexionForm.regStringValeur(telephone, "telephone"));
-//
-//		String rue = request.getParameter("rue").trim();
-//		request.setAttribute("erreurRue", ConnexionForm.regStringValeur(rue, "rue"));
-//
-//		String codePostal = request.getParameter("codePostal").trim();
-//		request.setAttribute("erreurCodePostal", ConnexionForm.regStringValeur(codePostal, "codePostal"));
-//
-//		String ville = request.getParameter("ville").trim();
-//		request.setAttribute("erreurVille", ConnexionForm.regStringValeur(ville, "ville"));
-//
-//		String mdp = request.getParameter("mdp").trim();
-//		String confirmMdp = request.getParameter("confirmMdp").trim();
-
-		// TODO regex spÃ©cifique au Mdp (nbr de char/ chiffre...)
-
-//		if (!(mdp.contentEquals(confirmMdp))) {
-//
-//			String messageConfirm = "Le mot de passe et sa confirmation sont diffï¿½rents";
-//			request.setAttribute("erreurConfirm", messageConfirm);
-//			erreur = true;
-//		}
-
-		// TODO hash du mdp puis findallUsers pour comparer avec les autres hash
-//		String hashMdp = "";
-//
-//		try {
-//			List<Utilisateur> list = mgr.getAllUtilisateur();
-//			for (Utilisateur utilisateur : list) {
-//				if (utilisateur.getMotDePasse() == hashMdp) {
-//					String messageMdp = "Choissisez un autre mot de passe";
-//					request.setAttribute("erreurMdp", messageMdp);
-//					erreur = true;
-//					break;
-//				}
-//			}
-//
-//		} catch (BLLException e) {
-//			// TODO Logs Toujours
-//			e.printStackTrace();
-//		}
-
 		
 		// Vérifie si une erreur à été générée
 		for (String entry : entries) {
 			String erreurString = "erreur" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
-			if(!(erreurString.isEmpty())) {
+			// TODO savoir si l'attribut erreurString retourne un objet non null
+			String n = (String) request.getAttribute(erreurString);
+			if(n != null){
+				System.out.println(request.getAttribute(erreurString));
 				erreur = true;
 			}
 		}
 		
 		if (!erreur) {
-			System.out.println(paramUser);
+			System.out.println(paramUser.get(paramUser.size() - 1).length());
 			Utilisateur newUser = new Utilisateur(paramUser);
 			try {
 				mgr.insertUtilisateur(newUser);

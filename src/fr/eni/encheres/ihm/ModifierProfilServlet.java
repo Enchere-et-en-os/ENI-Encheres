@@ -30,9 +30,12 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
 
-		// TODO Méthode
+
+		HttpSession session = request.getSession(true);
+		
+		// TODO MÃ©thode
+
 		request.setAttribute("pseudo", session.getAttribute("pseudo"));
 		request.setAttribute("prenom", session.getAttribute("prenom"));
 		request.setAttribute("nom", session.getAttribute("nom"));
@@ -42,7 +45,7 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 		request.setAttribute("codePostal", session.getAttribute("codePostal"));
 		request.setAttribute("ville", session.getAttribute("ville"));
 
-		request.getRequestDispatcher("/WEB-INF/pages/pageModifierProfil.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/ModifierProfil.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +54,7 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 		HttpSession session = request.getSession();
 
 		if (request.getParameter("annuler") != null) {
-			request.getRequestDispatcher("/WEB-INF/pages/pageProfil.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/Profil.jsp").forward(request, response);
 		}
 		if (request.getParameter("enregistrer") != null) {
 
@@ -84,7 +87,7 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("/WEB-INF/pages/pageProfil.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/Profil.jsp").forward(request, response);
 		}
 		if (request.getParameter("supprimer") != null) {
 			try {

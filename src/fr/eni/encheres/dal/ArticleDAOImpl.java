@@ -1,6 +1,7 @@
 package fr.eni.encheres.dal;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -59,5 +60,21 @@ public class ArticleDAOImpl implements ArticleDAO {
 			throw new DALException("Echec de SelectAllArticle", e);
 		}
 		return listeArticles;
+	}
+	/**
+	 * méthode d'insertion d'un objet en bdd
+	 * @throws SQLException 
+	 */
+	public Article insertArticle () throws SQLException {
+		Article article = null;
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(
+					"Insert into ARTICLES_VENDUS VALUES('chaussures','ça c''est de la pompe pour bien marcher en ville','22/03/2020' , '22/12/2020' ,100, 120,1,1)");
+		}
+		//   no_utilisateur                INTEGER NOT NULL,
+	    //no_categorie                  INTEGER NOT NULL
+		//Insert into ARTICLES_VENDUS VALUES('chaussures','ça c''est de la pompe pour bien marcher en ville','22/03/2020' , '22/12/2020' ,100, 120,1,1);
+		return article;
+		
 	}
 }

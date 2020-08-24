@@ -18,6 +18,7 @@ public interface ConnexionForm {
 	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";
+	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8.15}$";
 
 	/*
 	 * @Author : Tanguy & Valentin
@@ -87,7 +88,17 @@ public interface ConnexionForm {
 				message = messageErreur + " un nom de ville valide";
 			}
 			break;
+			
+		case "mdp":
+			regex = REGEXPASSWORD;
+			if(!valeurParametre.matches(regex)) {
+				message = messageErreur + " un Mot de Passe contenant entre 8 et 15 "
+						+ "charactères dont une minuscule, une majuscule et un charactère"
+						+ " spécial parmis : $/.,-_!";
+			}
+			break;
 		}
+		
 
 		return message;
 	}
@@ -104,7 +115,6 @@ public interface ConnexionForm {
 	 */
 	public static ArrayList<String> checkForm(HttpServletRequest request, ArrayList<String> entries) {
 		ArrayList<String> paramUser = new ArrayList<String>();
-		String tel = "";
 		String mdp = "";
 		String erreur;
 
@@ -112,9 +122,10 @@ public interface ConnexionForm {
 			switch (entry) {
 
 			case "telephone":
-				if (!entry.isEmpty())
-					request.setAttribute("erreurTel", regStringValeur(entry, entry));
-				tel = request.getParameter(entry).trim();
+				System.out.println(request.getParameter(entry).trim());
+				if (!request.getParameter(entry).trim().isEmpty())
+					request.setAttribute("erreurTelephone", regStringValeur(request.getParameter(entry), entry));
+				paramUser.add(request.getParameter(entry).trim());
 				break;
 
 			case "mdp":
@@ -125,7 +136,7 @@ public interface ConnexionForm {
 					break;
 				}
 				
-				mdp = checkMdp(request.getParameter(entry).trim());
+				mdp = hashkMdp(request.getParameter(entry).trim());
 				if (mdp.isEmpty()) {
 					request.setAttribute("erreurMdp", "Choissisez un autre mot de passe");
 				}
@@ -135,12 +146,12 @@ public interface ConnexionForm {
 			default:
 				paramUser.add(request.getParameter(entry).trim());
 				erreur = "erreur" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
-				request.setAttribute(erreur, regStringValeur(entry, entry));
+				request.setAttribute(erreur, regStringValeur(request.getParameter(entry), entry));
 				break;
 			}
 		}
-		paramUser.add(4, tel);
 		paramUser.add(mdp);
+		System.out.println(paramUser);
 		return paramUser;
 	}
 	
@@ -152,7 +163,7 @@ public interface ConnexionForm {
 	 * 
 	 * @Return : String, Mot de passe hashÃ© aprÃ¨s moult vÃ©rifications
 	 */
-	public static String checkMdp(String entryMdp) {
+	public static String hashkMdp(String entryMdp) {
 
 		String mdp = null;
 		MessageDigest digest = null;

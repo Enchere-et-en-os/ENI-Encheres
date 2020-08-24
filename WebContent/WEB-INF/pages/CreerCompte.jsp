@@ -36,7 +36,7 @@
 	 	<div class="form-group">
 			<label for="Telephone">Téléphone</label>
 	    	<input value="${telephone}" name="telephone" type="text" class="form-control" id="Telephone">
-	    	<label>${erreurTel}</label>
+	    	<label>${erreurTelephone}</label>
 	    	
 	   	 	<label for="Rue">Rue</label>
 	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue" required>
@@ -63,7 +63,7 @@
 	  	<label>${erreurConfirm} ${erreurMdp}</label>
 		
 		<button type="submit" class="btn btn-success">Créer</button>
-		<button type="submit" class="btn btn-secondary">Annuler</button>
+		<button name="annuler" type="submit" class="btn btn-secondary">Annuler</button>
 		
 	</form>
 	
