@@ -1,6 +1,7 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -69,8 +70,21 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 //			String codePostal = request.getParameter("codePostal");
 //			String ville = request.getParameter("ville");
 //			String nouveauMdp = request.getParameter("nouveauMdp");
-			List<String> entries = Arrays.asList("pseudo", "nom", "prenom", "telephone", "email", "rue", "codePostal",
-					"ville", "mdp", "confirmMdp");
+			ArrayList<String> entries = new ArrayList<String>();
+			
+			entries.add("pseudo");
+			entries.add("nom");
+			entries.add("prenom");
+			entries.add("telephone");
+			entries.add("email");
+			entries.add("rue");
+			entries.add("codePostal");
+			entries.add("ville");
+			entries.add("mdp");
+			entries.add("confirmMdp");
+			System.out.println(entries.get(0));
+			System.out.println(entries.get(entries.size() - 1));
+			
 			List<String> paramUser = ConnexionForm.checkForm(request, entries);
 			paramUser.add(0, id);
 

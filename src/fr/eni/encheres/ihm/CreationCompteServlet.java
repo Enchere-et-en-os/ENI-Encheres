@@ -1,6 +1,7 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,9 +42,22 @@ public class CreationCompteServlet extends HttpServlet {
 //		request.setAttribute("erreurPseudo", ConnexionForm.regStringValeur(pseudo, "pseudo"));
 
 		// TODO Savoir si un message d'erreur Ã  Ã©tÃ© levÃ©e (Constante ?)
-		List<String> entries = Arrays.asList("pseudo", "nom", "prenom", "telephone", "email", "rue", "codePostal",
-				"ville", "mdp", "confirmMdp");
+		ArrayList<String> entries = new ArrayList<String>();
+		
+		entries.add("pseudo");
+		entries.add("nom");
+		entries.add("prenom");
+		entries.add("email");
+		entries.add("telephone");
+		entries.add("rue");
+		entries.add("codePostal");
+		entries.add("ville");
+		entries.add("mdp");
+		entries.add("confirmMdp");
+				
 		List<String> paramUser = ConnexionForm.checkForm(request, entries);
+		paramUser.add(0, "1");
+		System.out.println(paramUser);
 
 //		String nom = request.getParameter("nom").trim();
 //		request.setAttribute("erreurNom", ConnexionForm.regStringValeur(nom, "nom"));
@@ -97,12 +111,22 @@ public class CreationCompteServlet extends HttpServlet {
 //			// TODO Logs Toujours
 //			e.printStackTrace();
 //		}
-		// TODO Savoir si une un message d'erreur Ã  Ã©tÃ© crÃ©Ã©
+
+		
+		// Vérifie si une erreur à été générée
+		for (String entry : entries) {
+			String erreurString = "erreur" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
+			if(!(erreurString.isEmpty())) {
+				erreur = true;
+			}
+		}
+		
 		if (!erreur) {
+			System.out.println(paramUser);
 			Utilisateur newUser = new Utilisateur(paramUser);
 			try {
 				mgr.insertUtilisateur(newUser);
-				response.sendRedirect("/WEB-INF/pages/pageListeEncheresConnecte.jsp");
+				response.sendRedirect("/WEB-INF/pages/ListeEncheresConnecte.jsp");
 			} catch (BLLException e) {
 				// TODO Faire les logs
 				e.printStackTrace();
@@ -118,7 +142,7 @@ public class CreationCompteServlet extends HttpServlet {
 			request.setAttribute("rue", request.getParameter("rue"));
 			request.setAttribute("codePostal", request.getParameter("codePostal"));
 			request.setAttribute("ville", request.getParameter("ville"));
-			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 		}
 
 	}

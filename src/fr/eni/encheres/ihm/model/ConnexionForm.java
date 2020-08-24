@@ -75,7 +75,7 @@ public interface ConnexionForm {
 			break;
 
 		case "codePostal":
-			regex = REGEXGENERAL;
+			regex = REGEXPOST;
 			if (!valeurParametre.matches(regex)) {
 				message = messageErreur + " un code postal valide";
 			}
@@ -102,10 +102,10 @@ public interface ConnexionForm {
 	 * 
 	 * @Return : Utilisateur via un constructeur de type List
 	 */
-	public static List<String> checkForm(HttpServletRequest request, List<String> entries) {
-		List<String> paramUser = new ArrayList<String>();
-		String tel = null;
-		String mdp = null;
+	public static ArrayList<String> checkForm(HttpServletRequest request, ArrayList<String> entries) {
+		ArrayList<String> paramUser = new ArrayList<String>();
+		String tel = "";
+		String mdp = "";
 		String erreur;
 
 		for (String entry : entries) {
@@ -113,32 +113,37 @@ public interface ConnexionForm {
 
 			case "telephone":
 				if (!entry.isEmpty())
-					request.setAttribute("erreurTel", ConnexionForm.regStringValeur(entry, entry));
+					request.setAttribute("erreurTel", regStringValeur(entry, entry));
 				tel = request.getParameter(entry).trim();
 				break;
 
 			case "mdp":
-				if (!(entry.contentEquals(entries.get(entries.size())))) {
+				String lastEntry = request.getParameter(entries.get(entries.size() - 1)).trim();
+				if (!(request.getParameter(entry).trim().equals(lastEntry))) {
 					request.setAttribute("erreurConfirm", "Le mot de passe et sa confirmation sont diff�rents");
-				} else
-					mdp = checkMdp(request.getParameter(entry).trim());
+					entries.remove(entries.size() - 1);
+					break;
+				}
+				
+				mdp = checkMdp(request.getParameter(entry).trim());
 				if (mdp.isEmpty()) {
 					request.setAttribute("erreurMdp", "Choissisez un autre mot de passe");
 				}
-				entries.remove(entries.size());
+				entries.remove(entries.size() - 1);
 				break;
 
 			default:
 				paramUser.add(request.getParameter(entry).trim());
 				erreur = "erreur" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
-				request.setAttribute(erreur, ConnexionForm.regStringValeur(entry, entry));
+				request.setAttribute(erreur, regStringValeur(entry, entry));
 				break;
 			}
 		}
-		paramUser.add(3, tel);
+		paramUser.add(4, tel);
 		paramUser.add(mdp);
 		return paramUser;
 	}
+	
 
 	/*
 	 * @Author : Valentin
@@ -160,7 +165,6 @@ public interface ConnexionForm {
 			e.printStackTrace();
 		}
 		byte[] encodedhash = digest.digest(entryMdp.getBytes(StandardCharsets.UTF_8));
-
 		StringBuffer hexString = new StringBuffer();
 		for (int i = 0; i < encodedhash.length; i++) {
 			String hex = Integer.toHexString(0xff & encodedhash[i]);
@@ -184,6 +188,7 @@ public interface ConnexionForm {
 			}
 
 		}
+
 		return mdp;
 		// TODO méthode pour remove les attributs inutiles
 		// de préférence pour les messages (erreurs / confirmation)

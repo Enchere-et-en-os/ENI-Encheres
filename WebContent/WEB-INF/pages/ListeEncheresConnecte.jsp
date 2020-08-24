@@ -16,9 +16,9 @@
 <title>ENI-Enchere</title>
 </head>
 <body>
-	<h1>ENI-Enchere</h1>
+	<jsp:include page="NavBar.jsp" /><br><br>
 
-	<a href="Connexion">S'inscrire - Se connecter</a>
+	
 	<h2>Liste des enchères</h2>
 
 
