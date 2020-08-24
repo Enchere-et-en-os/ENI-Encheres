@@ -102,7 +102,7 @@ public class CreationCompteServlet extends HttpServlet {
 			Utilisateur newUser = new Utilisateur(paramUser);
 			try {
 				mgr.insertUtilisateur(newUser);
-				response.sendRedirect("/WEB-INF/pages/pageListeEncheresConnecte.jsp");
+				response.sendRedirect("/WEB-INF/pages/ListeEncheresConnecte.jsp");
 			} catch (BLLException e) {
 				// TODO Faire les logs
 				e.printStackTrace();
@@ -118,7 +118,7 @@ public class CreationCompteServlet extends HttpServlet {
 			request.setAttribute("rue", request.getParameter("rue"));
 			request.setAttribute("codePostal", request.getParameter("codePostal"));
 			request.setAttribute("ville", request.getParameter("ville"));
-			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 		}
 
 	}

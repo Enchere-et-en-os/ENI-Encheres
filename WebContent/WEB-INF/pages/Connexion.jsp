@@ -12,7 +12,7 @@
 			crossorigin="anonymous">
 		</head>
 	<body>
-		<jsp:include page="navBar.jsp" /><br><br>
+		<h1>ENI-Enchères</h1>
 	
 		<form class="col-3" method="POST" action="/ENI-Encheres/Connexion">
 	
