@@ -142,7 +142,7 @@ public class CreationCompteServlet extends HttpServlet {
 			request.setAttribute("rue", request.getParameter("rue"));
 			request.setAttribute("codePostal", request.getParameter("codePostal"));
 			request.setAttribute("ville", request.getParameter("ville"));
-			request.getRequestDispatcher("/WEB-INF/pages/PageCreerCompte.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 		}
 
 	}
