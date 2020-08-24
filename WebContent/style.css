@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.nav-link {
+    inline-size: auto;
+    display: block;
+    padding: .5rem 1rem;
+    margin-left: 60vw;
+}
+h2 {
+	color:red;
+}

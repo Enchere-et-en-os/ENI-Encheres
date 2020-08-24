@@ -74,11 +74,6 @@ public class PageConnexionServlet extends HttpServlet {
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("estConnecte", true);
-				//récupération de l'identifiant et du mot de passe
-//				String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
-//				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
-//				System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
-//				System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
 				request.getRequestDispatcher("/WEB-INF/pages/pageListeEncheresConnecte.jsp").forward(request, response);
 				
 			} else {

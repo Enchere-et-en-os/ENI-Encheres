@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="ISO-8859-1">
 		<title>Connexion</title>
 		<link rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -13,7 +12,7 @@
 			crossorigin="anonymous">
 		</head>
 	<body>
-		<h1>ENI-Enchères</h1>
+		<jsp:include page="navBar.jsp" /><br><br>
 	
 		<form class="col-3" method="POST" action="/ENI-Encheres/Connexion">
 	
