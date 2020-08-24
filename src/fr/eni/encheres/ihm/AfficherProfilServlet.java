@@ -30,53 +30,41 @@ public class AfficherProfilServlet extends HttpServlet {
 		 * Sinon page 404 
 		 */
 		UtilisateurManager mgr = new UtilisateurManager();
-
-		// TODO recupérer le nom de l'utilisateur choisit
-		Utilisateur util;
-		int memeProfil = 0;
-
 		HttpSession session = request.getSession();
+		Utilisateur utilDemande = null;
+		String utilCourant = (String) session.getAttribute("pseudo");
+		boolean memeProfil = false;
 		
 		try {
-			util = mgr.selectByPseudo(request.getParameter("pseudo"));
-			if(util == null){
-				if(session == null) {
+			utilDemande = mgr.selectByPseudo(request.getParameter("pseudo"));
+			System.out.println(utilDemande);
+			if(utilDemande == null){
+				if(utilCourant == null) {
 					// TODO redirection page 404
 					response.sendRedirect("erreur404");
-				} else {
-					request.setAttribute("pseudo", session.getAttribute("pseudo"));
-					request.setAttribute("nom", session.getAttribute("nom"));
-					request.setAttribute("prenom", session.getAttribute("prenom"));
-					request.setAttribute("email", session.getAttribute("email"));
-					request.setAttribute("telephone", session.getAttribute("telephone"));
-					request.setAttribute("rue", session.getAttribute("rue"));
-					request.setAttribute("codePostal", session.getAttribute("codePostal"));
-					request.setAttribute("ville", session.getAttribute("ville"));
-					memeProfil = 1;
-				}
-			} else {
-				request.setAttribute("pseudo", util.getPseudo());
-				request.setAttribute("nom", util.getNom());
-				request.setAttribute("prenom", util.getPrenom());
-				request.setAttribute("email", util.getEmail());
-				request.setAttribute("telephone", util.getTelephone());
-				request.setAttribute("rue", util.getRue());
-				request.setAttribute("codePostal", util.getCodePostal());
-				request.setAttribute("ville", util.getVille());
+				} else 
+					utilDemande = mgr.selectByPseudo(utilCourant);
+				
 			}
-			
-			
-			// Vérifie si le pseudo du profil affiché == psuedo stocké en session
-//			if(session.getAttribute("pseudo").equals(util.getPseudo())) {
-//				// création d'un bool pour savoir si la jsp doit afficher la bouton modifier
-//				profilUtilisateur = true;
-//			}
-
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		if(utilCourant.equals(utilDemande.getPseudo())){
+			memeProfil = true;
+		}
+			
+		request.setAttribute("pseudo", utilDemande.getPseudo());
+		request.setAttribute("nom", utilDemande.getNom());
+		request.setAttribute("prenom", utilDemande.getPrenom());
+		request.setAttribute("email", utilDemande.getEmail());
+		request.setAttribute("telephone", utilDemande.getTelephone());
+		request.setAttribute("rue", utilDemande.getRue());
+		request.setAttribute("codePostal", utilDemande.getCodePostal());
+		request.setAttribute("ville", utilDemande.getVille());
+		
+		request.setAttribute("memeProfil", memeProfil);
 		request.getRequestDispatcher("/WEB-INF/pages/Profil.jsp").forward(request, response);
 	}
 

@@ -68,7 +68,7 @@ public class CreationCompteServlet extends HttpServlet {
 			Utilisateur newUser = new Utilisateur(paramUser);
 			try {
 				mgr.insertUtilisateur(newUser);
-				response.sendRedirect("/WEB-INF/pages/ListeEncheresConnecte.jsp");
+				request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
 			} catch (BLLException e) {
 				// TODO Faire les logs
 				e.printStackTrace();

@@ -26,7 +26,7 @@
 	  	</div>
 		
 		<!-- Si le pseudo en session et le pseudo affiché sont les mêmes -->
-		<c:if test="${memeProfil == 1 }">
+		<c:if test="${memeProfil == true }">
 		<div class="form-group">
 			<label>Pseudo</label>
 	    	<label class="form-control">${pseudo}</label>
