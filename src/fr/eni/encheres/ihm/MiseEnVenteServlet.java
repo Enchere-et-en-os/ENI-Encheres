@@ -18,6 +18,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
 	}
 
@@ -25,6 +26,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
 	}
 
