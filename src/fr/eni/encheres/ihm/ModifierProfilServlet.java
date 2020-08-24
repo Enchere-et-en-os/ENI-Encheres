@@ -30,21 +30,26 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
-
 		HttpSession session = request.getSession(true);
+		Utilisateur utilDemande = null;
+		
+		try {
+			utilDemande = mgr.selectByPseudo((String) session.getAttribute("pseudo"));
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// TODO Méthode
-
-		request.setAttribute("pseudo", session.getAttribute("pseudo"));
-		request.setAttribute("prenom", session.getAttribute("prenom"));
-		request.setAttribute("nom", session.getAttribute("nom"));
-		request.setAttribute("email", session.getAttribute("email"));
-		request.setAttribute("telephone", session.getAttribute("telephone"));
-		request.setAttribute("rue", session.getAttribute("rue"));
-		request.setAttribute("codePostal", session.getAttribute("codePostal"));
-		request.setAttribute("ville", session.getAttribute("ville"));
-
+		request.setAttribute("pseudo", utilDemande.getPseudo());
+		request.setAttribute("prenom", utilDemande.getPrenom());
+		request.setAttribute("nom", utilDemande.getNom());
+		request.setAttribute("email", utilDemande.getEmail());
+		request.setAttribute("telephone", utilDemande.getTelephone());
+		request.setAttribute("rue", utilDemande.getRue());
+		request.setAttribute("codePostal", utilDemande.getCodePostal());
+		request.setAttribute("ville", utilDemande.getVille());
+		
 		request.getRequestDispatcher("/WEB-INF/pages/ModifierProfil.jsp").forward(request, response);
 	}
 

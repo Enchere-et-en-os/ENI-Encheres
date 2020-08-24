@@ -18,11 +18,11 @@ public interface ConnexionForm {
 	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";
-	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8.15}$";
+	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8,15}$";
 
 	/*
 	 * @Author : Tanguy & Valentin
-	 * 
+	 * @References : https://www.lucaswillems.com/fr/articles/25/tutoriel-pour-maitriser-les-expressions-regulieres
 	 * @Param : la nom et la valeur d'un parametre de requÃªte
 	 * 
 	 * @Return : String de message d'Ã©rreur
@@ -98,8 +98,6 @@ public interface ConnexionForm {
 			}
 			break;
 		}
-		
-
 		return message;
 	}
 
@@ -107,13 +105,16 @@ public interface ConnexionForm {
 	 * @Auhtor : Valentin
 	 * 
 	 * Desc : Ajout d'attribut contenant les possibles messages d'erreurs &
-	 * vÃ©rification des donnÃ©es rentrÃ©es dans le formulaire
+	 * vérification des données rentrées dans le formulaire
 	 * 
-	 * @Param : Requete d'une Servlet & la liste en String des entrÃ©es du formulaire
+	 * @Param : Requete d'une Servlet & la liste en String des entrées du formulaire
+	 * 			la liste doit suivre le même ordre que celui du constructeur Utilisateur
 	 * 
 	 * @Return : Utilisateur via un constructeur de type List
 	 */
 	public static ArrayList<String> checkForm(HttpServletRequest request, ArrayList<String> entries) {
+		UtilisateurManager mgr = new UtilisateurManager();
+		List<Utilisateur> listCheckUsers = null;
 		ArrayList<String> paramUser = new ArrayList<String>();
 		String mdp = "";
 		String erreur;
@@ -122,7 +123,6 @@ public interface ConnexionForm {
 			switch (entry) {
 
 			case "telephone":
-				System.out.println(request.getParameter(entry).trim());
 				if (!request.getParameter(entry).trim().isEmpty())
 					request.setAttribute("erreurTelephone", regStringValeur(request.getParameter(entry), entry));
 				paramUser.add(request.getParameter(entry).trim());
@@ -131,15 +131,36 @@ public interface ConnexionForm {
 			case "mdp":
 				String lastEntry = request.getParameter(entries.get(entries.size() - 1)).trim();
 				if (!(request.getParameter(entry).trim().equals(lastEntry))) {
-					request.setAttribute("erreurConfirm", "Le mot de passe et sa confirmation sont diffï¿½rents");
+					request.setAttribute("erreurConfirm", "Le mot de passe et sa confirmation sont différents");
 					entries.remove(entries.size() - 1);
 					break;
 				}
-				
-				mdp = hashkMdp(request.getParameter(entry).trim());
-				if (mdp.isEmpty()) {
-					request.setAttribute("erreurMdp", "Choissisez un autre mot de passe");
+				// vérifie si une érreur est levé, si oui break
+				erreur = "erreur" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
+				request.setAttribute(erreur, regStringValeur(request.getParameter(entry), entry));
+				if(request.getAttribute("erreurMdp") != null) {
+					
+					break;
 				}
+					
+				
+				mdp = hashMdp(request.getParameter(entry).trim());
+				
+				// vérifie si le mot de passe existe en bdd
+				// TODO make it work
+				try {
+					listCheckUsers = mgr.getAllUtilisateur();
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				for (Utilisateur utilisateur : listCheckUsers) {
+					if (utilisateur.getMotDePasse() == mdp) {
+						request.setAttribute(erreur , "Choissisez un autre Mot de Passe");
+					}
+
+				}
+					
 				entries.remove(entries.size() - 1);
 				break;
 
@@ -151,24 +172,22 @@ public interface ConnexionForm {
 			}
 		}
 		paramUser.add(mdp);
-		System.out.println(paramUser);
 		return paramUser;
 	}
 	
 
 	/*
 	 * @Author : Valentin
+	 * @References : https://www.baeldung.com/sha-256-hashing-java
 	 * 
-	 * @Param : String, Mot de passe voulu par l'utilisateur
+	 * @Param : String, Mot de passe entré par l'utilisateur
 	 * 
-	 * @Return : String, Mot de passe hashÃ© aprÃ¨s moult vÃ©rifications
+	 * @Return : String, Mot de passe hashé
 	 */
-	public static String hashkMdp(String entryMdp) {
+	public static String hashMdp(String entryMdp) {
 
-		String mdp = null;
 		MessageDigest digest = null;
-		UtilisateurManager mgr = new UtilisateurManager();
-
+		
 		try {
 			digest = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
@@ -183,27 +202,8 @@ public interface ConnexionForm {
 				hexString.append('0');
 			hexString.append(hex);
 		}
+		
+		return hexString.toString();
 
-		mdp = hexString.toString();
-		List<Utilisateur> list = null;
-
-		try {
-			list = mgr.getAllUtilisateur();
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for (Utilisateur utilisateur : list) {
-			if (utilisateur.getMotDePasse() == mdp) {
-				mdp = null;
-			}
-
-		}
-
-		return mdp;
-		// TODO mÃ©thode pour remove les attributs inutiles
-		// de prÃ©fÃ©rence pour les messages (erreurs / confirmation)
-
-		// TODO remplacer les (xxx == null) par xxx.isEmpty()
 	}
 }
