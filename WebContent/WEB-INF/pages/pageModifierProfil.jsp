@@ -12,6 +12,7 @@
 	<h2 ><small>Mon Profil</small></h2>
 	
 	<form action="/ENI-Encheres/ModificationProfil" method="post">
+	
 		<div class="form-group">
 			<label for="Pseudo">Pseudo</label>
 	    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo"/>
@@ -53,13 +54,7 @@
 	    	
 	   	 	<label for="Confirmation">Confirmation</label>
 	    	<input name="confirm" type="password" class="form-control" id="Confirmation">
-	  	</div>
-	  	
-	  	<div>
-	  		<label>Crédit</label>
-	  		<!-- TODO utiliser la méthode consulterCrédit -->
-	  		<p>${utilisateur.credit}</p>
-	  	</div>
+	  	</div> 		
 		
 		<button name="enregistrer" type="submit" class="btn btn-success" >Enregistrer</button>
 		<button name="annuler" type="submit" class="btn btn-secondary">Annuler</button>

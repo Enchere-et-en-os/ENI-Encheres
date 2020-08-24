@@ -1,5 +1,7 @@
 package fr.eni.encheres.bo;
 
+import java.util.List;
+
 public class Utilisateur {
 
 	private int id;
@@ -77,8 +79,6 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 	}
-	
-	
 
 	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse) {
@@ -93,6 +93,19 @@ public class Utilisateur {
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
+	}
+
+	public Utilisateur(List<String> list) {
+		this.id = Integer.valueOf(list.get(0));
+		this.pseudo = list.get(1);
+		this.nom = list.get(2);
+		this.prenom = list.get(3);
+		this.email = list.get(4);
+		this.telephone = list.get(5);
+		this.rue = list.get(6);
+		this.codePostal = list.get(7);
+		this.ville = list.get(8);
+		this.motDePasse = list.get(9);
 	}
 
 	public int getId() {

@@ -1,11 +1,7 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +13,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
-import fr.eni.encheres.dal.DALException;
-import fr.eni.encheres.dal.UtilisateurDAO;
 
 
 /**
@@ -36,24 +30,17 @@ public class PageConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			//récupération des utilisateurs en bdd
-			
-			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
-			//récupérer une session
-			HttpSession session = request.getSession();
-			String identifiantDutilisateur = (String) session.getAttribute("identifiant");
-			System.out.println(listeDutilisateur);
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		//supprimer la session : déconnexion
-		//session.invalidate();
-		
+
+		String pseudo = request.getParameter("pseudo");
+		String motDePasse = request.getParameter("motDePasse");
+		//reset à zéro si pas de session ouverte
+		if( pseudo == null) pseudo = "";
+		if( motDePasse == null) motDePasse = "";
+		//contrôle de la session 
+		HttpSession session = request.getSession( true );
+		session.setAttribute("pseudo", pseudo);
+		session.setAttribute("motDePasse", motDePasse);
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 	}
 
@@ -63,46 +50,48 @@ public class PageConnexionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
+			//récupération de la liste des utilisateurs en bdd et de la saisie des inputs sur la page de connexion
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			String pseudo = request.getParameter("pseudo");
 			String motDePasse = request.getParameter("motDePasse");
 			String email = null;
-			
+			//création de la session
+			HttpSession session = request.getSession();
 			//vérif de la saisie utilisateur si pseudo est un mail ou un pseudo
+			//e t filtre la saisie pour la stocker dans le pseudo
 			if (pseudo.matches(EMAIL_PATTERN)) {
 			 email = (String) request.getParameter("pseudo");
 			}
-			//filtre de recherche si pseudo ou si email
-			Utilisateur utilisateurConfirmeBDD = listeDutilisateur.stream().filter(u -> u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo))
-				       .findFirst().orElse(null);
 			
-			System.out.println("filtre" + utilisateurConfirmeBDD );
-
+			//filtre de recherche si pseudo ou si email existe dans la bdd et si ceux ci-correspondent au mot de passe enregistré en bdd
+			Utilisateur utilisateurConfirmeBDD = 
+				listeDutilisateur.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
+			       .findFirst().orElse(null);
+			
 			if (utilisateurConfirmeBDD != null) {
+				System.out.println("connecté");
 				
-				HttpSession session = request.getSession();
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
-				session.setAttribute("listeDutilisateur", listeDutilisateur);
-				
+				session.setAttribute("estConnecte", true);
 				//récupération de l'identifiant et du mot de passe
-				String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
-				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
-				System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
-				System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
-				System.out.println();
-				response.sendRedirect("/WEB-INF/pages/Accueil.jsp" );
+//				String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
+//				String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
+//				System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
+//				System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
+				request.getRequestDispatcher("/WEB-INF/pages/pageListeEncheresConnecte.jsp").forward(request, response);
+				
 			} else {
-				 String message = "Email / mot de passe non conforme";
-				request.setAttribute("message", message);
+				System.out.println( "pas connescté ou erreur de saisie");
+				session.setAttribute("estConnecte", false);
+				request.setAttribute("message", "Email / mot de passe non conforme");
+				request.getRequestDispatcher("/WEB-INF/pages/pageConnexion.jsp").forward(request, response);
 			}
 		} catch (BLLException e) {
 			e.printStackTrace();
 		}
-		
-		
-
-		}
 	}
+}
+
 
 
