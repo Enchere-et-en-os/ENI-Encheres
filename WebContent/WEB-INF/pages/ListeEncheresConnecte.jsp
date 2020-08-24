@@ -13,10 +13,17 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
+	<style type="text/css"><%@include file="/style.css"%></style>
 <title>ENI-Enchere</title>
 </head>
 <body>
-	<jsp:include page="NavBar.jsp" /><br><br>
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="Accueil">ENI-Enchere</a>
+	    <form class="form-inline my-2 my-lg-0">
+	       <a class="nav-link"  href="Connexion">S'inscrire - Se connecter</a>
+	    </form>
+	</nav>
+	<br><br>
 
 	
 	<h2>Liste des enchères</h2>

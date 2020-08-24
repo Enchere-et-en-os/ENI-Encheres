@@ -71,12 +71,10 @@ public class ConnexionServlet extends HttpServlet {
 			Utilisateur utilisateurConfirmeBDD = 
 				listeDutilisateur.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
 			       .findFirst().orElse(null);
-			for (Utilisateur utilisateur : listeDutilisateur) {
-				
-			}
+
 			if (utilisateurConfirmeBDD != null) {
 				System.out.println("connecté");
-				
+				listeDutilisateur.stream();
 				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("id", id);
