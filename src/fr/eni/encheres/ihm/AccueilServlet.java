@@ -33,6 +33,13 @@ public class AccueilServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
 	}
 

@@ -49,10 +49,12 @@
 		<div class="input-group-append">
 			<button class="btn btn-outline-secondary dropdown-toggle"
 				type="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false">Dropdown</button>
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">1</a> <a class="dropdown-item"
-					href="#">2</a> <a class="dropdown-item" href="#">3</a>
+				aria-expanded="false">Catégorie</button>
+			<div class="dropdown-menu" default="">
+				<a class="dropdown-item" href="#">Toutes</a>
+				<c:forEach var="categorie" items="${listeCategorie}"> 
+					<a class="dropdown-item" href="#">${categorie.libelle}</a> 
+				</c:forEach>
 			</div>
 		</div>
 	</div>
