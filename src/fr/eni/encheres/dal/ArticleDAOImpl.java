@@ -16,10 +16,14 @@ public class ArticleDAOImpl implements ArticleDAO {
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
-//	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
-//			+ " date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, image_path FROM ARTICLES_VENDUS ";
+
+	// Version requête sans "image_path"
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
 			+ " date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
+
+	/** private static final String SQL_INSERT_ARTICLES = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres,"
+	/**	+ "date_fin_encheres, prix_initial  ) VALUES ()";
+	
 	/**
 	 * Selectionne tout les articles
 	 * 
@@ -43,6 +47,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 			while (rs.next()) {
 				dateDebutEnchere = rs.getDate("date_debut_encheres").toLocalDate();
 				dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
+				// Version instance sans "image_path"
 				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
 						dateDebutEnchere, dateFinEnchere, rs.getInt("prix_initial"), rs.getInt("prix_vente"), null,
 						null, null);
