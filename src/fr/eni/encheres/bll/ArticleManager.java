@@ -20,6 +20,7 @@ public class ArticleManager {
 	 * @author Samy-Lee
 	 * @return List<Article>
 	 * @throws BLLException
+	 * Selectionne tout les articles
 	 */
 	public List<Article> SelectAllArticles() throws BLLException {
 
@@ -39,6 +40,7 @@ public class ArticleManager {
 	 * @author Samy-Lee
 	 * @return List<Categorie>
 	 * @throws BLLException
+	 * Selectionne toutes les catégories
 	 */
 	public List<Categorie> SelectAllCategories() throws BLLException {
 		

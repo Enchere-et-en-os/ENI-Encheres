@@ -27,11 +27,11 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 
 
-	 * /** Selectionne tout les articles
-	 * 
+	 /**
 	 * @author Samy-Lee
 	 * @return List<Article>
 	 * @throws DALException
+	 * Selectionne tout les articles
 	 */
 	public List<Article> SelectAllArticles() throws DALException {
 		List<Article> listeArticles = new ArrayList<Article>();
@@ -87,6 +87,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	 * @author Samy-Lee
 	 * @return List<Categorie>
 	 * @throws BLLException
+	 * Selectionne toutes les catégories
 	 */
 	public List<Categorie> SelectAllCategories() throws DALException {
 		List<Categorie> listeCategorie = new ArrayList<Categorie>();
