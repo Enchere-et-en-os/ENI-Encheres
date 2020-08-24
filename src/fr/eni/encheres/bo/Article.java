@@ -10,15 +10,19 @@ public class Article {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private Enum EtatEnum;
+	private String lieuVente;
+	private int etatVente;
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private String imageUrl;
 
 	
 	
+	
+
 	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie) {
+			int miseAPrix, int prixVente, String lieuVente, int etatVente, Utilisateur utilisateur, Categorie categorie,
+			String imageUrl) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -27,13 +31,16 @@ public class Article {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		EtatEnum = etatEnum;
+		this.lieuVente = lieuVente;
+		this.etatVente = etatVente;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
+		this.imageUrl = imageUrl;
 	}
 
+	
 	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,
+			int miseAPrix, int prixVente, String lieuVente, int etatVente, Utilisateur utilisateur, Categorie categorie,
 			String imageUrl) {
 		super();
 		this.nom = nom;
@@ -42,28 +49,13 @@ public class Article {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		EtatEnum = etatEnum;
+		this.lieuVente = lieuVente;
+		this.etatVente = etatVente;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
 		this.imageUrl = imageUrl;
 	}
 
-	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Enum etatEnum, Utilisateur utilisateur, Categorie categorie,
-			String imageUrl) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-		EtatEnum = etatEnum;
-		this.utilisateur = utilisateur;
-		this.categorie = categorie;
-		this.imageUrl = imageUrl;
-	}
 
 	public int getId() {
 		return id;
@@ -121,13 +113,14 @@ public class Article {
 		this.prixVente = prixVente;
 	}
 
-	public Enum getEtatEnum() {
-		return EtatEnum;
+	public int getEtatVente() {
+		return etatVente;
 	}
 
-	public void setEtatEnum(Enum etatEnum) {
-		EtatEnum = etatEnum;
+	public void setEtatVente(int etatVente) {
+		this.etatVente = etatVente;
 	}
+	
 
 	public Categorie getCategorie() {
 		return categorie;
@@ -153,11 +146,19 @@ public class Article {
 		this.imageUrl = imageUrl;
 	}
 
+	public String getLieuVente() {
+		return lieuVente;
+	}
+
+	public void setLieuVente(String lieuVente) {
+		this.lieuVente = lieuVente;
+	}
+
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", nom=" + nom + ", description=" + description + ", dateDebutEncheres="
 				+ dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix=" + miseAPrix
-				+ ", prixVente=" + prixVente + ", EtatEnum=" + EtatEnum + ", categorie=" + categorie + "]";
+				+ ", prixVente=" + prixVente + ", etatVente=" + etatVente + ",  categorie=" + categorie + "]";
 	}
 
 }

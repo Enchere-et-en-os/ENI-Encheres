@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 
 public class ArticleDAOImpl implements ArticleDAO {
@@ -21,10 +22,8 @@ public class ArticleDAOImpl implements ArticleDAO {
 	// Version requête sans "image_path"
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
 			+ " date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
+	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,?,?,?,?)";
 
-	/** private static final String SQL_INSERT_ARTICLES = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres,"
-	/**	+ "date_fin_encheres, prix_initial  ) VALUES ()";
-	
 	/**
 	 * Selectionne tout les articles
 	 * 
@@ -64,16 +63,54 @@ public class ArticleDAOImpl implements ArticleDAO {
 	/**
 	 * méthode d'insertion d'un objet en bdd
 	 * @throws SQLException 
+	 * @throws DALException 
 	 */
-	public Article insertArticle () throws SQLException {
+	public Article insertArticle (Utilisateur utilisateur, Categorie categorie, Article article) throws SQLException, DALException {
 		Article article = null;
-		try (Connection conn = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = conn.prepareStatement(
-					"Insert into ARTICLES_VENDUS VALUES('chaussures','ça c''est de la pompe pour bien marcher en ville','22/03/2020' , '22/12/2020' ,100, 120,1,1)");
+		int utilisateurId = utilisateur.getId();
+		int categorieID = categorie.getId();
+		PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
+		/**
+		 * /**
+	
+    nom_article                   VARCHAR(30) NOT NULL,
+    description                   VARCHAR(300) NOT NULL,
+	date_debut_encheres           DATE NOT NULL,
+    date_fin_encheres             DATE NOT NULL,
+    prix_initial                  INTEGER,
+    prix_vente                    INTEGER,
+	etatVente					  INTEGER,
+    no_utilisateur                INTEGER NOT NULL,
+    no_categorie                  INTEGER NOT NULL
+	 * **/
+//		dateDebutEnchere = rs.getDate("date_debut_encheres").toLocalDate();
+//		dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
+
+		pstmt.setString(1, article.getNom());
+		pstmt.setString(2, article.getDescription());
+		pstmt.setDate(3, java.sql.Date.valueOf( article.getDateDebutEncheres()));
+		pstmt.setDate(4, java.sql.Date.valueOf( article.getDateFinEncheres()));
+		pstmt.setInt(5, article.getMiseAPrix());
+		pstmt.setInt(6, article.getPrixVente());
+		pstmt.setInt(7, article.getEtatVente());
+		pstmt.setInt(8, utilisateurId);
+		pstmt.setInt(9, categorieID);
+
+		pstmt.executeUpdate();
+
+		ResultSet rs = pstmt.getGeneratedKeys();
+		if (rs.next()) {
+			article.setId(rs.getInt(1));
 		}
-		//   no_utilisateur                INTEGER NOT NULL,
-	    //no_categorie                  INTEGER NOT NULL
-		//Insert into ARTICLES_VENDUS VALUES('chaussures','ça c''est de la pompe pour bien marcher en ville','22/03/2020' , '22/12/2020' ,100, 120,1,1);
+		
+
+
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Echec de l'insertion d'un nouvel article", e); 
+		}
+		
 		return article;
 		
 	}
