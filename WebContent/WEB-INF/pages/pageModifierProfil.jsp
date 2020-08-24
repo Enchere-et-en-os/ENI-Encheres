@@ -49,7 +49,7 @@
 	    	<input name="acienMdp" type="password" class="form-control" id="AncienMotDePasse">
 	    	
 	    	<label for="NouveauMotDePasse">Nouveau Mot De Passe</label>
-	    	<input name="NouveauMdp" type="password" class="form-control" id="NouveauMotDePasse">
+	    	<input name="nouveauMdp" type="password" class="form-control" id="NouveauMotDePasse">
 	    	
 	   	 	<label for="Confirmation">Confirmation</label>
 	    	<input name="confirm" type="password" class="form-control" id="Confirmation">
