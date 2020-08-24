@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
@@ -24,12 +25,20 @@ public class ArticleDAOImpl implements ArticleDAO {
 			+ " date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
 	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,?,?,?,?)";
 
+
 	/**
 	 * Selectionne tout les articles
 	 * 
+
+	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
+
+
+	 /**
+
 	 * @author Samy-Lee
 	 * @return List<Article>
 	 * @throws DALException
+	 * Selectionne tout les articles
 	 */
 	public List<Article> SelectAllArticles() throws DALException {
 		List<Article> listeArticles = new ArrayList<Article>();
@@ -60,12 +69,14 @@ public class ArticleDAOImpl implements ArticleDAO {
 		}
 		return listeArticles;
 	}
+
 	/**
 	 * méthode d'insertion d'un objet en bdd
 	 * @throws SQLException 
 	 * @throws DALException 
 	 */
 	public Article insertArticle (Utilisateur utilisateur, Categorie categorie, Article article) throws SQLException, DALException {
+
 		Article article = null;
 		int utilisateurId = utilisateur.getId();
 		int categorieID = categorie.getId();
@@ -110,8 +121,36 @@ public class ArticleDAOImpl implements ArticleDAO {
 			e.printStackTrace();
 			throw new DALException("Echec de l'insertion d'un nouvel article", e); 
 		}
-		
+
 		return article;
-		
+
+	}
+
+	
+	/**
+	 * @author Samy-Lee
+	 * @return List<Categorie>
+	 * @throws BLLException
+	 * Selectionne toutes les catégories
+	 */
+	public List<Categorie> SelectAllCategories() throws DALException {
+		List<Categorie> listeCategorie = new ArrayList<Categorie>();
+
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			Statement stmt = conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_CATEGORIES);
+			Categorie categorie = null;
+
+			while (rs.next()) {
+				categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+				listeCategorie.add(categorie);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Echec de SelectAllCategories", e);
+		}
+		return listeCategorie;
 	}
 }
