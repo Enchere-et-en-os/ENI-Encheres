@@ -77,13 +77,13 @@ public class AfficherProfilServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.getRequestDispatcher("/WEB-INF/pages/pageProfil.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/Profil.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/pages/pageModifierProfil.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/ModifierProfil.jsp").forward(request, response);
 	}
 
 }

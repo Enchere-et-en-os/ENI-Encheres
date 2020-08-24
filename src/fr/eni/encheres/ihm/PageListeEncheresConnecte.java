@@ -38,14 +38,14 @@ public class PageListeEncheresConnecte extends HttpServlet {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageListeEncheresConnecte.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/pageListeEncheresConnecte.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
 
 }
