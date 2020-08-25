@@ -22,7 +22,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
 			+ " date_fin_encheres, prix_initial, prix_vente, etatVente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
-	
 	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 
@@ -142,5 +141,41 @@ public class ArticleDAOImpl implements ArticleDAO {
 			throw new DALException("Echec de SelectAllCategories", e);
 		}
 		return listeCategorie;
+	}
+	
+	/**
+	 * Selectionne tout les articles
+	 * @author Samy-Lee
+	 * @return List<Article>
+	 * @throws DALException
+	 */
+	public List<Article> SelectAllArticles() throws DALException{
+		List<Article> listeArticles = new ArrayList<Article>();
+		
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			Statement stmt = conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_ARTICLES);
+			
+			Article article = null;
+			
+			LocalDate dateDebutEnchere = null;
+			LocalDate dateFinEnchere = null;
+			
+			
+			while(rs.next()) {
+				dateDebutEnchere = rs.getDate("date_debut_encheres").toLocalDate();
+				dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
+				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), 
+						     dateDebutEnchere, dateFinEnchere, rs.getInt("prix_initial"), 
+						      rs.getInt("prix_vente"), rs.getInt("etatVente"), rs.getInt("no_utilisateur") ,rs.getInt("no_categorie"));
+				listeArticles.add(article);
+			}
+		
+		} catch (SQLException e){
+			e.printStackTrace();
+			throw new DALException("Echec de SelectAllArticles", e);
+		}
+		return listeArticles;
 	}
 }
