@@ -42,7 +42,7 @@
 	    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal">
 	    	
 	   	 	<label for="Ville">Ville</label>
-	    	<input value="${ville}" type="text" class="form-control" id="Ville">
+	    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville">
 	  	</div>
 	  	
 	  	<div class="form-group">
@@ -50,10 +50,10 @@
 	    	<input name="acienMdp" type="password" class="form-control" id="AncienMotDePasse">
 	    	
 	    	<label for="NouveauMotDePasse">Nouveau Mot De Passe</label>
-	    	<input name="nouveauMdp" type="password" class="form-control" id="NouveauMotDePasse">
+	    	<input name="mdp" type="password" class="form-control" id="NouveauMotDePasse">
 	    	
 	   	 	<label for="Confirmation">Confirmation</label>
-	    	<input name="confirm" type="password" class="form-control" id="Confirmation">
+	    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation">
 	  	</div> 		
 		
 		<button name="enregistrer" type="submit" class="btn btn-success" >Enregistrer</button>

@@ -130,6 +130,7 @@ public interface ConnexionForm {
 
 			case "mdp":
 				String lastEntry = request.getParameter(entries.get(entries.size() - 1)).trim();
+
 				if (!(request.getParameter(entry).trim().equals(lastEntry))) {
 					request.setAttribute("erreurConfirm", "Le mot de passe et sa confirmation sont différents");
 					entries.remove(entries.size() - 1);
@@ -165,6 +166,7 @@ public interface ConnexionForm {
 				break;
 
 			default:
+				
 				paramUser.add(request.getParameter(entry).trim());
 				erreur = "erreur" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
 				request.setAttribute(erreur, regStringValeur(request.getParameter(entry), entry));

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
@@ -68,6 +69,9 @@ public class CreationCompteServlet extends HttpServlet {
 			Utilisateur newUser = new Utilisateur(paramUser);
 			try {
 				mgr.insertUtilisateur(newUser);
+				// Création de la session
+				HttpSession session = request.getSession( true );
+				session.setAttribute("pseudo", newUser.getPseudo());
 				request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
 			} catch (BLLException e) {
 				// TODO Faire les logs

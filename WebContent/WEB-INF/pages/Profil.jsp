@@ -45,7 +45,7 @@
 	  		<label>Crédit</label>
 	  		<label>${credit}</label>
 		</div>
-		<form action="/ENI-Encheres/ModificationProfil" method="post">
+		<form action="/ENI-Encheres/Profil" method="post">
 			<button type="submit" class="btn btn-secondary">Modifier</button>
 		</form>
 		<p>${messageUpdate}</p>

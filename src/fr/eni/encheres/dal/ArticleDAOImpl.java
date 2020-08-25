@@ -27,7 +27,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 
 
-	 * /** Selectionne tout les articles
+	 /** Selectionne tout les articles
 	 * 
 	 * @author Samy-Lee
 	 * @return List<Article>

@@ -23,9 +23,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			+ "rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
 	private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, " + 
 			"rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo = ?";
-	private static final String UPDATE_USER = "UPADTE utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, " + 
+	private static final String UPDATE_USER = "UPDATE utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, " + 
 			"rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
-	private static final String DELETE_BY_ID = "DELETE FROM utilisateurs WHERE no_utilisateur = ?";
+	private static final String DELETE_BY_ID = "DELETE utilisateurs FROM utilisateurs " + 
+			"INNER JOIN ARTICLES_VENDUS ON ARTICLES_VENDUS.no_utilisateur = utilisateurs.no_utilisateur " + 
+			"WHERE utilisateurs.no_utilisateur = ?";
 	
 	
 	/**
