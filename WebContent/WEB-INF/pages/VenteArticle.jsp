@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <style type="text/css"><%@include file="/style.css"%></style>
 <title>Nouvelle vente</title>
 </head>
@@ -16,20 +17,24 @@
 	
   <div class="row">
     <div class="col-sm col-lg-3">
-     	<img class="img_art" src="/ENI-Encheres/images/chapeau_paille.jpg" alt="..." >
+     	<img class="img_art" src="/ENI-Encheres/images/chapeau_paille.jpg" 
+     		alt="chapeau de paille posé délicatemment sur une jolie demoiselle à la chevelure blonde et soyeuse" 
+   		>
     </div>
     <div class="col-sm col-lg-9">
       <h2>Nouvelle vente</h2>
-		<form method="POST" action="/ENI-Enchere/MiseEnVente">
+		<form method="POST" action="/ENI-Encheres/MiseEnVente">
 
 			<div class="form-group">
 				<label for="article">Article :</label>
 				<input value="" name="article" type="text" class="form-control" id="article" required/>
 			</div>
 			
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="description">Description :</label>
-				<textarea name="description" rows="5" cols="100" maxlength="500" >Vous pouvez écrire votre description ici.</textarea>
+				<textarea name="description" rows="5" cols="100" maxlength="500" >
+					Vous pouvez écrire votre description ici.
+				</textarea>
 			</div>
 			
 			<div class="form-group">
@@ -80,7 +85,7 @@
 					<input value="" name="ville" type="text" class="form-control" id="ville" required/>
 				</div>
 	  		</fieldset>
-
+ -->
 				<button type="submit" class="btn btn-secondary">Enregistrer</button>
 				<button type="button" class="btn btn-secondary">Annuler</button>
 				

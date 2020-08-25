@@ -28,7 +28,6 @@ public class CreationCompteServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/pages/CreerCompte.jsp").forward(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
