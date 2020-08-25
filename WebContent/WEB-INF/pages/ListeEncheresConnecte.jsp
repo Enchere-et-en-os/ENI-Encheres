@@ -43,7 +43,7 @@
 	<div class="container ">
 		<div class="row " >
 			<div class="form-check col-sm">
-			  <input class="form-check-input" type="radio" name="radioAchat" id="achat" value="option1" checked>
+			  <input class="form-check-input" type="radio" name="radio" id="achat" value="1" checked>
 			  <label class="form-check-label" for="achat"> Achats</label>
 				  <div>
 					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -62,7 +62,7 @@
 			
 			
 			<div class="form-check col-sm">
-			  <input class="form-check-input" type="radio" name="radioVente" id="vente" value="option2">
+			  <input class="form-check-input" type="radio" name="radio" id="vente" value="2">
 			  <label class="form-check-label" for="exampleRadios2">Mes ventes</label>
 			  <div  >
 				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -98,8 +98,11 @@
 
 
 
-
-
+<c:if test="${radio == 2}">
+	<p>vente</p></c:if>
+	
+	<c:if test="${radio == 1}">
+	<p>achat</p></c:if>
 
 	<c:forEach var="article" items="${listeArticle}">
 

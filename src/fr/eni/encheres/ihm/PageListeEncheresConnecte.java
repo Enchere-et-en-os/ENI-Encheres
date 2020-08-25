@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class PageListeEncheresConnecte
@@ -27,17 +30,16 @@ public class PageListeEncheresConnecte extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
-		String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
-		System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
-		System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
-		
-//		try {
-//			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
-//			
-//		} catch (BLLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		Categorie cat = new Categorie(2,"Véhciule");
+		Utilisateur jean = new Utilisateur(21, "jeanJean", "jean", "dupont", "jean@dupont.com", "0123456789", "rue", "44000", "Nantes", "123456");
+
+		try {
+			request.setAttribute("listeArticle", articleManager.SelectAllArticlesAvecUtilisateurEtCategorie(jean.getId(), cat.getId()));
+			
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
 
