@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class ConnexionServlet
@@ -27,12 +29,12 @@ public class AccueilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		try {
-			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
+//		} catch (BLLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		try {
 			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
