@@ -37,11 +37,9 @@ public class AfficherProfilServlet extends HttpServlet {
 		
 		try {
 			utilDemande = mgr.selectByPseudo(request.getParameter("pseudo"));
-			System.out.println(utilDemande);
 			if(utilDemande == null){
-				if(utilCourant == null) {
-					// TODO redirection page 404
-					response.sendRedirect("erreur404");
+				if(utilCourant.isEmpty()) {
+					request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
 				} else 
 					utilDemande = mgr.selectByPseudo(utilCourant);
 				
@@ -51,7 +49,9 @@ public class AfficherProfilServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(utilCourant.equals(utilDemande.getPseudo())){
+		// TODO Null Pointer provenant des attributs de la requete / session
+		// quand on consulte un profil en tant que non connecté
+		if((utilDemande.getPseudo()).equals(utilCourant)){
 			memeProfil = true;
 		}
 			
@@ -63,6 +63,7 @@ public class AfficherProfilServlet extends HttpServlet {
 		request.setAttribute("rue", utilDemande.getRue());
 		request.setAttribute("codePostal", utilDemande.getCodePostal());
 		request.setAttribute("ville", utilDemande.getVille());
+		request.setAttribute("credit", utilDemande.getCredit());
 		
 		request.setAttribute("memeProfil", memeProfil);
 		request.getRequestDispatcher("/WEB-INF/pages/Profil.jsp").forward(request, response);
