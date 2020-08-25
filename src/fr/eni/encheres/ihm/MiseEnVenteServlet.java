@@ -16,7 +16,7 @@ import fr.eni.encheres.bo.Article;
 @WebServlet("/MiseEnVente")
 public class MiseEnVenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static final String REGEX = "^[-\\w\\s]+$";
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -34,8 +34,24 @@ public class MiseEnVenteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		//récupération des saisies 
+		String article = request.getParameter("article");
+		String description = request.getParameter("description");
+		String miseAprix = request.getParameter("miseAprix");
+		String debutEnchere = request.getParameter("debutEnchere");
+		String finEnchere = request.getParameter("finEnchere");
+		//retrait à faire avec la bdd
+		String rue = request.getParameter("rue");
+		String codePostal = request.getParameter("codePostal");
+		String ville = request.getParameter("ville");
+		
+		testString(article);
 		
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
 	}
-
+	public static String testString(String str) {
+	
+		return (str.matches(REGEX)) ? str :"erreur";
+	}
 }
