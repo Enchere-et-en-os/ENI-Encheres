@@ -22,14 +22,14 @@ public class ArticleManager {
 	 * @author Samy-Lee
 	 * @return List<Article>
 	 * @throws BLLException
-	 * Selectionne tout les articles
+	 * Selectionne tout les articles avec Utilisateur et catégorie
 	 */
 	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(int utilisateurId, int categorieId) throws BLLException {
 		List<Article> listeArticle = null;
 		try {
 			listeArticle = articleDAO.SelectAllArticlesAvecUtilisateurEtCategorie(utilisateurId, categorieId);
 		} catch (DALException e) {
-			System.out.println("erreur manager SelectAllArticle");
+			System.out.println("erreur manager SelectAllArticlesAvecUtilisateurEtCategorie");
 			throw new BLLException();
 		}
 		return listeArticle;
@@ -71,16 +71,22 @@ public class ArticleManager {
 		
 	}
 	
-	public List<Article> selectAllArticles() throws BLLException{
+
+	/**
+	 * @author Samy-Lee
+	 * @return List<Article>
+	 * @throws BLLException
+	 * Selectionne tout les articles avec Utilisateur et catégorie
+	 */
+	public List<Article> SelectAllArticles() throws BLLException {
 		List<Article> listeArticle = null;
-		
 		try {
 			listeArticle = articleDAO.selectAllArticles();
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Erreur manager SelectAllArticle");
+			System.out.println("erreur manager SelectAllArticles");
 			throw new BLLException();
 		}
 		return listeArticle;
+
 	}
 }

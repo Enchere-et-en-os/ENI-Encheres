@@ -16,7 +16,7 @@
 			
 			<div class="form-group ">
 				<label for="pseudo">Identifiant :${pseudo}</label> 
-				<input type="text" class="form-control" name="pseudo" 
+				<input type="text" class="form-control" name="pseudo"
 					id="pseudo" aria-describedby="emailHelp"
 					value='${login}' required autofocus
 				>
@@ -36,8 +36,9 @@
 	
 			<div class="form-group form-check">
 				<input type="checkbox" class="form-check-input" id="exampleCheck1">
-				<label class="form-check-label" for="exampleCheck1">Se
-					souvenir de moi</label>
+				<label class="form-check-label" for="exampleCheck1">
+				   Se souvenir de moi
+				</label>
 			</div>
 	
 			<button type="submit" class="btn btn-primary">Connexion</button>

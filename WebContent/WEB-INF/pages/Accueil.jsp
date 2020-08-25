@@ -20,44 +20,46 @@
 <body>
  	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="Accueil">ENI-Enchere</a>
-	    <form class="form-inline my-2 my-lg-0">
+	  <ul class="navbar-nav ml-auto">
+	    <li class="nav-item"> 
 	       <a class="nav-link"  href="Connexion">S'inscrire - Se connecter</a>
-	    </form>
+	     </li>
+     </ul> 
 	</nav>
 	<br><br>
 	
 	<h2>Liste des enchères</h2>
 
-
-	<label for="basic-url">Filtre :</label>
-	<div class="input-group mb-3">
-		<div class="input-group flex-nowrap">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="addon-wrapping">search</span>
-			</div>
-			<input type="text" class="form-control"
-				placeholder="Le nom de l'article contient" aria-label="Username"
-				aria-describedby="addon-wrapping">
-		</div>
-	</div>
-
-
-
-	<div class="input-group">
-		<input type="text" class="form-control"
-			aria-label="Text input with dropdown button">
-		<div class="input-group-append">
-			<button class="btn btn-outline-secondary dropdown-toggle"
-				type="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false">Catégorie</button>
-			<div class="dropdown-menu" default="">
-				<a class="dropdown-item" href="#">Toutes</a>
-				<c:forEach var="categorie" items="${listeCategorie}"> 
-					<a class="dropdown-item" href="#">${categorie.libelle}</a> 
-				</c:forEach>
-			</div>
-		</div>
-	</div>
+	<form method="POST" action="/ENI-Encheres/Accueil">
+		<label for="basic-url">Filtre :</label>
+			<div class="input-group mb-3">
+				<div class="input-group flex-nowrap">
+					<div class="input-group-prepend">
+							<span class="input-group-text" id="addon-wrapping">Recherche par article :</span>
+						</div>
+						<input type="text" class="form-control"
+							placeholder="Le nom de l'article contient ..." aria-label="Username"
+							aria-describedby="addon-wrapping" name="barreRechercheArticle">
+					</div>
+				</div>
+			
+			
+			
+			<div class="input-group mb-3">
+ 			    <div class="input-group-prepend">
+   			   	     <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
+ 			    </div>
+  				<select class="custom-select" id="inputGroupSelect01" name="selectCategorie">
+  					<option selected>Toutes</option>
+  					<c:forEach var="categorie" items="${listeCategorie}"> 
+				    	 <option value="${categorie.id}">${categorie.libelle}</option>
+					</c:forEach>
+               </select>
+          </div>
+			
+			<button type="SUBMIT"  class="btn btn-primary btn-lg">Rechercher</button>
+		
+	</form>
 
 
 
@@ -69,9 +71,7 @@
 		<div class="card mb-3" style="max-width: 540px;">
 			<div class="row no-gutters">
 				<div class="col-md-4">
-					<img
-						src="C:\Users\slevy2020\Desktop\MissionProjet\images\chapeau_paille.jpg"
-						class="card-img" alt="...">
+					<img src="" class="card-img" alt="...">
 				</div>
 
 				<div class="col-md-8">
@@ -79,10 +79,8 @@
 						<h5 class="card-title">${article.nom}</h5>
 						<p class="card-text">Description : ${article.description}</p>
 						<p class="card-text">Prix : ${article.prixVente}€</p>
-						<p class="card-text">Fin de l'enchère :
-							${article.dateFinEncheres}</p>
-
-
+						<p class="card-text">Fin de l'enchère : ${article.dateFinEncheres}</p>
+						<p class="card-text">Vendeur :</p>
 						<p class="card-text">
 							<small class="text-muted">Last updated 3 mins ago</small>
 						</p>

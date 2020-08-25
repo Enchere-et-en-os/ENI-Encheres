@@ -1,19 +1,24 @@
 @charset "UTF-8";
+import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 
-.nav-link {
-    inline-size: auto;
-    display: block;
-    padding: .5rem 1rem;
-    margin-left: 60vw;
+.container {
+  justify-content: space-between;
 }
+
 h2 {
 	color:red;
+	margin-bottom: 1.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 1rem;
+	font-family: 'PT Sans', sans-serif;
 }
 
-.img_art {
+img.img_art {
    vertical-align: middle;
     border-style: none;
-    width: 10%;
-    height: 10%
+    width: 10vw;
+    height: 10vw;
 }
+
     
