@@ -19,7 +19,7 @@ public class PageListeEncheresConnecte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager articleManager = new ArticleManager();
 
-   
+   //selectALL Utilisateur
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

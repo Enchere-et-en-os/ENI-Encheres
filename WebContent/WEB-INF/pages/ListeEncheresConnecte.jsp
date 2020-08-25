@@ -19,10 +19,30 @@
 <body>
 	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="Accueil">ENI-Enchere</a>
-	    <form class="form-inline my-2 my-lg-0">
-	       <a class="nav-link"  href="Connexion">S'inscrire - Se connecter</a>
-	    </form>
-	</nav>
+	
+	       <ul class="navbar-nav ml-auto"> 
+	           <li class="nav-item"> 
+	               <a class="nav-link" href="Connexion"> 
+	               Enchères
+	               </a> 
+	           </li> 
+	           <li class="nav-item"> 
+	               <a class="nav-link" href="MiseEnVente"> 
+	                Vendre un article
+	               </a> 
+	           </li> 
+	           <li class="nav-item"> 
+	               <a class="nav-link" href="Profil"> 
+	                 Mon profil
+	               </a> 
+	           </li>
+	            <li class="nav-item"> 
+	               <a class="nav-link" href="Connexion"> 
+	                 Déconnexion
+	               </a> 
+	           </li> 
+	       </ul> 
+	   </nav> 
 	<br><br>
 
 	
@@ -38,7 +58,7 @@
 		</div>
 	</div>
 	
-	<p>Bonjour ${pseudo}</p>
+	<p>a enlever : Bonjour ${pseudo}</p>
 	
 	<div class="container ">
 		<div class="row " >

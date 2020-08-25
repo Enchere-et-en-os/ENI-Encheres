@@ -20,9 +20,11 @@
 <body>
  	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="Accueil">ENI-Enchere</a>
-	    <form class="form-inline my-2 my-lg-0">
+	  <ul class="navbar-nav ml-auto">
+	    <li class="nav-item"> 
 	       <a class="nav-link"  href="Connexion">S'inscrire - Se connecter</a>
-	    </form>
+	     </li>
+     </ul> 
 	</nav>
 	<br><br>
 	
