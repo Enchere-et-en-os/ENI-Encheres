@@ -9,3 +9,11 @@
 h2 {
 	color:red;
 }
+
+.img_art {
+   vertical-align: middle;
+    border-style: none;
+    width: 10%;
+    height: 10%
+}
+    

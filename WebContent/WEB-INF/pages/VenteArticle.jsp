@@ -9,76 +9,85 @@
 <title>Nouvelle vente</title>
 </head>
 <body>
+
 	<h1>ENI-Enchères</h1>
-	<img src="/ENI-Encheres/images/chapeau_paille.jpg" alt="..." >
-	<h2>Nouvelle vente</h2>
-	<form method="POST" action="/ENI-Enchere/MiseEnVente">
-		
-		<div class="form-group">
-			<label for="article">Article :</label>
-			<input value="" name="article" type="text" class="form-control" id="article" required/>
-		</div>
-		
-		<div class="form-group">
-			<label for="description">Description :</label>
-			<textarea name="description" rows="5" cols="100" maxlength="500" >Vous pouvez écrire votre description ici.</textarea>
-		</div>
-		
-		<div class="form-group">
-			<label for="categorie">Catégorie :</label>
-			<select name="categorie" id="categorie">
-				<option value="electroménager">Electroménager</option>
-			    <option value="electronique">Electronique</option>
-			    <option value="véhicules">Véhicules</option>
-			    <option value="vêtements">Vêtements</option>
-			</select>
-		</div>
-		
-		<div class="form-group">
-			<label for="uploader">Photo de l'article :</label>
-			<button type="button" name ="uploader" class="btn btn-primary">Uploader</button>
-		</div>
-		
-		<div class="form-group">
-			<label for="miseAprix">Mise à prix :</label>
-			<input type="number" id="miseAprix" name="miseAprix" min="0">
-		</div>
-		
-		<div class="form-group">
-			<label for="debutEnchere">Début de l'enchère :</label>
-			<input type="date" id="debutEnchere" name="debutEnchere">
-		</div>
-		
-		<div class="form-group">
-			<label for="finEnchere">Fin de l'enchère :</label>
-			<input type="date" id="finEnchere" name="finEnchere">
-		</div>
-		
-		<fieldset>
-	    	<legend>Retrait</legend>
-	    	
-	    	<div class="form-group">
-				<label for="rue">Rue :</label>
-				<input value="" name="rue" type="text" class="form-control" id="rue" required/>
+	
+	<div class="container">
+	
+  <div class="row">
+    <div class="col-sm col-lg-3">
+     	<img class="img_art" src="/ENI-Encheres/images/chapeau_paille.jpg" alt="..." >
+    </div>
+    <div class="col-sm col-lg-9">
+      <h2>Nouvelle vente</h2>
+		<form method="POST" action="/ENI-Enchere/MiseEnVente">
+
+			<div class="form-group">
+				<label for="article">Article :</label>
+				<input value="" name="article" type="text" class="form-control" id="article" required/>
 			</div>
 			
 			<div class="form-group">
-				<label for="codePostal">Code Postal :</label>
-				<input value="" name="codePostal" type="text" class="form-control" id="codePostal" required/>
+				<label for="description">Description :</label>
+				<textarea name="description" rows="5" cols="100" maxlength="500" >Vous pouvez écrire votre description ici.</textarea>
 			</div>
 			
 			<div class="form-group">
-				<label for="ville">Ville :</label>
-				<input value="" name="ville" type="text" class="form-control" id="ville" required/>
+				<label for="categorie">Catégorie :</label>
+				<select name="categorie" id="categorie">
+					<option value="electroménager">Electroménager</option>
+				    <option value="electronique">Electronique</option>
+				    <option value="véhicules">Véhicules</option>
+				    <option value="vêtements">Vêtements</option>
+				</select>
 			</div>
-  		</fieldset>
-  		
-  		
-			<button type="submit" class="btn btn-secondary">Enregistrer</button>
-			<button type="button" class="btn btn-secondary">Annuler</button>
 			
-  			
-	</form>
+			<div class="form-group">
+				<label for="uploader">Photo de l'article :</label>
+				<button type="button" name ="uploader" class="btn btn-primary">Uploader</button>
+			</div>
+			
+			<div class="form-group">
+				<label for="miseAprix">Mise à prix :</label>
+				<input type="number" id="miseAprix" name="miseAprix" min="0">
+			</div>
+			
+			<div class="form-group">
+				<label for="debutEnchere">Début de l'enchère :</label>
+				<input type="date" id="debutEnchere" name="debutEnchere">
+			</div>
+			
+			<div class="form-group">
+				<label for="finEnchere">Fin de l'enchère :</label>
+				<input type="date" id="finEnchere" name="finEnchere">
+			</div>
+			
+			<fieldset>
+		    	<legend>Retrait</legend>
+		    	
+		    	<div class="form-group">
+					<label for="rue">Rue :</label>
+					<input value="" name="rue" type="text" class="form-control" id="rue" required/>
+				</div>
+				
+				<div class="form-group">
+					<label for="codePostal">Code Postal :</label>
+					<input value="" name="codePostal" type="text" class="form-control" id="codePostal" required/>
+				</div>
+				
+				<div class="form-group">
+					<label for="ville">Ville :</label>
+					<input value="" name="ville" type="text" class="form-control" id="ville" required/>
+				</div>
+	  		</fieldset>
+
+				<button type="submit" class="btn btn-secondary">Enregistrer</button>
+				<button type="button" class="btn btn-secondary">Annuler</button>
+				
+		</form>
+	    </div>
+	  </div>
+	</div>
 	
 	
 	
