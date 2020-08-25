@@ -20,46 +20,31 @@ public class ArticleDAOImpl implements ArticleDAO {
 	 * Attributs de classe des requêtes sql
 	 */
 
-	// Version requête sans "image_path"
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
 			+ " date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
 	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,?,?,?,?)";
-
-
-	/**
-	 * Selectionne tout les articles
-	 * 
-
 	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 
-
 	 /**
-
-	 * @author Samy-Lee
+	 * @author tanguy
 	 * @return List<Article>
 	 * @throws DALException
-	 * Selectionne tout les articles
+	 * Selectionne les articles avec les paramètres utilisateurId & categorieId
 	 */
-	public List<Article> SelectAllArticles() throws DALException {
+	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(Utilisateur u, Categorie c) throws DALException {
 		List<Article> listeArticles = new ArrayList<Article>();
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			Statement stmt = conn.createStatement();
 
 			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_ARTICLES);
-
+			int utilisateurId = u.getId();
+			int categorieId = c.getId();
 			Article article = null;
-
-			LocalDate dateDebutEnchere = null;
-			LocalDate dateFinEnchere = null;
-
 			while (rs.next()) {
-				dateDebutEnchere = rs.getDate("date_debut_encheres").toLocalDate();
-				dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
-				// Version instance sans "image_path"
-				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
-						dateDebutEnchere, dateFinEnchere, rs.getInt("prix_initial"), rs.getInt("prix_vente"), null,
-						null, null);
+
+				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),rs.getDate("date_debut_encheres").toLocalDate(), 
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("etatVente"), utilisateurId, categorieId);
 				listeArticles.add(article);
 			}
 
@@ -71,32 +56,22 @@ public class ArticleDAOImpl implements ArticleDAO {
 	}
 
 	/**
+	 * Auteur tanguy
 	 * méthode d'insertion d'un objet en bdd
 	 * @throws SQLException 
 	 * @throws DALException 
 	 */
 	public Article insertArticle (Utilisateur utilisateur, Categorie categorie, Article article) throws SQLException, DALException {
 
-		Article article = null;
 		int utilisateurId = utilisateur.getId();
-		int categorieID = categorie.getId();
-		PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
+		int categorieId = categorie.getId();
+		try(Connection conn =  ConnectionProvider.getConnection()) {
+		PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_INTO_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
 		/**
-		 * /**
-	
-    nom_article                   VARCHAR(30) NOT NULL,
-    description                   VARCHAR(300) NOT NULL,
-	date_debut_encheres           DATE NOT NULL,
-    date_fin_encheres             DATE NOT NULL,
-    prix_initial                  INTEGER,
-    prix_vente                    INTEGER,
-	etatVente					  INTEGER,
-    no_utilisateur                INTEGER NOT NULL,
-    no_categorie                  INTEGER NOT NULL
-	 * **/
-//		dateDebutEnchere = rs.getDate("date_debut_encheres").toLocalDate();
-//		dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
-
+		    nom_article , description , date_debut_encheres, date_fin_encheres ,prix_initial ,
+		     prix_vente, etatVente,  no_utilisateur  ,no_categorie 
+		 * **/
+		
 		pstmt.setString(1, article.getNom());
 		pstmt.setString(2, article.getDescription());
 		pstmt.setDate(3, java.sql.Date.valueOf( article.getDateDebutEncheres()));
@@ -105,17 +80,29 @@ public class ArticleDAOImpl implements ArticleDAO {
 		pstmt.setInt(6, article.getPrixVente());
 		pstmt.setInt(7, article.getEtatVente());
 		pstmt.setInt(8, utilisateurId);
-		pstmt.setInt(9, categorieID);
-
-		pstmt.executeUpdate();
-
-		ResultSet rs = pstmt.getGeneratedKeys();
-		if (rs.next()) {
-			article.setId(rs.getInt(1));
-		}
+		pstmt.setInt(9, categorieId);
 		
-
-
+		pstmt.executeUpdate();
+/**
+ * new Article(article.setNom(rs.getString("nom_article")), article.setNom(rs.getString("description"))
+					, article.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate()), article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate()),
+					article.setMiseAPrix(rs.getInt("prix_initial")), article.setPrixVente(rs.getInt("prix_vente")), article.setEtatVente(rs.getInt("etatVente")), utilisateurId,
+					categorieID);
+ */	
+//  préparation pour requête SelectBY ou Update
+//		ResultSet rs = pstmt.getGeneratedKeys();
+//		if (rs.next()) {
+//	
+//		article.setNom(rs.getString("nom_article")); 
+//		article.setDescription(rs.getString("description"));
+//		article.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate()); 
+//		article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+//		article.setMiseAPrix(rs.getInt("prix_initial")); 
+//		article.setPrixVente(rs.getInt("prix_vente"));
+//		article.setEtatVente(rs.getInt("etatVente"));
+//		article.setUtilisateurId(utilisateurId);
+//		article.setCategorieId(categorieId);
+//		}
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
