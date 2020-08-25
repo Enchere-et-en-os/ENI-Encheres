@@ -56,7 +56,7 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		Utilisateur UserCurrent = null;
+		
 		
 		// Bouton Annuler
 		if (request.getParameter("annuler") != null) {
@@ -65,7 +65,7 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 		
 		//Bouton Enregistrer
 		if (request.getParameter("enregistrer") != null) {
-
+			Utilisateur UserCurrent = null;
 			// TODO vérifier les données de la requête (factorisation Inscription ?)
 			
 			ArrayList<String> entries = new ArrayList<String>();

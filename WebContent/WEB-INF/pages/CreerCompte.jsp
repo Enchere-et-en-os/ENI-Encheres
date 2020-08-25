@@ -15,21 +15,21 @@
 	<form action="/ENI-Encheres/Inscription" method="post">
 		<div class="form-group">
 			<label for="Pseudo">Pseudo</label>
-	    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo" required/>
+	    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo" />
 	    	<label>${erreurPseudo}</label>
 	    	
 	   	 	<label for="Nom">Nom</label>
-	    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom" required>
+	    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom" >
 	  		<label>${erreurNom}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="Prenom">Prénom</label>
-	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom" required>
+	    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom">
 	    	<label>${erreurPrenom}</label>
 	    	
 	   	 	<label for="Email">Email</label>
-	    	<input value="${email}" name="email" type="text" class="form-control" id="Email" required>
+	    	<input value="${email}" name="email" type="text" class="form-control" id="Email" >
 	    	<label>${erreurEmail}</label>
 	  	</div>
 	  	
@@ -39,35 +39,34 @@
 	    	<label>${erreurTelephone}</label>
 	    	
 	   	 	<label for="Rue">Rue</label>
-	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue" required>
+	    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue" >
 	  		<label>${erreurRue}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="CodePostal">Code Postal</label>
-	    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal" required>
+	    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal" >
 	    	<label>${erreurPost}</label>
 	    	
 	   	 	<label for="Ville">Ville</label>
-	    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville" required>
+	    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville" >
 	  		<label>${erreurVille}</label>
 	  	</div>
 	  	
 	  	<div class="form-group">
 			<label for="MotDePasse">Mot De Passe</label>
-	    	<input name="mdp" type="password" class="form-control" id="MotDePasse" required>
+	    	<input name="mdp" type="password" class="form-control" id="MotDePasse" >
 	    	
 	   	 	<label for="Confirmation">Confirmation</label>
-	    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation" required>
+	    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation" >
 	  	</div>
 	  	<label>${erreurConfirm} ${erreurMdp}</label>
 		
-		<button type="submit" class="btn btn-success">Créer</button>
+		<button name="envoyer" type="submit" class="btn btn-success">Créer</button>
 		<button name="annuler" type="submit" class="btn btn-secondary">Annuler</button>
 		
 	</form>
 	
-	<a href="Profil?pseudo=aze">aze</a>
 	
 </body>
 </html>

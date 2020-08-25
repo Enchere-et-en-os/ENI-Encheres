@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.List"%>
 <%@ page import="fr.eni.encheres.bo.Article"%>
-
+<%! boolean radioAchat = true;  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +63,7 @@
 	<div class="container ">
 		<div class="row " >
 			<div class="form-check col-sm">
-			  <input class="form-check-input" type="radio" name="radio" id="achat" value="1" checked>
+			  <input class="form-check-input" type="radio" name="radio" id="achat"checked>
 			  <label class="form-check-label" for="achat"> Achats</label>
 				  <div>
 					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -82,7 +82,7 @@
 			
 			
 			<div class="form-check col-sm">
-			  <input class="form-check-input" type="radio" name="radio" id="vente" value="2">
+			  <input class="form-check-input" type="radio" name="radio" id="vente">
 			  <label class="form-check-label" for="exampleRadios2">Mes ventes</label>
 			  <div  >
 				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -118,11 +118,11 @@
 
 
 
-<c:if test="${radio == 2}">
-	<p>vente</p></c:if>
-	
-	<c:if test="${radio == 1}">
+<c:if test="${radioAchat == true}">
 	<p>achat</p></c:if>
+	<p>${radioAchat}</p>
+	<c:if test="${radioAchat == false}">
+	<p>vente</p></c:if>
 
 	<c:forEach var="article" items="${listeArticle}">
 
