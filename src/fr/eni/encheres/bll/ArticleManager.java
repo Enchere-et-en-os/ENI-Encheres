@@ -24,10 +24,10 @@ public class ArticleManager {
 	 * @throws BLLException
 	 * Selectionne tout les articles avec Utilisateur et catégorie
 	 */
-	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(Utilisateur u, Categorie c) throws BLLException {
+	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(int utilisateurId, int categorieId) throws BLLException {
 		List<Article> listeArticle = null;
 		try {
-			listeArticle = articleDAO.SelectAllArticlesAvecUtilisateurEtCategorie(u, c);
+			listeArticle = articleDAO.SelectAllArticlesAvecUtilisateurEtCategorie(utilisateurId, categorieId);
 		} catch (DALException e) {
 			System.out.println("erreur manager SelectAllArticlesAvecUtilisateurEtCategorie");
 			throw new BLLException();
@@ -71,6 +71,7 @@ public class ArticleManager {
 		
 	}
 	
+
 	/**
 	 * @author Samy-Lee
 	 * @return List<Article>
@@ -80,7 +81,7 @@ public class ArticleManager {
 	public List<Article> SelectAllArticles() throws BLLException {
 		List<Article> listeArticle = null;
 		try {
-			listeArticle = articleDAO.SelectAllArticles();
+			listeArticle = articleDAO.selectAllArticles();
 		} catch (DALException e) {
 			System.out.println("erreur manager SelectAllArticles");
 			throw new BLLException();

@@ -22,7 +22,9 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
 			+ " date_fin_encheres, prix_initial, prix_vente, etatVente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
-	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,?,?,?,?)";
+
+	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,?,?,?,?,?)";
+
 	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 
 
@@ -33,20 +35,19 @@ public class ArticleDAOImpl implements ArticleDAO {
 	 * @throws DALException
 	 * Selectionne les articles avec les paramètres utilisateurId & categorieId
 	 */
-	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(Utilisateur u, Categorie c) throws DALException {
+	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(int utilisateurId, int categorieId) throws DALException {
 		List<Article> listeArticles = new ArrayList<Article>();
 
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			Statement stmt = conn.createStatement();
 
 			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_ARTICLES);
-			int utilisateurId = u.getId();
-			int categorieId = c.getId();
 			Article article = null;
 			while (rs.next()) {
 
 				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),rs.getDate("date_debut_encheres").toLocalDate(), 
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("etatVente"), utilisateurId, categorieId);
+				
 				listeArticles.add(article);
 			}
 
@@ -57,6 +58,28 @@ public class ArticleDAOImpl implements ArticleDAO {
 		return listeArticles;
 	}
 
+	
+	public List<Article> selectAllArticles() throws DALException{
+		List<Article> listArticles = new ArrayList<Article>();
+		Article article = null;
+		try(Connection conn = ConnectionProvider.getConnection()){
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL_ARTICLES);
+			
+			while(rs.next()) {
+				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),rs.getDate("date_debut_encheres").toLocalDate(), 
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("etatVente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie"));
+				listArticles.add(article);
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Echec de SelectAllArticle", e);
+		}
+		
+		return listArticles;
+	}
 	/**
 	 * Auteur tanguy
 	 * méthode d'insertion d'un objet en bdd

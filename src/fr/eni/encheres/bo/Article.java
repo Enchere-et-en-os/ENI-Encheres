@@ -48,8 +48,8 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
-		this.utilisateurId = utilisateur.getId();
-		this.categorieId = categorie.getId();
+		this.utilisateurId = utilisateurId;
+		this.categorieId = categorieId;
 		
 	}
 

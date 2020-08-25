@@ -9,11 +9,13 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public interface ArticleDAO {
 
-	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(Utilisateur u, Categorie c) throws DALException;
+	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(int utilisateurId, int categorieId) throws DALException;
 	
 	public Article insertArticle (Utilisateur utilisateur, Categorie categorie, Article article) throws SQLException, DALException;
 	
 	public List<Categorie> SelectAllCategories() throws DALException;
 	
-	public List<Article> SelectAllArticles() throws DALException;
+
+	public List<Article> selectAllArticles() throws DALException;
+
 }

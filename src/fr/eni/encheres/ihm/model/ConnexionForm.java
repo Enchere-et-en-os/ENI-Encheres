@@ -143,7 +143,6 @@ public interface ConnexionForm {
 					
 					break;
 				}
-					
 				
 				mdp = hashMdp(request.getParameter(entry).trim());
 				

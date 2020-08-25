@@ -15,15 +15,14 @@ import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.ihm.model.ConnexionForm;
-import fr.eni.encheres.ihm.model.IConsulterPoints;
-import fr.eni.encheres.ihm.model.ISupprimerCompte;
+
 
 /**
  * Servlet implementation class ModifierProfilServlet
  */
 @WebServlet("/ModificationProfil")
-public class ModifierProfilServlet extends HttpServlet implements ISupprimerCompte, IConsulterPoints {
-	private static final long serialVersionUID = 1L;
+public class ModifierProfilServlet extends HttpServlet {
+
 
 	UtilisateurManager mgr = new UtilisateurManager();
 
@@ -56,7 +55,7 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		Utilisateur UserCurrent = null;
+		
 		
 		// Bouton Annuler
 		if (request.getParameter("annuler") != null) {
@@ -65,7 +64,7 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 		
 		//Bouton Enregistrer
 		if (request.getParameter("enregistrer") != null) {
-
+			Utilisateur UserCurrent = null;
 			// TODO vérifier les données de la requête (factorisation Inscription ?)
 			
 			ArrayList<String> entries = new ArrayList<String>();
