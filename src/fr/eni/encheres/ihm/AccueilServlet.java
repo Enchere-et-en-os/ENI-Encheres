@@ -33,12 +33,12 @@ public class AccueilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-//		try {
-//			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
-//		} catch (BLLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		try {
 			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
@@ -73,18 +73,47 @@ public class AccueilServlet extends HttpServlet {
 			
 				for (Article article: listeArticle) {
 					System.out.println("Dans for et avant switch");
-					System.out.println(article.getCategorie());
+					System.out.println(article.getCategorieId());
 					switch (categorieSelectionee) {
 				case "1": 
 						  	System.out.println("après case 1");
-				            if (article.getCategorie().getId() == 1) {
+				            if (article.getCategorieId() == 1) {
 				            	System.out.println("dans le if");
 				            	listeArticleFiltree.add(article);
 				            	request.setAttribute("listeArticle", listeArticleFiltree );
 				            }
 				
 					break;
-					
+				case "2": 
+				  	System.out.println("après case 1");
+		            if (article.getCategorieId() == 2) {
+		            	System.out.println("dans le if");
+		            	listeArticleFiltree.add(article);
+		            	request.setAttribute("listeArticle", listeArticleFiltree );
+		            }
+		
+			break;
+				case "3": 
+				  	System.out.println("après case 1");
+		            if (article.getCategorieId() == 3) {
+		            	System.out.println("dans le if");
+		            	listeArticleFiltree.add(article);
+		            	request.setAttribute("listeArticle", listeArticleFiltree );
+		            }
+		
+			break;
+				case "4": 
+				  	System.out.println("après case 1");
+		            if (article.getCategorieId() == 4) {
+		            	System.out.println("dans le if");
+		            	listeArticleFiltree.add(article);
+		            	request.setAttribute("listeArticle", listeArticleFiltree );
+		            }
+		
+			break;
+			
+			default:
+				request.setAttribute("listeArticle", listeArticle );
 					
 				}
 			}

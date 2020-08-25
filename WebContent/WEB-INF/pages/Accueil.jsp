@@ -48,7 +48,7 @@
    			   	     <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
  			    </div>
   				<select class="custom-select" id="inputGroupSelect01" name="selectCategorie">
-  					<option selected value="0">Toutes</option>
+  					<option selected>Toutes</option>
   					<c:forEach var="categorie" items="${listeCategorie}"> 
 				    	 <option value="${categorie.id}">${categorie.libelle}</option>
 					</c:forEach>
