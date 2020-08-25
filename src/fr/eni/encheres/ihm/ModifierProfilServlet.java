@@ -39,7 +39,6 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("doGet Modif");
 		// TODO Méthode
 		request.setAttribute("pseudo", utilDemande.getPseudo());
 		request.setAttribute("prenom", utilDemande.getPrenom());
@@ -61,7 +60,6 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 		
 		// Bouton Annuler
 		if (request.getParameter("annuler") != null) {
-			System.out.println("bouton annuler");
 			response.sendRedirect("Accueil");
 		}
 		
@@ -95,7 +93,6 @@ public class ModifierProfilServlet extends HttpServlet implements ISupprimerComp
 			
 			String id = String.valueOf(UserCurrent.getId());
 			paramUser.add(0, id);  
-			System.out.println(paramUser);
 			
 			Utilisateur user = new Utilisateur(paramUser);
 			try {
