@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -38,7 +38,7 @@
 							<span class="input-group-text" id="addon-wrapping">Recherche par article :</span>
 						</div>
 						<input type="text" class="form-control"
-							placeholder="Le nom de l'article contient ..." aria-label="Username"
+							placeholder= "Le nom de l'article contient ..." value ="${barreRechercheArticle}" aria-label="Username"
 							aria-describedby="addon-wrapping" name="barreRechercheArticle">
 					</div>
 				</div>
@@ -50,7 +50,7 @@
    			   	     <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
  			    </div>
   				<select class="custom-select" id="inputGroupSelect01" name="selectCategorie">
-  					<option selected>Toutes</option>
+  					<option selected value ="-1">Toutes</option>
   					<c:forEach var="categorie" items="${listeCategorie}"> 
 				    	 <option value="${categorie.id}">${categorie.libelle}</option>
 					</c:forEach>
@@ -81,9 +81,6 @@
 						<p class="card-text">Prix : ${article.prixVente}€</p>
 						<p class="card-text">Fin de l'enchère : ${article.dateFinEncheres}</p>
 						<p class="card-text">Vendeur :</p>
-						<p class="card-text">
-							<small class="text-muted">Last updated 3 mins ago</small>
-						</p>
 					</div>
 				</div>
 			</div>

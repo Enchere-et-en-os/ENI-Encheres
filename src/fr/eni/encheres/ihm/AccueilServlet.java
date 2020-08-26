@@ -3,6 +3,7 @@ package fr.eni.encheres.ihm;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +25,6 @@ public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager articleManager = new ArticleManager();
 
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -45,122 +44,41 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// !!! DOPOST EN COURS DE CONSTRUCTION !!!
-
+		request.setCharacterEncoding("UTF-8");
 		String articleRecherche = request.getParameter("barreRechercheArticle");
-		String categorieSelectionee = request.getParameter("selectCategorie");
+		int categorieSelectionee = Integer.parseInt(request.getParameter("selectCategorie"));
 
 		List<Article> listeArticle;
 		List<Article> listeArticleFiltree = new ArrayList<Article>();
 
 		try {
 			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
-
 			listeArticle = articleManager.SelectAllArticles();
 
-			if (articleRecherche.equalsIgnoreCase("")) {
+			for (Article article : listeArticle) {
 
-				for (Article article : listeArticle) {
+				boolean estArticleRecherche = false;
+				if (articleRecherche.equalsIgnoreCase("")) {
 
-					switch (categorieSelectionee) {
-					case "1":
+					if (categorieSelectionee == article.getCategorieId()) {
 
-						if (article.getCategorieId() == 1) {
+						listeArticleFiltree.add(article);
+						request.setAttribute("listeArticle", listeArticleFiltree);
 
-							listeArticleFiltree.add(article);
-							request.setAttribute("listeArticle", listeArticleFiltree);
+					} else if (categorieSelectionee == -1) {
+						listeArticleFiltree.add(article);
+						request.setAttribute("listeArticle", listeArticleFiltree);
+					}
 
-						}
-
-						break;
-					case "2":
-
-						if (article.getCategorieId() == 2) {
-
-							listeArticleFiltree.add(article);
-							request.setAttribute("listeArticle", listeArticleFiltree);
-						}
-
-						break;
-					case "3":
-
-						if (article.getCategorieId() == 3) {
-
-							listeArticleFiltree.add(article);
-							request.setAttribute("listeArticle", listeArticleFiltree);
-						}
-
-						break;
-					case "4":
-
-						if (article.getCategorieId() == 4) {
-
-							listeArticleFiltree.add(article);
-							request.setAttribute("listeArticle", listeArticleFiltree);
-						}
-
-						break;
-
-					default:
-						request.setAttribute("listeArticle", listeArticle);
-
+				} else {
+					estArticleRecherche = article.getNom().contains(articleRecherche);
+					if (estArticleRecherche
+							&& ((categorieSelectionee == article.getCategorieId()) || categorieSelectionee == -1)) {
+						listeArticleFiltree.add(article);
+						request.setAttribute("listeArticle", listeArticleFiltree);
 					}
 				}
-			} else {
-				for (Article article : listeArticle) {
-
-					boolean estArticleRecherche = false;
-					estArticleRecherche = articleRecherche.equalsIgnoreCase(article.getNom());
-
-					if (estArticleRecherche) {
-
-						switch (categorieSelectionee) {
-						case "1":
-
-							if (article.getCategorieId() == 1) {
-
-								listeArticleFiltree.add(article);
-								request.setAttribute("listeArticle", listeArticleFiltree);
-
-							}
-
-							break;
-						case "2":
-
-							if (article.getCategorieId() == 2) {
-
-								listeArticleFiltree.add(article);
-								request.setAttribute("listeArticle", listeArticleFiltree);
-							}
-
-							break;
-						case "3":
-
-							if (article.getCategorieId() == 3) {
-
-								listeArticleFiltree.add(article);
-								request.setAttribute("listeArticle", listeArticleFiltree);
-							}
-
-							break;
-						case "4":
-
-							if (article.getCategorieId() == 4) {
-
-								listeArticleFiltree.add(article);
-								request.setAttribute("listeArticle", listeArticleFiltree);
-							}
-
-							break;
-
-						default:
-
-							request.setAttribute("listeArticle", listeArticleFiltree);
-
-						}
-					}
-				}
+				request.setAttribute("barreRechercheArticle", articleRecherche);
 			}
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
