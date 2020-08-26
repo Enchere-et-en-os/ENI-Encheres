@@ -63,10 +63,9 @@ public class PageListeEncheresConnecte extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		List<Article> listeArticle = new ArrayList<Article>();
 		String pseudo = (String) session.getAttribute("pseudo");
-		Utilisateur utilisateur = null;
-		boolean boxChecked = false;
+		List<Article> listeArticle = new ArrayList<Article>();
+		boolean filtres = false;
 
 
 		List<String> listParam = new ArrayList<String>();
@@ -77,95 +76,125 @@ public class PageListeEncheresConnecte extends HttpServlet {
 			String enchereOuverte = request.getParameter("enchereOuverte");
 			String enchereUtilisateur = request.getParameter("enchereUtilisateur");
 			String enchereGagne = request.getParameter("enchereGagne");
-			System.out.println(enchereUtilisateur);
+			System.out.println(enchereOuverte + " " + enchereUtilisateur + " " + enchereGagne);
 			
-			// ajoute la liste des encheres de l'utilisateur
-			if(enchereUtilisateur != null){
-				boxChecked = true;
-				System.out.println("utilisateur");
-				// ajoute toutes les encheres
-				if(!(enchereOuverte.isEmpty())){
-					System.out.println("ouverte");
-					try {
-						// selectionne les articles en cours
-						listeArticle = articleManager.SelectAllArticles();
-					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} 
-				else {
-					try {
-						utilisateur = utilisateurManager.selectByPseudo(pseudo);
-						//listeArticle = articleManager.
-					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
-			}
 			
-			if(enchereOuverte != null){
-				boxChecked = true;
-				System.out.println("ouverte");
-				try {
-					utilisateur = utilisateurManager.selectByPseudo(pseudo);
-					//listeArticle = articleManager.
-				} catch (BLLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} 
-			
-			// ajoute la liste des encheres gagnés
+			// Vérifie Partie Gagne
 			if(enchereGagne != null) {
-				boxChecked = true;
-				try {
-					utilisateur = utilisateurManager.selectByPseudo(pseudo);
-				} catch (BLLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				System.out.println("je veux mes encheres gagnés !");
+				// Si enchereOuverte est coché, pas besoin de demander enchereUtilisateur
+				if(enchereOuverte != null) {
+					System.out.println("je veux toutes les encheres !");
+					//enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
+					enchereOuverte = null;
+					enchereUtilisateur = null;
 				}
+				//enchereOuverteVerfier(listeArticle, enchereGagne, filtres);
 			}
 			
-			if(!boxChecked) {
-				request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
+			// Vérifie Partie Utilisateur
+			if(enchereUtilisateur != null) {
+				System.out.println("je veux mes encheres dans lesquelles je participe !");
+				if(enchereGagne != null) {
+					System.out.println("je veux mes encheres gagnés !");
+					//enchereOuverteVerfier(listeArticle, enchereGagne, filtres);
+					enchereGagne = null;
+				}
+				//enchereOuverteVerfier(listeArticle, enchereUtilisateur, filtres);
 			}
+			
+			
+			
+			if(enchereOuverte != null)
+				System.out.println("je veux toutes les encheres !");
+				//enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
+			
+//			enchereOuverteVerfier(listeArticle, enchereUtilisateur, filtres);
+//			enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
+//			enchereOuverteVerfier(listeArticle, enchereGagne, filtres);
+			
+
+			
+			
+			
+			
 			
 			listParam.add(categorieSelectionee);
 			listParam.add(enchereOuverte);
 			listParam.add(enchereUtilisateur);
 			listParam.add(enchereGagne);
 			
-			//articleManager.
 			
-			request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
+			//request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 		}
 		else if(radio.contentEquals("vente")) {
 
 			String venteEnCours = request.getParameter("venteEnCours");
-			String venteNonDebut = request.getParameter("venteNonDebut");
+			String venteNonDebute = request.getParameter("venteNonDebut");
 			String venteTermine = request.getParameter("venteTermine");
 			
-			listParam.add(categorieSelectionee);
-			listParam.add(venteEnCours);
-			listParam.add(venteNonDebut);
-			listParam.add(venteTermine);
+			if(venteEnCours != null) {
+				listParam.add(venteEnCours);
+				filtres = true;
+			}
+				
+			if(venteNonDebute != null) {
+				listParam.add(venteNonDebute);
+				filtres = true;
+			}
+				
+			if(venteTermine != null) {
+				listParam.add(venteTermine);
+				filtres = true;
+			}	
 			
-			request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
+			listParam.add(categorieSelectionee);
+			
+			//request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 		}
-
-
 		
-		System.out.println(listParam);
+		if(!filtres) {
+			doGet(request,response);
+		}
+	}
+	
+	public List<Article> enchereOuverteVerfier(List<Article> liste, String enchere, boolean filtres){
+		 
+			switch (enchere) {
+			// ajoute toutes les encheres en cours
+			case "enchereOuverte":
+					System.out.println("dans ma méthode : " + enchere);
+					try {
+						// selectionne les articles en cours
+						liste = articleManager.SelectAllArticles();
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+			// ajoute les encheres de l'utilisateur
+			case "enchereUtilisateur":
+				try {
+					Utilisateur utilisateur = utilisateurManager.selectByPseudo("lenaik68");
+					//listeArticle = articleManager.
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			// ajoute les encheres gagnées
+			case "enchereGagne":
+					filtres = true;
+					System.out.println("gagne");
+					try {
+						Utilisateur utilisateur = utilisateurManager.selectByPseudo("lenaik68");
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
 		
-		//filtre de recherche si pseudo ou si email existe dans la bdd et si ceux ci-correspondent au mot de passe enregistré en bdd
-//		Article utilisateurConfirmeBDD = 
-//			listeArticle.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
-//		       .findFirst().orElse(null);
-		
-		
+		return liste;	
 	}
 
 }

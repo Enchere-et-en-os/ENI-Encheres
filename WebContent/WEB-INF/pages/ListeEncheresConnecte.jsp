@@ -89,7 +89,7 @@
 				  <label class="form-check-label" for="defaultCheck1">Mes ventes en cours</label>
 			  </div>
 			   <div>
-				  <input name="venteNonDebut" class="form-check-input" type="checkbox" value="venteNonDebut" id="defaultCheck1">
+				  <input name="venteNonDebute" class="form-check-input" type="checkbox" value="venteNonDebut" id="defaultCheck1">
 				  <label class="form-check-label" for="defaultCheck1">Ventes non débutées</label>
 			  </div>
 			   <div>
