@@ -19,11 +19,12 @@ public interface ConnexionForm {
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";
 	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8,15}$";
+	static final String REGEXInput = "^[-'\\w\\s]+$";
 
 	/*
 	 * @Author : Tanguy & Valentin
 	 * @References : https://www.lucaswillems.com/fr/articles/25/tutoriel-pour-maitriser-les-expressions-regulieres
-	 * @Param : la nom et la valeur d'un parametre de requête
+	 * @Param : la nom et la valeur d'un parametre de requ�te
 	 * 
 	 * @Return : String de message d'érreur
 	 */
@@ -206,5 +207,16 @@ public interface ConnexionForm {
 		
 		return hexString.toString();
 
+	}
+
+	public static String validateInput(String str, String erreur) {
+		erreur = "erreur de saisie";
+
+		if(str.matches(REGEXInput)) {
+			System.out.println(str);
+			return str;	
+		}
+		System.out.println(erreur);
+		return erreur;
 	}
 }

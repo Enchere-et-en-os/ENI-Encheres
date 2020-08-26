@@ -19,24 +19,21 @@ public class Article {
 	
 
 
-		public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-		int miseAPrix, int prixVente, int etatVente, int utilisateurId, int categorieId) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-		this.etatVente = etatVente;
-		this.utilisateurId = utilisateurId;
-		this.categorieId = categorieId;
+	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+	int miseAPrix, int prixVente, int etatVente, int utilisateurId, int categorieId) {
+	super();
+	this.id = id;
+	this.nom = nom;
+	this.description = description;
+	this.dateDebutEncheres = dateDebutEncheres;
+	this.dateFinEncheres = dateFinEncheres;
+	this.miseAPrix = miseAPrix;
+	this.prixVente = prixVente;
+	this.etatVente = etatVente;
+	this.utilisateurId = utilisateurId;
+	this.categorieId = categorieId;
 	}
 		
-//	 new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),rs.getDate("date_debut_encheres").toLocalDate(), 
-//				rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("etatVente"), utilisateurId, categorieId);
-	
 	
 	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix, int prixVente, int etatVente, int utilisateurId, int categorieId) {

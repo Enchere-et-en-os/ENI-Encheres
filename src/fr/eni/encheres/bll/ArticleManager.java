@@ -36,15 +36,16 @@ public class ArticleManager {
 
 	}
 	/**
+	 * méthode d'insertion d'article en bdd
 	 * @author tjouvin
 	 * @throws BLLException 
 	 * @throws SQLException 
 	 * @return article
 	 */
-	public Article insertArticle (Utilisateur utilisateur, Categorie categorie, Article article) throws BLLException, SQLException {
+	public Article insertArticle (int utilisateurId, int categorieId, Article article) throws BLLException, SQLException {
 		Article art = null;
 		try {
-			art = articleDAO.insertArticle(utilisateur, categorie, article);
+			art = articleDAO.insertArticle ( utilisateurId, categorieId, article);
 		} catch (DALException e) {
 			System.out.println("erreur lors de l'insertion de l'article");
 			throw new BLLException();

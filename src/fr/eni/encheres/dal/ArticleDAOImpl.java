@@ -86,10 +86,10 @@ public class ArticleDAOImpl implements ArticleDAO {
 	 * @throws SQLException 
 	 * @throws DALException 
 	 */
-	public Article insertArticle (Utilisateur utilisateur, Categorie categorie, Article article) throws SQLException, DALException {
+	public Article insertArticle (int utilisateurId, int categorieId, Article article) throws SQLException, DALException {
 
-		int utilisateurId = utilisateur.getId();
-		int categorieId = categorie.getId();
+//		int utilisateurId = utilisateur.getId();
+//		int categorieId = categorie.getId();
 		try(Connection conn =  ConnectionProvider.getConnection()) {
 		PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_INTO_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
 		/**
