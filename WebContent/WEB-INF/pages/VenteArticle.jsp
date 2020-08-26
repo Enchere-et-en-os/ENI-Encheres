@@ -26,11 +26,11 @@
 		<form method="POST" action="/ENI-Encheres/MiseEnVente">
 
 			<div class="form-group">
-				<label for="article">Article :</label>
-				<input value="" name="article" type="text" class="form-control" id="article" required/>
+				<label for="nomArticle">Article :</label>
+				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle" required/>
 			</div>
 			
-			<!-- <div class="form-group">
+			<div class="form-group">
 				<label for="description">Description :</label>
 				<textarea name="description" rows="5" cols="100" maxlength="500" >
 					Vous pouvez écrire votre description ici.
@@ -40,10 +40,10 @@
 			<div class="form-group">
 				<label for="categorie">Catégorie :</label>
 				<select name="categorie" id="categorie">
-					<option value="electroménager">Electroménager</option>
-				    <option value="electronique">Electronique</option>
-				    <option value="véhicules">Véhicules</option>
-				    <option value="vêtements">Vêtements</option>
+					<option value="1">Electroménager</option>
+				    <option value="2">Electronique</option>
+				    <option value="3">Véhicules</option>
+				    <option value="4">Vêtements</option>
 				</select>
 			</div>
 			
@@ -85,7 +85,7 @@
 					<input value="" name="ville" type="text" class="form-control" id="ville" required/>
 				</div>
 	  		</fieldset>
- -->
+
 				<button type="submit" class="btn btn-secondary">Enregistrer</button>
 				<button type="button" class="btn btn-secondary">Annuler</button>
 				
