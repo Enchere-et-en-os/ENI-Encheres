@@ -3,6 +3,7 @@ package fr.eni.encheres.ihm;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,6 @@ import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 
-
 /**
  * Servlet implementation class ConnexionServlet
  */
@@ -25,19 +25,11 @@ public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager articleManager = new ArticleManager();
 
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		try {
 			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
 			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
@@ -52,75 +44,47 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		// !!! DOPOST EN COURS DE CONSTRUCTION !!!
-		System.out.println("Entrée dans doPost");
+		request.setCharacterEncoding("UTF-8");
 		String articleRecherche = request.getParameter("barreRechercheArticle");
-		String categorieSelectionee = request.getParameter("selectCategorie");
-		
+		int categorieSelectionee = Integer.parseInt(request.getParameter("selectCategorie"));
+
 		List<Article> listeArticle;
 		List<Article> listeArticleFiltree = new ArrayList<Article>();
-		
-		System.out.println("Avant Try");
 
 		try {
-			
-			System.out.println("Dans Try");
+			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
 			listeArticle = articleManager.SelectAllArticles();
-			
-				for (Article article: listeArticle) {
-					System.out.println("Dans for et avant switch");
-					System.out.println(article.getCategorieId());
-					switch (categorieSelectionee) {
-				case "1": 
-						  	System.out.println("après case 1");
-				            if (article.getCategorieId() == 1) {
-				            	System.out.println("dans le if");
-				            	listeArticleFiltree.add(article);
-				            	request.setAttribute("listeArticle", listeArticleFiltree );
-				            }
-				
-					break;
-				case "2": 
-				  	System.out.println("après case 1");
-		            if (article.getCategorieId() == 2) {
-		            	System.out.println("dans le if");
-		            	listeArticleFiltree.add(article);
-		            	request.setAttribute("listeArticle", listeArticleFiltree );
-		            }
-		
-			break;
-				case "3": 
-				  	System.out.println("après case 1");
-		            if (article.getCategorieId() == 3) {
-		            	System.out.println("dans le if");
-		            	listeArticleFiltree.add(article);
-		            	request.setAttribute("listeArticle", listeArticleFiltree );
-		            }
-		
-			break;
-				case "4": 
-				  	System.out.println("après case 1");
-		            if (article.getCategorieId() == 4) {
-		            	System.out.println("dans le if");
-		            	listeArticleFiltree.add(article);
-		            	request.setAttribute("listeArticle", listeArticleFiltree );
-		            }
-		
-			break;
-			
-			default:
-				request.setAttribute("listeArticle", listeArticle );
-					
+
+			for (Article article : listeArticle) {
+
+				boolean estArticleRecherche = false;
+				if (articleRecherche.equalsIgnoreCase("")) {
+
+					if (categorieSelectionee == article.getCategorieId()) {
+
+						listeArticleFiltree.add(article);
+						request.setAttribute("listeArticle", listeArticleFiltree);
+
+					} else if (categorieSelectionee == -1) {
+						listeArticleFiltree.add(article);
+						request.setAttribute("listeArticle", listeArticleFiltree);
+					}
+
+				} else {
+					estArticleRecherche = article.getNom().contains(articleRecherche);
+					if (estArticleRecherche
+							&& ((categorieSelectionee == article.getCategorieId()) || categorieSelectionee == -1)) {
+						listeArticleFiltree.add(article);
+						request.setAttribute("listeArticle", listeArticleFiltree);
+					}
 				}
+				request.setAttribute("barreRechercheArticle", articleRecherche);
 			}
-			
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("Avant Request Dispatcher");
+
 		request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
 
 	}
