@@ -69,7 +69,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 			
 			while(rs.next()) {
 				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),rs.getDate("date_debut_encheres").toLocalDate(), 
-						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("etatVente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie"));
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("etatVente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie") );
 				listArticles.add(article);
 			}
 			

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
@@ -24,6 +25,7 @@ import fr.eni.encheres.bo.Utilisateur;
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager articleManager = new ArticleManager();
+	private UtilisateurManager utilisateurManager = new UtilisateurManager();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -44,6 +46,7 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		String articleRecherche = request.getParameter("barreRechercheArticle");
 		int categorieSelectionee = Integer.parseInt(request.getParameter("selectCategorie"));
@@ -55,8 +58,13 @@ public class AccueilServlet extends HttpServlet {
 			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
 			listeArticle = articleManager.SelectAllArticles();
 
-			for (Article article : listeArticle) {
+			Utilisateur u = null;
+			String uPseudo = null;
 
+			for (Article article : listeArticle) {
+				u = utilisateurManager.selectById(article.getUtilisateurId());
+				uPseudo = u.getPseudo();
+				article.setUtilisateurPseudo(uPseudo);
 				boolean estArticleRecherche = false;
 				if (articleRecherche.equalsIgnoreCase("")) {
 
@@ -68,6 +76,7 @@ public class AccueilServlet extends HttpServlet {
 					} else if (categorieSelectionee == -1) {
 						listeArticleFiltree.add(article);
 						request.setAttribute("listeArticle", listeArticleFiltree);
+
 					}
 
 				} else {
@@ -76,9 +85,11 @@ public class AccueilServlet extends HttpServlet {
 							&& ((categorieSelectionee == article.getCategorieId()) || categorieSelectionee == -1)) {
 						listeArticleFiltree.add(article);
 						request.setAttribute("listeArticle", listeArticleFiltree);
+
 					}
 				}
 				request.setAttribute("barreRechercheArticle", articleRecherche);
+
 			}
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block

@@ -16,6 +16,32 @@ public class Article {
 	private Categorie categorie;
 	private int utilisateurId;
 	private int categorieId;
+	private String utilisateurPseudo;
+	
+	
+
+	//Ajout uti
+	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, int prixVente, int etatVente, Utilisateur utilisateur, Categorie categorie,
+			int utilisateurId, int categorieId, String utilisateurPseudo) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.utilisateurId = utilisateurId;
+		this.categorieId = categorieId;
+		this.utilisateurPseudo = utilisateurPseudo;
+	}
+
+
+
 	
 
 
@@ -181,6 +207,12 @@ public class Article {
 	}
 
 
-	
+	public String getUtilisateurPseudo() {
+		return utilisateurPseudo;
+	}
+
+	public void setUtilisateurPseudo(String utilisateurPseudo) {
+		this.utilisateurPseudo = utilisateurPseudo;
+	}
 
 }
