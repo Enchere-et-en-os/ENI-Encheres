@@ -17,5 +17,7 @@ public interface ArticleDAO {
 	
 
 	public List<Article> selectAllArticles() throws DALException;
+	
+	public List<Article> selectAllByEtatVente(int etatVente) throws DALException;
 
 }

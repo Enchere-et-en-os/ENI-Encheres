@@ -76,24 +76,39 @@ public class PageListeEncheresConnecte extends HttpServlet {
 			String enchereOuverte = request.getParameter("enchereOuverte");
 			String enchereUtilisateur = request.getParameter("enchereUtilisateur");
 			String enchereGagne = request.getParameter("enchereGagne");
-			System.out.println(enchereOuverte + " " + enchereUtilisateur + " " + enchereGagne);
 			
 			
 			// Vérifie Partie Gagne
 			if(enchereGagne != null) {
-				System.out.println("je veux mes encheres gagnés !");
+				System.out.println("je veux mes encheres gagnés !");	
+				// TODO liste temporaire avant de .addAll (merge) arrays
+				try {
+					for (Article article : articleManager.selectAllByEtatVente(2)) {
+						listeArticle.add(article);
+					}
+					
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//System.out.println(listeArticle);
 				// Si enchereOuverte est coché, pas besoin de demander enchereUtilisateur
 				if(enchereOuverte != null) {
 					System.out.println("je veux toutes les encheres !");
+					
+					System.out.println(listeArticle);
 					//enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
 					enchereOuverte = null;
 					enchereUtilisateur = null;
 				}
+				
 				//enchereOuverteVerfier(listeArticle, enchereGagne, filtres);
 			}
 			
 			// Vérifie Partie Utilisateur
 			if(enchereUtilisateur != null) {
+				//listArticle.add();
+				System.out.println(listeArticle);
 				System.out.println("je veux mes encheres dans lesquelles je participe !");
 				if(enchereGagne != null) {
 					System.out.println("je veux mes encheres gagnés !");
@@ -103,11 +118,13 @@ public class PageListeEncheresConnecte extends HttpServlet {
 				//enchereOuverteVerfier(listeArticle, enchereUtilisateur, filtres);
 			}
 			
-			
-			
-			if(enchereOuverte != null)
+			if(enchereOuverte != null) {
+				//listArticle.add();
+				System.out.println(listeArticle);
 				System.out.println("je veux toutes les encheres !");
 				//enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
+			}
+				
 			
 //			enchereOuverteVerfier(listeArticle, enchereUtilisateur, filtres);
 //			enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
@@ -123,7 +140,6 @@ public class PageListeEncheresConnecte extends HttpServlet {
 			listParam.add(enchereOuverte);
 			listParam.add(enchereUtilisateur);
 			listParam.add(enchereGagne);
-			
 			
 			//request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 		}

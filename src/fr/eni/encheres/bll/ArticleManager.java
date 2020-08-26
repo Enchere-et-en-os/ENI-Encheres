@@ -90,4 +90,15 @@ public class ArticleManager {
 		return listeArticle;
 
 	}
+	
+	public List<Article> selectAllByEtatVente(int etatVente) throws BLLException{
+		List<Article> listeArticle = null;
+		try {
+			listeArticle = articleDAO.selectAllByEtatVente(etatVente);
+		} catch (DALException e) {
+			System.out.println("erreur manager selectAllByEtatVente");
+			throw new BLLException();
+		}
+		return listeArticle;
+	}
 }
