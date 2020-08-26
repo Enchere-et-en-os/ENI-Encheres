@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.List"%>
 <%@ page import="fr.eni.encheres.bo.Article"%>
-<%! boolean radioAchat = true;  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,23 +57,22 @@
 		</div>
 	</div>
 	
-	<p>a enlever : Bonjour ${pseudo}</p>
-	
+	<form action="/ENI-Encheres/ListeEncheres" method="post" >
 	<div class="container ">
 		<div class="row " >
 			<div class="form-check col-sm">
-			  <input class="form-check-input" type="radio" name="radio" id="achat"checked>
+			  <input class="form-check-input" type="radio" name="radio" id="achat" value="achat" checked>
 			  <label class="form-check-label" for="achat"> Achats</label>
 				  <div>
-					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-					  <label class="form-check-label" for="defaultCheck1">Enchères ouvertes</label>
+					  <input name="enchereOuverte" class="form-check-input" type="checkbox" value="enchereOuverte" id="defaultCheck1">
+					  <label  class="form-check-label" for="defaultCheck1">Enchères ouvertes</label>
 				  </div>
 				   <div>
-					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+					  <input name="enchereUtilisateur" class="form-check-input" type="checkbox" value="enchereUtilisateur" id="defaultCheck1">
 					  <label class="form-check-label" for="defaultCheck1">Mes enchères</label>
 				  </div>
 				   <div>
-					  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+					  <input name="enchereGagne" class="form-check-input" type="checkbox" value="enchereGagne" id="defaultCheck1">
 					  <label class="form-check-label" for="defaultCheck1">Mes enchères remportées</label>
 				  </div>
 			</div>
@@ -82,56 +80,55 @@
 			
 			
 			<div class="form-check col-sm">
-			  <input class="form-check-input" type="radio" name="radio" id="vente">
+
+			  <input class="form-check-input" type="radio" name="radio" id="vente" value="vente">
+
 			  <label class="form-check-label" for="exampleRadios2">Mes ventes</label>
 			  <div  >
-				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				  <input name="venteEnCours" class="form-check-input" type="checkbox" value="venteEnCours" id="defaultCheck1">
 				  <label class="form-check-label" for="defaultCheck1">Mes ventes en cours</label>
 			  </div>
 			   <div>
-				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				  <input name="venteNonDebut" class="form-check-input" type="checkbox" value="venteNonDebut" id="defaultCheck1">
 				  <label class="form-check-label" for="defaultCheck1">Ventes non débutées</label>
 			  </div>
 			   <div>
-				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				  <input name="venteTermine" class="form-check-input" type="checkbox" value="venteTermine" id="defaultCheck1">
 				  <label class="form-check-label" for="defaultCheck1">Ventes terminées</label>
 			  </div>
 			</div>
 		</div>
 
 
-	<div class="input-group">
-		<input type="text" class="form-control"
-			aria-label="Text input with dropdown button">
-		<div class="input-group-append">
-			<button class="btn btn-outline-secondary dropdown-toggle"
-				type="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false">Dropdown</button>
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">1</a> <a class="dropdown-item"
-					href="#">2</a> <a class="dropdown-item" href="#">3</a>
-			</div>
+		<div class="input-group mb-3">
+ 			    
+          </div>
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+   			   	     <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
+ 			    </div>
+  				<select class="custom-select" id="inputGroupSelect01" name="selectCategorie">
+  					<option selected>Toutes</option>
+  					 <c:forEach var="categorie" items="${listeCategorie}"> 
+  					<%--<c:set var="cat" value="${categorie.getLibelle()}"/>		NOT WORKING Code pour mettre la premiere lettre du libelle en MAJ
+  					<c:set var="libelle" value="${cat.substring(0, 1).toUpperCase() + cat.substring(1)}" /> --%>
+				    	 <option value="${categorie.libelle}"><c:out value="${categorie.libelle}"/></option>
+					</c:forEach>
+               </select>
 		</div>
 	</div>
-</div>
+	<button name="recherche" type="submit" class="btn btn-success" >Recherche</button>
+	</form>
 
 
-
-
-<c:if test="${radioAchat == true}">
-	<p>achat</p></c:if>
-	<p>${radioAchat}</p>
-	<c:if test="${radioAchat == false}">
-	<p>vente</p></c:if>
 
 	<c:forEach var="article" items="${listeArticle}">
 
 		<div class="card mb-3" style="max-width: 540px;">
 			<div class="row no-gutters">
 				<div class="col-md-4">
-					<img
-						src="C:\Users\slevy2020\Desktop\MissionProjet\images\chapeau_paille.jpg"
-						class="card-img" alt="...">
+
 				</div>
 
 				<div class="col-md-8">
