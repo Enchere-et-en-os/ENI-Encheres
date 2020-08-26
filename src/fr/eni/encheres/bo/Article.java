@@ -10,18 +10,16 @@ public class Article {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	//private String lieuVente;
 	private int etatVente;
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private int utilisateurId;
 	private int categorieId;
-	
+	private Retrait retrait;
 
 
 	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 	int miseAPrix, int prixVente, int etatVente, int utilisateurId, int categorieId) {
-	super();
 	this.id = id;
 	this.nom = nom;
 	this.description = description;
@@ -66,7 +64,17 @@ public class Article {
 	this.utilisateurId = utilisateurId;
 	this.categorieId = categorieId;
 }
-
+	
+	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAPrix,
+			 Retrait retrait) {
+		//new Article(nomArticle, description, miseAprix, debutEnchere, finEnchere, retrait ));
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		setRetrait(retrait);
+	}
 	public int getId() {
 		return id;
 	}
@@ -168,16 +176,22 @@ public class Article {
 	}
 
 
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", nom=" + nom + ", description=" + description + ", dateDebutEncheres="
 				+ dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix=" + miseAPrix
 				+ ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", utilisateur=" + utilisateur
 				+ ", categorie=" + categorie + ", utilisateurId=" + utilisateurId + ", categorieId=" + categorieId
-				+ "]";
+				+ ", retrait=" + retrait + "]";
 	}
-
-
-	
 
 }
