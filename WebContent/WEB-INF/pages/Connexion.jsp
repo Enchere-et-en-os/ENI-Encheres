@@ -26,7 +26,6 @@
 			</div>
 
 			<div class="form-group">
-
 	
 				<label for="motDePasse">Mot de passe :</label> 
 			    <input type="password" class="form-control" 
