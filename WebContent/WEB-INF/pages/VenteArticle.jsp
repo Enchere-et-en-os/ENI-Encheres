@@ -13,21 +13,24 @@
 
 	<h1>ENI-Enchères</h1>
 	
+	
 	<div class="container">
 	
   <div class="row">
     <div class="col-sm col-lg-3">
-     	<img class="img_art" src="/ENI-Encheres/images/chapeau_paille.jpg" 
+     	<img class="img_art" src="/ENI-Encheres/images/photo-en-attente.png" 
      		alt="chapeau de paille posé délicatemment sur une jolie demoiselle à la chevelure blonde et soyeuse" 
    		>
     </div>
-    <div class="col-sm col-lg-9">
-      <h2>Nouvelle vente</h2>
+    <div class="col-sm col-lg-9 bg-dark text-white text-center">
+     <p class="h3 display-3 text-center">Nouvelle vente</p>
 		<form method="POST" action="/ENI-Encheres/MiseEnVente">
 
 			<div class="form-group">
-				<label for="nomArticle">Article :</label>
+
+				<label for="nomArticle">Nom de l'article :</label>
 				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle" required/>
+
 			</div>
 			<% if(request.getAttribute("erreur") != null) {%>
 			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -42,38 +45,41 @@
 			<% if(request.getAttribute("erreur") != null) {%>
 			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
 			<%}%>
+			<div class="row align-items-center">
+					<div class="form-group  col-4">
+						<label for="categorie">Catégorie :</label>
+						<select name="categorie" id="categorie">
+							<option value="1">Electroménager</option>
+						    <option value="2">Electronique</option>
+						    <option value="3">Véhicules</option>
+						    <option value="4">Vêtements</option>
+						</select>
+					</div>
 			
-			<div class="form-group">
-				<label for="categorie">Catégorie :</label>
-				<select name="categorie" id="categorie">
-					<option value="1">Electroménager</option>
-				    <option value="2">Electronique</option>
-				    <option value="3">Véhicules</option>
-				    <option value="4">Vêtements</option>
-				</select>
+					<div class="form-group col-4">
+						<label for="uploader">Photo de l'article :</label>
+						<button type="button" name ="uploader" class="btn btn-secondary">Uploader</button>
+					</div>
+					
+					<div class="form-group  col-4 mb-5">
+						<label for="miseAprix">Mise à prix (en points) :</label>
+						<input type="number" id="miseAprix" name="miseAprix" min="0">
+					
+					<% if(request.getAttribute("erreur") != null) {%>
+					    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+					<%}%>
+					</div>
 			</div>
-			
-			<div class="form-group">
-				<label for="uploader">Photo de l'article :</label>
-				<button type="button" name ="uploader" class="btn btn-primary">Uploader</button>
-			</div>
-			
-			<div class="form-group">
-				<label for="miseAprix">Mise à prix :</label>
-				<input type="number" id="miseAprix" name="miseAprix" min="0">
-			</div>
-			<% if(request.getAttribute("erreur") != null) {%>
-			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
-			<%}%>
-			
-			<div class="form-group">
+			<div class="row">
+			<div class="form-group col-6">
 				<label for="debutEnchere">Début de l'enchère :</label>
 				<input type="date" id="debutEnchere" name="debutEnchere">
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group col-6">
 				<label for="finEnchere">Fin de l'enchère :</label>
 				<input type="date" id="finEnchere" name="finEnchere">
+			</div>
 			</div>
 			
 			<fieldset>
@@ -81,7 +87,7 @@
 		    	
 		    	<div class="form-group">
 					<label for="rue">Rue :</label>
-					<input value="" name="rue" type="text" class="form-control" id="rue" required/>
+					<input value="" name="rue" type="text" class="form-control" id="rue"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -89,7 +95,7 @@
 				
 				<div class="form-group">
 					<label for="codePostal">Code Postal :</label>
-					<input value="" name="codePostal" type="text" class="form-control" id="codePostal" required/>
+					<input value="" name="codePostal" type="text" class="form-control" id="codePostal"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -97,15 +103,16 @@
 				
 				<div class="form-group">
 					<label for="ville">Ville :</label>
-					<input value="" name="ville" type="text" class="form-control" id="ville" required/>
+					<input value="" name="ville" type="text" class="form-control" id="ville"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
 				<%}%>
 	  		</fieldset>
 
-				<button type="submit" class="btn btn-secondary">Enregistrer</button>
-				<button type="button" class="btn btn-secondary">Annuler</button>
+				<button type="submit" class="btn btn-success mb-5">Enregistrer</button>
+				<button type="button" class="btn btn-danger mb-5">Annuler</button>
+
 				
 		</form>
 	    </div>

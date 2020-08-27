@@ -48,7 +48,9 @@
 		<form action="/ENI-Encheres/Profil" method="post">
 			<button type="submit" class="btn btn-secondary">Modifier</button>
 		</form>
-		<p>${messageUpdate}</p>
 		</c:if>
+		<form action="/ENI-Encheres/Profil" method="post">
+			<button name="annuler" type="submit" class="btn btn-secondary">Retour</button>
+		</form>
 </body>
 </html>

@@ -29,37 +29,44 @@ public class ModifierProfilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		Utilisateur utilDemande = null;
-		
-		try {
-			utilDemande = mgr.selectByPseudo((String) session.getAttribute("pseudo"));
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			System.out.println("pas de session");
+			session = request.getSession();
+			response.sendRedirect("Accueil");
+		}else {
+			session = request.getSession();
+			Utilisateur utilDemande = null;
+			
+			try {
+				utilDemande = mgr.selectByPseudo((String) session.getAttribute("pseudo"));
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// TODO MÃ©thode
+			request.setAttribute("pseudo", utilDemande.getPseudo());
+			request.setAttribute("prenom", utilDemande.getPrenom());
+			request.setAttribute("nom", utilDemande.getNom());
+			request.setAttribute("email", utilDemande.getEmail());
+			request.setAttribute("telephone", utilDemande.getTelephone());
+			request.setAttribute("rue", utilDemande.getRue());
+			request.setAttribute("codePostal", utilDemande.getCodePostal());
+			request.setAttribute("ville", utilDemande.getVille());
+			
+			request.getRequestDispatcher("/WEB-INF/pages/ModifierProfil.jsp").forward(request, response);
 		}
-		// TODO MÃ©thode
-		request.setAttribute("pseudo", utilDemande.getPseudo());
-		request.setAttribute("prenom", utilDemande.getPrenom());
-		request.setAttribute("nom", utilDemande.getNom());
-		request.setAttribute("email", utilDemande.getEmail());
-		request.setAttribute("telephone", utilDemande.getTelephone());
-		request.setAttribute("rue", utilDemande.getRue());
-		request.setAttribute("codePostal", utilDemande.getCodePostal());
-		request.setAttribute("ville", utilDemande.getVille());
-		
-		request.getRequestDispatcher("/WEB-INF/pages/ModifierProfil.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		
+		request.setCharacterEncoding("UTF-8");
 		
 		// Bouton Annuler
 		if (request.getParameter("annuler") != null) {
-			response.sendRedirect("Accueil");
+			response.sendRedirect("ListeEncheres");
 		}
 		
 		//Bouton Enregistrer
@@ -96,11 +103,22 @@ public class ModifierProfilServlet extends HttpServlet {
 			Utilisateur user = new Utilisateur(paramUser);
 			try {
 				mgr.updateById(user);
-				request.setAttribute("messageUpdate", "Les modifications ont bien Ã©tÃ© enregistrÃ©es");
+				request.setAttribute("messageUpdate", "Les modifications ont bien été enregistrées");
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			request.setAttribute("memeProfil", true);
+			session.setAttribute("pseudo", user.getPseudo());
+			request.setAttribute("pseudo", user.getPseudo());
+			request.setAttribute("nom", user.getNom());
+			request.setAttribute("prenom", user.getPrenom());
+			request.setAttribute("email", user.getEmail());
+			request.setAttribute("telephone", user.getTelephone());
+			request.setAttribute("rue", user.getRue());
+			request.setAttribute("codePostal", user.getCodePostal());
+			request.setAttribute("ville", user.getVille());
+			request.setAttribute("credit", user.getCredit());
 			request.getRequestDispatcher("/WEB-INF/pages/Profil.jsp").forward(request, response);
 		}
 		
