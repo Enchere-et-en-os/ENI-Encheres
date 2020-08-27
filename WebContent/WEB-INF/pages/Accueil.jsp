@@ -28,8 +28,12 @@
 	</nav>
 	<br><br>
 	
-	<h2>Liste des enchères</h2>
+	<p class ="h2 display-3">Liste des enchères</p>
 
+
+	<div class="alert alert-info" role="alert">
+  Vous n'êtes pas connecté ! <a href="/ENI-Encheres/Connexion" class="alert-link">Connectez-vous</a> pour profiter de milliers d'articles à bas pris !
+</div>
 	<form method="POST" action="/ENI-Encheres/Accueil">
 		<label for="basic-url">Filtre :</label>
 			<div class="input-group mb-3">
@@ -62,31 +66,37 @@
 	</form>
 
 
-
-
-
-
-	<c:forEach var="article" items="${listeArticle}">
-
-		<div class="card mb-3" style="max-width: 540px;">
-			<div class="row no-gutters">
-				<div class="col-md-4">
-					<img src="" class="card-img" alt="...">
-				</div>
-
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title">${article.nom}</h5>
-						<p class="card-text">Description : ${article.description}</p>
-						<p class="card-text">Prix : ${article.prixVente}€</p>
-						<p class="card-text">Fin de l'enchère : ${article.dateFinEncheres}</p>
-						<p class="card-text">Vendeur : ${article.utilisateurPseudo}</p>
+<div class="container-fluid">
+	<div class="row">
+			<c:set var= "nbArticle" value= "0"  scope="page"/>
+			<c:forEach var="article" items="${listeArticle}">
+				<c:set var= "nbArticle" value= "${nbArticle + 1}"  scope="page"/>
+				<div class="card mb-3 shadow p-3 mb-5 bg-white rounded col-6 " style="max-width: 540px;">
+					<div class="row no-gutters">
+						<div class="col-md-4">
+							<img src="/ENI-Encheres/images/chapeau_paille.jpg" class="card-img" alt="...">
+						</div>
+		
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">${article.nom}</h5>
+								<p class="card-text">Description : ${article.description}</p>
+								<p class="card-text">Prix : ${article.prixVente}€</p>
+								<p class="card-text">Fin de l'enchère : ${article.dateFinEncheres}</p>
+								<p class="card-text">Vendeur : ${article.utilisateurPseudo}</p>
+							</div>
+						</div>
 					</div>
+					<a href="/ENI-Encheres/Connexion" class="stretched-link"></a>
 				</div>
-			</div>
-		</div>
-
-	</c:forEach>
+			</c:forEach>
+		
+			<h4><c:out value="Nous avons ${nbArticle} article"/><c:out value="${nbArticle > 1 ? 's' : '' } à vous proposer"/></h4>	
+			
+			
+			
+	</div>		
+</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
