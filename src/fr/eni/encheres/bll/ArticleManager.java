@@ -42,15 +42,15 @@ public class ArticleManager {
 	 * @throws SQLException 
 	 * @return article
 	 */
-	public Article insertArticle (int utilisateurId, int categorieId, Article article) throws BLLException, SQLException {
-		Article art = null;
+	public void  insertArticle ( Article article, int utilisateurId, int categorieId) throws BLLException, SQLException {
 		try {
-			art = articleDAO.insertArticle ( utilisateurId, categorieId, article);
+			System.out.println("là ! bll");
+			 articleDAO.insertArticle ( article, utilisateurId, categorieId );
+
 		} catch (DALException e) {
 			System.out.println("erreur lors de l'insertion de l'article");
 			throw new BLLException();
 		}
-		return art;
 	}
 	/**
 	 * @author Samy-Lee

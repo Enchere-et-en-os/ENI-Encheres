@@ -16,6 +16,7 @@
 			
 			<div class="form-group ">
 				<label for="pseudo">Identifiant :${pseudo}</label> 
+				<input type="hidden" name="id" value="${utilisateur.id}">
 				<input type="text" class="form-control" name="pseudo"
 					id="pseudo" aria-describedby="emailHelp"
 					value='${login}' required autofocus

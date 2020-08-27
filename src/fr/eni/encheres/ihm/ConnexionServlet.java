@@ -52,47 +52,48 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			//création de la session
+			HttpSession session = request.getSession();
 		try {
 			//récupération de la liste des utilisateurs en bdd et de la saisie des inputs sur la page de connexion
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
 			
-			String erreur = "erreur de saisie";
-			String pseudo = ConnexionForm.validateInput(request.getParameter("pseudo"), erreur ) ;
-			String mdp = request.getParameter("mdp");
+			String erreur = "t'as fait une faute d'orthographe";
+			String pseudo = ConnexionForm.validateInput(request.getParameter("pseudo").trim(), erreur ) ;
+			String mdp = request.getParameter("mdp").trim();
+
+			
 			//vérification du mot de passe
 			ConnexionForm.regStringValeur( mdp, "mdp");
 			
-		
-			//création de la session
-			HttpSession session = request.getSession();
 			//vérif de la saisie utilisateur si pseudo est un mail ou un pseudo
 			//e t filtre la saisie pour la stocker dans le pseudo
 			if (pseudo.matches(EMAIL_PATTERN)) {
 			String email = null;
 			 email = (String) request.getParameter("pseudo");
 			}
-			
+		
 			String  mdp1 = ConnexionForm.hashMdp(mdp);
+		
 			//filtre de recherche si pseudo ou si email existe dans la bdd et si ceux ci-correspondent au mot de passe enregistré en bdd
 			Utilisateur utilisateurConfirmeBDD = 
 				listeDutilisateur.stream().filter(
-			u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(mdp1))
+			u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo))  && u.getMotDePasse().contains(mdp1)) 
 			       .findFirst().orElse(null);
-
+			
 			if (utilisateurConfirmeBDD != null) {
-				
+				int id= utilisateurConfirmeBDD.getId();
 				System.out.println("connecté");
 				session.setAttribute("pseudo", pseudo);
-				session.setAttribute("id", utilisateurConfirmeBDD.getId());
-				
+				session.setAttribute("id",id);
+				System.out.println(utilisateurConfirmeBDD + ", id :" + id);
 				session.setAttribute("estConnecte", true);
 				request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 				
 			} else {
 				
 				session.setAttribute("estConnecte", false);
-				request.setAttribute("erreur", "erreur de saisie");
+				request.setAttribute("erreur", "t'as fait une faute d'orthographe, man'");
 				request.getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
 			}
 		} catch (BLLException e) {

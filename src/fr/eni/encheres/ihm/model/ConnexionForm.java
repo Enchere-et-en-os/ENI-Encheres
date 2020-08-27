@@ -65,7 +65,7 @@ public interface ConnexionForm {
 		case "telephone":
 			regex = REGEXTEL;
 			if (!valeurParametre.matches(regex)) {
-				message = messageErreur + " un numÃ©ro de téléphone valide";
+				message = messageErreur + " un numéro de téléphone valide";
 			}
 			break;
 
@@ -210,7 +210,7 @@ public interface ConnexionForm {
 	}
 
 	public static String validateInput(String str, String erreur) {
-		erreur = "erreur de saisie";
+		erreur = "erreur lors de la saisie";
 
 		if(str.matches(REGEXInput)) {
 			System.out.println(str);
