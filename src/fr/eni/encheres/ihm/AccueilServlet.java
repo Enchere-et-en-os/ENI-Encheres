@@ -17,6 +17,7 @@ import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.ihm.model.ConnexionForm;
 
 /**
  * Servlet implementation class ConnexionServlet
@@ -31,6 +32,7 @@ public class AccueilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
+			
 			List<Article> listeArticle = articleManager.SelectAllArticles();
 			Utilisateur u = null;
 			String uPseudo = null;
@@ -54,11 +56,13 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String erreur = null;
 		request.setCharacterEncoding("UTF-8");
 		String articleRecherche = request.getParameter("barreRechercheArticle");
 		int categorieSelectionee = Integer.parseInt(request.getParameter("selectCategorie"));
-
+		//contrôle des saisie
+		ConnexionForm.validateInput(articleRecherche, erreur );
+		
 		List<Article> listeArticle;
 		List<Article> listeArticleFiltree = new ArrayList<Article>();
 
@@ -99,9 +103,9 @@ public class AccueilServlet extends HttpServlet {
 				request.setAttribute("barreRechercheArticle", articleRecherche);
 
 			}
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			request.setAttribute("erreur", "erreur de saisie");
+			
 		}
 
 		request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);

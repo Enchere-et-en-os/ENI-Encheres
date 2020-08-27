@@ -14,12 +14,12 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public interface ConnexionForm {
 
-	static final String REGEXGENERAL = "^[\\w\\séêè-]{3,}$";
+	static final String REGEXGENERAL = "^[\\w\\séèêàâùç-]{3,}$";
 	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";
 	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8,15}$";
-	static final String REGEXInput = "^[-'\\w\\séê]+$";
+	static final String REGEXInput = "^[-'\\w\\séèêàâùç]+$";
 
 	/*
 	 * @Author : Tanguy & Valentin
@@ -146,9 +146,7 @@ public interface ConnexionForm {
 				}
 				
 				mdp = hashMdp(request.getParameter(entry).trim());
-				
-				// vérifie si le mot de passe existe en bdd
-				// TODO make it work
+
 				try {
 					listCheckUsers = mgr.getAllUtilisateur();
 				} catch (BLLException e) {
@@ -156,7 +154,7 @@ public interface ConnexionForm {
 					e.printStackTrace();
 				}
 				for (Utilisateur utilisateur : listCheckUsers) {
-					if (utilisateur.getMotDePasse() == mdp) {
+					if (utilisateur.getMotDePasse().contains(mdp)) {
 						request.setAttribute(erreur , "Choissisez un autre Mot de Passe");
 					}
 

@@ -56,38 +56,44 @@ public class ConnexionServlet extends HttpServlet {
 		try {
 			//récupération de la liste des utilisateurs en bdd et de la saisie des inputs sur la page de connexion
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
-			String pseudo = request.getParameter("pseudo");
-			String motDePasse = request.getParameter("motDePasse");
-			String id = request.getParameter("id");
-			String email = null;
+			
+			String erreur = "erreur de saisie";
+			String pseudo = ConnexionForm.validateInput(request.getParameter("pseudo"), erreur ) ;
+			String mdp = request.getParameter("mdp");
+			//vérification du mot de passe
+			ConnexionForm.regStringValeur( mdp, "mdp");
+			
+		
 			//création de la session
 			HttpSession session = request.getSession();
 			//vérif de la saisie utilisateur si pseudo est un mail ou un pseudo
 			//e t filtre la saisie pour la stocker dans le pseudo
 			if (pseudo.matches(EMAIL_PATTERN)) {
+			String email = null;
 			 email = (String) request.getParameter("pseudo");
 			}
 			
-			
+			String  mdp1 = ConnexionForm.hashMdp(mdp);
+
 			//filtre de recherche si pseudo ou si email existe dans la bdd et si ceux ci-correspondent au mot de passe enregistré en bdd
 			Utilisateur utilisateurConfirmeBDD = 
-				listeDutilisateur.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
+				listeDutilisateur.stream().filter(
+			u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(mdp1))
 			       .findFirst().orElse(null);
 			
 			if (utilisateurConfirmeBDD != null) {
+				
 				System.out.println("connecté");
-				listeDutilisateur.stream();
-				session.setAttribute("motDePasse", motDePasse);
 				session.setAttribute("pseudo", pseudo);
-				session.setAttribute("id", id);
+				session.setAttribute("id", utilisateurConfirmeBDD.getId());
+				
 				session.setAttribute("estConnecte", true);
-		
 				request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 				
 			} else {
-				System.out.println( "pas connecté ou erreur de saisie");
+				
 				session.setAttribute("estConnecte", false);
-				request.setAttribute("message", "Email / mot de passe non conforme");
+				request.setAttribute("erreur", "erreur de saisie");
 				request.getRequestDispatcher("/WEB-INF/pages/Connexion.jsp").forward(request, response);
 			}
 		} catch (BLLException e) {
