@@ -29,7 +29,7 @@
 			<div class="form-group">
 
 				<label for="nomArticle">Nom de l'article :</label>
-				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle" required/>
+				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle" />
 
 			</div>
 			<% if(request.getAttribute("erreur") != null) {%>
@@ -38,9 +38,8 @@
 			
 			<div class="form-group">
 				<label for="description">Description :</label>
-				<textarea name="description" rows="5" cols="100" maxlength="500" >
+				<input value="" name="description" type="text" class="form-control" id="description" />
 					Vous pouvez écrire votre description ici.
-				</textarea>
 			</div>
 			<% if(request.getAttribute("erreur") != null) {%>
 			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -112,16 +111,11 @@
 
 				<button type="submit" class="btn btn-success mb-5">Enregistrer</button>
 				<button type="button" class="btn btn-danger mb-5">Annuler</button>
-
-				
+	
 		</form>
 	    </div>
 	  </div>
 	</div>
-	
-	
-	
-	
 	
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

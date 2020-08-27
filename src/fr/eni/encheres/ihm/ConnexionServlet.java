@@ -86,7 +86,6 @@ public class ConnexionServlet extends HttpServlet {
 				System.out.println("connecté");
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("id",id);
-				System.out.println(utilisateurConfirmeBDD + ", id :" + id);
 				session.setAttribute("estConnecte", true);
 				response.sendRedirect("ListeEncheres");
 				

@@ -13,7 +13,7 @@ import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
-import fr.eni.encheres.bo.Utilisateur;
+
 
 public class ArticleDAOImpl implements ArticleDAO {
 
@@ -24,8 +24,8 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres,"
 			+ " date_fin_encheres, prix_initial, prix_vente, etatVente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS ";
 
-	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,?,?,?,?,?)";
-
+	private static final String SQL_INSERT_INTO_ARTICLE = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etatVente, no_utilisateur, no_categorie) VALUES(?,?,?,?,?,?,?,?,?)";
+	
 	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 	private static final String SQL_SELECT_ARTICLES_BY_ETAT = "SELECT * FROM ARTICLES_VENDUS as A INNER JOIN UTILISATEURS as U ON A.no_utilisateur = U.no_utilisateur " + 
 	"INNER JOIN ENCHERES as E ON U.no_utilisateur = E.no_utilisateur WHERE A.etatVente = ?";
@@ -105,12 +105,12 @@ public class ArticleDAOImpl implements ArticleDAO {
 	 * @throws DALException 
 	 */
 	public void insertArticle (Article article, int utilisateurId, int categorieId ) throws SQLException, DALException {
-
+//nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etatVente, no_utilisateur, no_categorie)
 		try(Connection conn =  ConnectionProvider.getConnection()) {
 			
 		PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_INTO_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
 		System.out.println("art daoImpl : " + article);
-		Retrait retrait = new Retrait(null, null, null);
+		
 		pstmt.setString(1, article.getNom());
 		pstmt.setString(2, article.getDescription());
 		pstmt.setDate(3, java.sql.Date.valueOf( article.getDateDebutEncheres()));
@@ -120,7 +120,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 		pstmt.setInt(7, article.getEtatVente());
 		pstmt.setInt(8, utilisateurId);
 		pstmt.setInt(9, categorieId);
-		pstmt.setString(10, article.getRetrait().getCodePostal());
 		pstmt.executeUpdate();
 /**
  * new Article(article.setNom(rs.getString("nom_article")), article.setNom(rs.getString("description"))

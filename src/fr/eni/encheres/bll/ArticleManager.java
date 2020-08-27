@@ -45,7 +45,7 @@ public class ArticleManager {
 	 */
 	public void  insertArticle ( Article article, int utilisateurId, int categorieId) throws BLLException, SQLException {
 		try {
-			System.out.println("là ! bll");
+			System.out.println("là ! bll" + article);
 			 articleDAO.insertArticle ( article, utilisateurId, categorieId );
 
 		} catch (DALException e) {

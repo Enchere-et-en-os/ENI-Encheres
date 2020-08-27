@@ -5,7 +5,6 @@ import java.util.List;
 
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
-import fr.eni.encheres.bo.Utilisateur;
 
 public interface ArticleDAO {
 
@@ -15,7 +14,6 @@ public interface ArticleDAO {
 	
 	public List<Categorie> SelectAllCategories() throws DALException;
 	
-
 	public List<Article> selectAllArticles() throws DALException;
 	
 	public List<Article> selectAllByEtatVente(int etatVente) throws DALException;
