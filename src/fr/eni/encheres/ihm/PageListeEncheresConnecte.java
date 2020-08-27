@@ -3,7 +3,9 @@ package fr.eni.encheres.ihm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,11 +66,12 @@ public class PageListeEncheresConnecte extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String pseudo = (String) session.getAttribute("pseudo");
+		List<Article> liste1 = new ArrayList<Article>();
+		List<Article> liste2 = new ArrayList<Article>();
+		List<Article> liste3 = new ArrayList<Article>();
 		List<Article> listeArticle = new ArrayList<Article>();
 		boolean filtres = false;
-
-
-		List<String> listParam = new ArrayList<String>();
+		Utilisateur utilisateur= null;
 		String radio = request.getParameter("radio");
 		String categorieSelectionee = request.getParameter("selectCategorie");
 		
@@ -80,68 +83,92 @@ public class PageListeEncheresConnecte extends HttpServlet {
 			
 			// Vérifie Partie Gagne
 			if(enchereGagne != null) {
+				filtres = true;
+				
 				System.out.println("je veux mes encheres gagnés !");	
-				// TODO liste temporaire avant de .addAll (merge) arrays
 				try {
-					for (Article article : articleManager.selectAllByEtatVente(2)) {
-						listeArticle.add(article);
+					utilisateur = utilisateurManager.selectByPseudo(pseudo);
+					for (Article article : articleManager.selectAllByEtatVenteGagne(3,utilisateur.getId())) {
+						liste3.add(article);
+						
 					}
-					
+					System.out.println("ma liste : " + liste3);
 				} catch (BLLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//System.out.println(listeArticle);
+	
 				// Si enchereOuverte est coché, pas besoin de demander enchereUtilisateur
 				if(enchereOuverte != null) {
 					System.out.println("je veux toutes les encheres !");
-					
-					System.out.println(listeArticle);
-					//enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
+					try {
+						for (Article article : articleManager.selectAllByEtatVente(2)) {
+							liste1.add(article);
+							
+						}
+						System.out.println("ma liste : " + liste1);
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					enchereOuverte = null;
 					enchereUtilisateur = null;
-				}
-				
-				//enchereOuverteVerfier(listeArticle, enchereGagne, filtres);
+				}	
 			}
 			
 			// Vérifie Partie Utilisateur
 			if(enchereUtilisateur != null) {
-				//listArticle.add();
-				System.out.println(listeArticle);
+				filtres = true;
+				
+				try {	
+					utilisateur = utilisateurManager.selectByPseudo(pseudo);
+					for (Article article : articleManager.selectAllByEtatVenteUtilisateur(2,utilisateur.getId())) {
+						liste2.add(article);
+						
+					}
+					System.out.println("ma liste : " + liste2);
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("je veux mes encheres dans lesquelles je participe !");
+				
 				if(enchereGagne != null) {
 					System.out.println("je veux mes encheres gagnés !");
-					//enchereOuverteVerfier(listeArticle, enchereGagne, filtres);
+					
+					try {
+						utilisateur = utilisateurManager.selectByPseudo(pseudo);
+						
+						for (Article article : articleManager.selectAllByEtatVenteGagne(3,utilisateur.getId())) {
+							liste3.add(article);	
+						}
+						System.out.println("ma liste : " + liste3);
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					enchereGagne = null;
 				}
-				//enchereOuverteVerfier(listeArticle, enchereUtilisateur, filtres);
 			}
 			
 			if(enchereOuverte != null) {
-				//listArticle.add();
+				filtres = true;
+				
+				try {
+					for (Article article : articleManager.selectAllByEtatVente(2)) {
+						liste1.add(article);
+						
+					}
+					System.out.println("ma liste : " + liste1);
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				System.out.println(listeArticle);
 				System.out.println("je veux toutes les encheres !");
-				//enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
-			}
-				
-			
-//			enchereOuverteVerfier(listeArticle, enchereUtilisateur, filtres);
-//			enchereOuverteVerfier(listeArticle, enchereOuverte, filtres);
-//			enchereOuverteVerfier(listeArticle, enchereGagne, filtres);
-			
-
-			
-			
-			
-			
-			
-			listParam.add(categorieSelectionee);
-			listParam.add(enchereOuverte);
-			listParam.add(enchereUtilisateur);
-			listParam.add(enchereGagne);
-			
-			//request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
+			}		
 		}
 		else if(radio.contentEquals("vente")) {
 
@@ -149,68 +176,51 @@ public class PageListeEncheresConnecte extends HttpServlet {
 			String venteNonDebute = request.getParameter("venteNonDebut");
 			String venteTermine = request.getParameter("venteTermine");
 			
-			if(venteEnCours != null) {
-				listParam.add(venteEnCours);
-				filtres = true;
-			}
-				
-			if(venteNonDebute != null) {
-				listParam.add(venteNonDebute);
-				filtres = true;
-			}
-				
-			if(venteTermine != null) {
-				listParam.add(venteTermine);
-				filtres = true;
-			}	
+//			if(venteEnCours != null) {
+//				listParam.add(venteEnCours);
+//				filtres = true;
+//			}
+//				
+//			if(venteNonDebute != null) {
+//				listParam.add(venteNonDebute);
+//				filtres = true;
+//			}
+//				
+//			if(venteTermine != null) {
+//				listParam.add(venteTermine);
+//				filtres = true;
+//			}	
+//			
+//			listParam.add(categorieSelectionee);
 			
-			listParam.add(categorieSelectionee);
-			
-			//request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 		}
 		
 		if(!filtres) {
-			doGet(request,response);
-		}
-	}
-	
-	public List<Article> enchereOuverteVerfier(List<Article> liste, String enchere, boolean filtres){
-		 
-			switch (enchere) {
-			// ajoute toutes les encheres en cours
-			case "enchereOuverte":
-					System.out.println("dans ma méthode : " + enchere);
-					try {
-						// selectionne les articles en cours
-						liste = articleManager.SelectAllArticles();
-					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-			// ajoute les encheres de l'utilisateur
-			case "enchereUtilisateur":
-				try {
-					Utilisateur utilisateur = utilisateurManager.selectByPseudo("lenaik68");
-					//listeArticle = articleManager.
-				} catch (BLLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			// ajoute les encheres gagnées
-			case "enchereGagne":
-					filtres = true;
-					System.out.println("gagne");
-					try {
-						Utilisateur utilisateur = utilisateurManager.selectByPseudo("lenaik68");
-					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+			try {
+				listeArticle = articleManager.selectAllByEtatVente(2);
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
+		}else {
+			System.out.println(liste1);
+			for (Article article : liste2){
+				   if (!liste1.contains(article))
+				      liste1.add(article);
+				}
+			System.out.println(liste1);
+			liste1.addAll(liste3);
+			System.out.println(liste1);
+			listeArticle.addAll(liste1);
+		}
 		
-		return liste;	
+		
+//		Utilisateur utilisateurConfirmeBDD = 
+//				listeDutilisateur.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
+//			       .findFirst().orElse(null);
+		request.setAttribute("listeArticle", listeArticle);
+		request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
 
 }
