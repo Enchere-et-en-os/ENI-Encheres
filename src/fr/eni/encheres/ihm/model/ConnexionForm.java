@@ -14,12 +14,12 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public interface ConnexionForm {
 
-	static final String REGEXGENERAL = "^[\\w]{3,}$";
+	static final String REGEXGENERAL = "^[\\w\\séê-]{3,}$";
 	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";
 	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8,15}$";
-	static final String REGEXInput = "^[-'\\w\\s]+$";
+	static final String REGEXInput = "^[-'\\w\\séê]+$";
 
 	/*
 	 * @Author : Tanguy & Valentin
@@ -65,7 +65,7 @@ public interface ConnexionForm {
 		case "telephone":
 			regex = REGEXTEL;
 			if (!valeurParametre.matches(regex)) {
-				message = messageErreur + " un numÃ©ro de tÃ©lÃ©phone valide";
+				message = messageErreur + " un numÃ©ro de téléphone valide";
 			}
 			break;
 

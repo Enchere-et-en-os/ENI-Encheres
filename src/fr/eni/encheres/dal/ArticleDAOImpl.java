@@ -28,7 +28,17 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private static final String SQL_SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 	private static final String SQL_SELECT_ENCHERES_BY_ETAT = "SELECT * FROM ARTICLES_VENDUS as A INNER JOIN UTILISATEURS as U ON A.no_utilisateur = U.no_utilisateur " + 
 	"INNER JOIN ENCHERES as E ON U.no_utilisateur = E.no_utilisateur WHERE A.etatVente = ?";
-
+	private static final String SQL_SELECT_ENCHERES_BY_ETAT_AND_UTILISATEUR = "SELECT A.no_article, nom_article, description, date_debut_encheres, " + 
+			"date_fin_encheres, prix_initial, prix_vente, etatVente, U.no_utilisateur, no_categorie FROM ARTICLES_VENDUS as A " +
+			"INNER JOIN UTILISATEURS as U ON A.no_utilisateur = U.no_utilisateur " +
+			"INNER JOIN ENCHERES as E ON U.no_utilisateur = E.no_utilisateur " +
+			"WHERE A.etatVente = ? AND U.no_utilisateur = ?";
+	private static final String SQL_SELECT_ENCHERES_BY_ETAT_AND_GAGNE = "SELECT A.no_article, nom_article, description, date_debut_encheres, " + 
+			"date_fin_encheres, prix_initial, prix_vente, etatVente, E.no_utilisateur, no_categorie FROM ARTICLES_VENDUS as A " +
+			"INNER JOIN UTILISATEURS as U ON A.no_utilisateur = U.no_utilisateur " +
+			"INNER JOIN ENCHERES as E ON U.no_utilisateur = E.no_utilisateur " +
+			"INNER JOIN UTILISATEURS as ACH ON ACH.no_utilisateur = E.no_utilisateur " +
+			"WHERE A.etatVente = ? AND E.no_utilisateur = ?" ;
 	 /**
 	 * @author tanguy
 
@@ -210,6 +220,70 @@ public class ArticleDAOImpl implements ArticleDAO {
 			PreparedStatement pstmt = conn.prepareStatement(SQL_SELECT_ENCHERES_BY_ETAT);
 			
 			pstmt.setInt(1, etatVente);
+			ResultSet rs = pstmt.executeQuery();
+			
+			Article article = null;
+			LocalDate dateDebutEnchere = null;
+			LocalDate dateFinEnchere = null;
+			
+			while(rs.next()) {
+				dateDebutEnchere = rs.getDate("date_debut_encheres").toLocalDate();
+				dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
+				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), 
+					     dateDebutEnchere, dateFinEnchere, rs.getInt("prix_initial"), 
+					      rs.getInt("prix_vente"), rs.getInt("etatVente"), rs.getInt("no_utilisateur") ,rs.getInt("no_categorie"));
+				listeArticles.add(article);
+			}
+			
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+			throw new DALException("Echec de SelectAllArticles", e);
+		}
+		
+		return listeArticles;
+	}
+	
+	public List<Article> selectAllByEtatVenteUtilisateur(int etatVente, int idUtilisateur) throws DALException{
+		List<Article> listeArticles = new ArrayList<Article>();
+		
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(SQL_SELECT_ENCHERES_BY_ETAT_AND_UTILISATEUR);
+			
+			pstmt.setInt(1, etatVente);
+			pstmt.setInt(2, idUtilisateur);
+			ResultSet rs = pstmt.executeQuery();
+			
+			Article article = null;
+			LocalDate dateDebutEnchere = null;
+			LocalDate dateFinEnchere = null;
+			
+			while(rs.next()) {
+				dateDebutEnchere = rs.getDate("date_debut_encheres").toLocalDate();
+				dateFinEnchere = rs.getDate("date_fin_encheres").toLocalDate();
+				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), 
+					     dateDebutEnchere, dateFinEnchere, rs.getInt("prix_initial"), 
+					      rs.getInt("prix_vente"), rs.getInt("etatVente"), rs.getInt("no_utilisateur") ,rs.getInt("no_categorie"));
+				listeArticles.add(article);
+			}
+			
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+			throw new DALException("Echec de SelectAllArticles", e);
+		}
+		
+		return listeArticles;
+	}
+	
+	public List<Article> selectAllByEtatVenteGagne(int etatVente, int idUtilisateur) throws DALException{
+		List<Article> listeArticles = new ArrayList<Article>();
+		
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(SQL_SELECT_ENCHERES_BY_ETAT_AND_GAGNE);
+			
+			pstmt.setInt(1, etatVente);
+			pstmt.setInt(2, idUtilisateur);
 			ResultSet rs = pstmt.executeQuery();
 			
 			Article article = null;

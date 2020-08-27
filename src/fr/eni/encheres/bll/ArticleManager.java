@@ -101,4 +101,26 @@ public class ArticleManager {
 		}
 		return listeArticle;
 	}
+	
+	public List<Article> selectAllByEtatVenteUtilisateur(int etatVente, int idUtilisateur) throws BLLException{
+		List<Article> listeArticle = null;
+		try {
+			listeArticle = articleDAO.selectAllByEtatVenteUtilisateur(etatVente, idUtilisateur);
+		} catch (DALException e) {
+			System.out.println("erreur manager selectAllByEtatVenteUtilisateur");
+			throw new BLLException();
+		}
+		return listeArticle;
+	}
+	
+	public List<Article> selectAllByEtatVenteGagne(int etatVente, int idUtilisateur) throws BLLException{
+		List<Article> listeArticle = null;
+		try {
+			listeArticle = articleDAO.selectAllByEtatVenteGagne(etatVente, idUtilisateur);
+		} catch (DALException e) {
+			System.out.println("erreur manager selectAllByEtatVenteGagne");
+			throw new BLLException();
+		}
+		return listeArticle;
+	}
 }
