@@ -214,6 +214,7 @@ public interface ConnexionForm {
 			
 			return str;	
 		}
+
 		return erreur;
 		}
 	

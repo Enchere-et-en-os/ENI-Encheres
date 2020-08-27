@@ -31,7 +31,6 @@ public class ModifierProfilServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		if(session == null) {
-			System.out.println("pas de session");
 			session = request.getSession();
 			response.sendRedirect("Accueil");
 		}else {
@@ -130,7 +129,7 @@ public class ModifierProfilServlet extends HttpServlet {
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
+			response.sendRedirect("Accueil");
 		}
 	}
 

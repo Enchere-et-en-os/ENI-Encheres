@@ -29,7 +29,6 @@ public class MiseEnVenteServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		if(session == null) {
-			System.out.println("pas de session");
 			response.sendRedirect("Accueil");
 		}else {
 			session = request.getSession();
@@ -45,8 +44,9 @@ public class MiseEnVenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		request.setCharacterEncoding("UTF-8");
 		
+		request.setCharacterEncoding("UTF-8");
+
 		if(request.getParameter("annuler") != null) {
 			response.sendRedirect("ListeEncheres");
 		}else {
@@ -72,6 +72,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 		retrait.setCodePostal(codePostal);
 		retrait.setVille(ville);
 
+
 		try {
 			
 			//vérification de la saisie
@@ -82,6 +83,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 			rue = ConnexionForm.validateInput(rue, erreur );
 			codePostal = ConnexionForm.validateInput(codePostal, erreur );
 			ville = ConnexionForm.validateInput(ville, erreur );
+
 
 			//formatage de date et de la mise à prix pour la requête sql
 		
@@ -95,7 +97,6 @@ public class MiseEnVenteServlet extends HttpServlet {
 			System.out.println("miseaPrix" + miseaPrix);
 			//attributs session
 //			session.setAttribute("nomArticle", nomArticle);
-//			System.out.println(nomArticle);
 //			session.setAttribute("description", description);
 //			session.setAttribute("miseaPrix", miseaPrix);
 //			session.setAttribute("debutEnchere", debutEnchere);
@@ -116,6 +117,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
+		
 		}
 	}
 }

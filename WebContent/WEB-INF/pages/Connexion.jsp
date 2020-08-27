@@ -42,13 +42,13 @@
 			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
 			<%}%>
 
-			<a href="#">Mot de passe oublié</a>
+			<!-- <a href="#">Mot de passe oublié</a>
 
 			<div class="form-group form-check">
 				<input type="checkbox" class="form-check-input" id="exampleCheck1">
 				<label class="form-check-label" for="exampleCheck1"> Se
 					souvenir de moi </label>
-			</div>
+			</div> -->
 
 			<button type="submit" class="btn btn-success mr-3">Connexion</button>
 			<a href="Inscription"><button type="button"

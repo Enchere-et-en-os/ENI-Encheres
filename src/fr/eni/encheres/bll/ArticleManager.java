@@ -136,8 +136,16 @@ public class ArticleManager {
 		return listeArticle;
 	}
 
-	public void insertRetrait(Retrait retrait) {
-		// TODO Auto-generated method stub
-		
+	
+	public Article selectArticleByID(int idArticle) {
+		Article article = null;
+		try {
+			article = articleDAO.SelectEnchereById(idArticle);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return article;
+
 	}
 }

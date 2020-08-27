@@ -11,18 +11,18 @@
 </head>
 <body>
 
-	<h1>ENI-Enchères</h1>
+
 	
 	
-	<div class="container">
+	<div class="container mt-5">
 	
   <div class="row">
-    <div class="col-sm col-lg-3">
+    <div class="col-sm col-lg-3 rounded">
      	<img class="img_art" src="/ENI-Encheres/images/photo-en-attente.png" 
      		alt="chapeau de paille posé délicatemment sur une jolie demoiselle à la chevelure blonde et soyeuse" 
    		>
     </div>
-    <div class="col-sm col-lg-9 bg-dark text-white text-center">
+    <div class="col-sm col-lg-9 bg-secondary text-white text-center rounded">
      <p class="h3 display-3 text-center">Nouvelle vente</p>
 		<form method="POST" action="/ENI-Encheres/MiseEnVente">
 
@@ -57,7 +57,7 @@
 			
 					<div class="form-group col-4">
 						<label for="uploader">Photo de l'article :</label>
-						<button type="button" name ="uploader" class="btn btn-secondary">Uploader</button>
+						<button type="button" name ="uploader" class="btn btn-secondary" disabled>Uploader</button>
 					</div>
 					
 					<div class="form-group  col-4 mb-5">
@@ -110,9 +110,15 @@
 	  		</fieldset>
 
 				<button type="submit" class="btn btn-success mb-5">Enregistrer</button>
-				<button type="button" class="btn btn-danger mb-5">Annuler</button>
+
+				<!-- Voir si util , arriver avec le dernier merge <button type="button" class="btn btn-danger mb-5">Annuler</button> -->
 	
+
+				<button type="submit" name="annuler" class="btn btn-danger mb-5">Annuler</button>
+
+				
 		</form>
+		
 	    </div>
 	  </div>
 	</div>
