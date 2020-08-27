@@ -1,13 +1,16 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import java.time.LocalDate;
 import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
@@ -30,9 +33,9 @@ public class MiseEnVenteServlet extends HttpServlet {
 		Article article = null;
 		HttpSession session = request.getSession();
 		String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
-		String motDePasseDeLutilisateur = (String) session.getAttribute("motDePasse");
-		System.out.println("identifiantDeLutilisateur" + identifiantDeLutilisateur);
-		System.out.println("motDePasseDeLutilisateur" + motDePasseDeLutilisateur);
+		String idProfilLutilisateur = (String) session.getAttribute("motDePasse");
+		System.out.println("identifiantDeLutilisateur :" + identifiantDeLutilisateur);
+		System.out.println("motDePasseDeLutilisateur :" + idProfilLutilisateur );
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
 	}
 
@@ -43,24 +46,24 @@ public class MiseEnVenteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String erreur = null;
 		Utilisateur u = null;
-		Categorie c = null;
+	
 		int utilisateurId = u.getId();
-		int categorieId = c.getId();
+	
+		//récupération des saisies 
+		String nomArticle = request.getParameter("nomArticle");
+		String description = request.getParameter("description");
+		String categorie = request.getParameter("categorie");
+		System.out.println("categorie :" + categorie);
+		String miseAprix = request.getParameter("miseAprix");
+		String debutEnchere = request.getParameter("debutEnchere");
+		String finEnchere = request.getParameter("finEnchere");
+		//retrait à faire avec la bdd
+		String rue = request.getParameter("rue");
+		String codePostal = request.getParameter("codePostal");
+		String ville = request.getParameter("ville");
 		
 		try {
-			//récupération des saisies 
-			String nomArticle = request.getParameter("nomArticle");
-			String description = request.getParameter("description");
-			String categorie = request.getParameter("categorie");
-			System.out.println("categorie :" + categorie);
-			String miseAprix = request.getParameter("miseAprix");
-			String debutEnchere = request.getParameter("debutEnchere");
-			String finEnchere = request.getParameter("finEnchere");
-			//retrait à faire avec la bdd
-			String rue = request.getParameter("rue");
-			String codePostal = request.getParameter("codePostal");
-			String ville = request.getParameter("ville");
-		
+
 			//vérification de la saisie
 			ConnexionForm.validateInput(nomArticle, erreur );
 			ConnexionForm.validateInput(description, erreur );
@@ -72,6 +75,11 @@ public class MiseEnVenteServlet extends HttpServlet {
 			ConnexionForm.validateInput(codePostal, erreur );
 			ConnexionForm.validateInput(ville, erreur );
 			
+			//formatage de date
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			LocalDate dateDebut = LocalDate.parse(debutEnchere, format);
+			LocalDate dateFin = LocalDate.parse(finEnchere, format);
+			System.out.println(dateDebut); System.out.println(dateFin);
 			//attributs session
 			session.setAttribute("nomArticle", nomArticle);
 			session.setAttribute("description", description);
@@ -92,15 +100,14 @@ public class MiseEnVenteServlet extends HttpServlet {
 			System.out.println("erreur" + erreur);
 			System.out.println("nomArticle :" + nomArticle);
 			System.out.println("ville :" + ville);
-			/**
-			 * https://www.codeflow.site/fr/article/java8__java-8-how-to-convert-string-to-localdate
-			 * //new Article(nomArticle, description, miseAprix, debutEnchere, finEnchere, retrait ));
-		
-		this.prixVente = prixVente;
-		setRetrait(retrait);
-			 */
+/**
+ * https://www.codeflow.site/fr/article/java8__java-8-how-to-convert-string-to-localdate
+ * //new Article(nomArticle, description, miseAprix, debutEnchere, finEnchere, retrait ));
+	this.prixVente = prixVente;
+	setRetrait(retrait);
+// */
 //			Article article = mger.insertArticle(utilisateurId, categorieId, 
-//					new Article(nomArticle, description, miseAprix, debutEnchere, finEnchere, retrait ));
+//					new Article(nomArticle, description, miseAprix, debutEnchere, finEnchere, retrait));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

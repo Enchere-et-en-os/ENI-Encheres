@@ -1,6 +1,8 @@
 package fr.eni.encheres.bo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 public class Article {
 	private int id;
@@ -8,6 +10,7 @@ public class Article {
 	private String description;
 	private LocalDate dateDebutEncheres;
 	private LocalDate dateFinEncheres;
+	private static DateTimeFormatter dateFormat= DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	private int miseAPrix;
 	private int prixVente;
 	private int etatVente;
@@ -39,13 +42,6 @@ public class Article {
 		this.categorieId = categorieId;
 		this.utilisateurPseudo = utilisateurPseudo;
 	}
-
-
-
-	
-
-	
-
 
 
 	public Article(int id, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
@@ -137,6 +133,10 @@ public class Article {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
 
+	public String getStrDateDebut() {
+		return getDateDebutEncheres()==null? "" : dateFormat.format(getDateDebutEncheres());
+	}
+	
 	public LocalDate getDateFinEncheres() {
 		return dateFinEncheres;
 	}
@@ -144,7 +144,10 @@ public class Article {
 	public void setDateFinEncheres(LocalDate dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
-
+	
+	public String getStrDateFin() {
+		return getDateFinEncheres()==null? "" : dateFormat.format(getDateFinEncheres());
+	}
 	public int getMiseAPrix() {
 		return miseAPrix;
 	}
@@ -232,5 +235,6 @@ public class Article {
 				+ ", categorie=" + categorie + ", utilisateurId=" + utilisateurId + ", categorieId=" + categorieId
 				+ ", retrait=" + retrait + "]";
 	}
+
 
 }
