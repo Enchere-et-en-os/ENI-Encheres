@@ -31,7 +31,15 @@ public class AccueilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
+			List<Article> listeArticle = articleManager.SelectAllArticles();
+			Utilisateur u = null;
+			String uPseudo = null;
+			for (Article article : listeArticle) {
+				u = utilisateurManager.selectById(article.getUtilisateurId());
+				uPseudo = u.getPseudo();
+				article.setUtilisateurPseudo(uPseudo);
+			}
+			request.setAttribute("listeArticle", listeArticle);
 			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block

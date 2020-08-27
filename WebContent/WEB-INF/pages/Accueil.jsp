@@ -80,8 +80,7 @@
 						<p class="card-text">Description : ${article.description}</p>
 						<p class="card-text">Prix : ${article.prixVente}€</p>
 						<p class="card-text">Fin de l'enchère : ${article.dateFinEncheres}</p>
-						<p class="card-text"><c:if test="${empty article.utilisateurPseudo}"></c:if>
-						<c:if test="${!empty article.utilisateurPseudo}"><c:out value ="Vendeur : ${article.utilisateurPseudo}" /></c:if></p>
+						<p class="card-text">Vendeur : ${article.utilisateurPseudo}</p>
 					</div>
 				</div>
 			</div>
