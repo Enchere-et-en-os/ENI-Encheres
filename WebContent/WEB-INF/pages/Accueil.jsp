@@ -80,7 +80,7 @@
 						<p class="card-text">Description : ${article.description}</p>
 						<p class="card-text">Prix : ${article.prixVente}€</p>
 						<p class="card-text">Fin de l'enchère : ${article.dateFinEncheres}</p>
-						<p class="card-text">Vendeur :</p>
+						<p class="card-text">Vendeur : ${article.utilisateurPseudo}</p>
 					</div>
 				</div>
 			</div>

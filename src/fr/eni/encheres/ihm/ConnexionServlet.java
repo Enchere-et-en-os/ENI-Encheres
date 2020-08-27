@@ -79,7 +79,7 @@ public class ConnexionServlet extends HttpServlet {
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("id", id);
 				session.setAttribute("estConnecte", true);
-				System.out.println("pseudo :" + pseudo + "id :" + id);
+		
 				request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 				
 			} else {
