@@ -45,7 +45,11 @@
 	<br><br>
 
 	
-	<h2>Liste des enchères</h2>
+	<p class="h3 display-3 text-center">Liste des enchères</p>
+	
+	<div class="alert alert-success text-center " role="alert">
+		Bienvenue parmi nous <span style="font-weight:bold">${pseudo}</span> ! <br> Vous nous avez manqué ! &#128519;
+	</div>
 
 
 	<label for="basic-url">Filtre :</label>

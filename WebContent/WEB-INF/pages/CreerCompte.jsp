@@ -9,68 +9,106 @@
 <title>Création de compte - Encheres</title>
 </head>
 <body>
-<div class="row">
-	<div class="col-sm"></div>
-	<div class="col-sm">
-		<h1>Création de compte</h1>
-		<h2 ><small>Mon Profil</small></h2>
+
+	
+	
+		<p class="h3 display-3 text-center">Création de compte</p>
 		
+		<div class="container text-center p-3 mb-2 bg-dark text-white rounded mt-5">
 		<form action="/ENI-Encheres/Inscription" method="post">
-			<div class="form-group">
-				<label for="Pseudo">Pseudo</label>
-		    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo" />
-		    	<label>${erreurPseudo}</label>
-		    	
-		   	 	<label for="Nom">Nom</label>
-		    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom" >
-		  		<label>${erreurNom}</label>
+		
+		
+			<div class="row">
+					<div class="form-group col-6">
+						<label for="Pseudo">Pseudo</label>
+				    	<input value="${pseudo}" name="pseudo" type="text" class="form-control" id="Pseudo" />
+				    	<label>${erreurPseudo}</label>
+		    	  	</div>
+				    	
+				    <div class="form-group col-6">
+				   	 	<label for="Nom">Nom</label>
+				    	<input value="${nom}" name="nom" type="text" class="form-control" id="Nom" >
+				  		<label>${erreurNom}</label>
+				  	</div>
 		  	</div>
 		  	
-		  	<div class="form-group">
-				<label for="Prenom">Prénom</label>
-		    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom">
-		    	<label>${erreurPrenom}</label>
-		    	
-		   	 	<label for="Email">Email</label>
-		    	<input value="${email}" name="email" type="text" class="form-control" id="Email" >
-		    	<label>${erreurEmail}</label>
-		  	</div>
 		  	
-		 	<div class="form-group">
-				<label for="Telephone">Téléphone</label>
-		    	<input value="${telephone}" name="telephone" type="text" class="form-control" id="Telephone">
-		    	<label>${erreurTelephone}</label>
-		    	
-		   	 	<label for="Rue">Rue</label>
-		    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue" >
-		  		<label>${erreurRue}</label>
-		  	</div>
 		  	
-		  	<div class="form-group">
-				<label for="CodePostal">Code Postal</label>
-		    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal" >
-		    	<label>${erreurPost}</label>
-		    	
-		   	 	<label for="Ville">Ville</label>
-		    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville" >
-		  		<label>${erreurVille}</label>
-		  	</div>
+			<div class="row">
+				  	<div class="form-group col-6">
+						<label for="Prenom">Prénom</label>
+				    	<input value="${prenom}" name="prenom" type="text" class="form-control" id="Prenom">
+				    	<label>${erreurPrenom}</label>
+		   			</div>
+				    	
+				    	
+			    	<div class="form-group col-6">
+				   	 	<label for="Email">Email</label>
+				    	<input value="${email}" name="email" type="text" class="form-control" id="Email" >
+				    	<label class="is-invalid">${erreurEmail}</label>
+				  	</div>
+	    	</div>
+	    	
+	    	
+	    		<div class="row">
+	    		
+				 	<div class="form-group col-6">
+						<label for="Telephone">Téléphone</label>
+				    	<input value="${telephone}" name="telephone" type="text" class="form-control" id="Telephone">
+				    	<label>${erreurTelephone}</label>
+			    	</div>
+	    	
+	    	
+				    	<div class="form-group col-6">
+					   	 	<label for="Rue">Rue</label>
+					    	<input value="${rue}" name="rue" type="text" class="form-control" id="Rue" >
+					  		<label>${erreurRue}</label>
+					  	</div>
+					  	
+				    	</div>
+					  	
+				  	<div class="row">
+				  		
+						  	<div class="form-group col-6">
+								<label for="CodePostal">Code Postal</label>
+						    	<input value="${codePostal}" name="codePostal" type="text" class="form-control" id="CodePostal" >
+						    	<label>${erreurPost}</label>
+				    		</div>
+			    		
+					    	
+					    	
+			    		<div class="form-group col-6">
+					   	 	<label for="Ville">Ville</label>
+					    	<input value="${ville}" name="ville" type="text" class="form-control" id="Ville" >
+					  		<label>${erreurVille}</label>
+					   	</div>
+					   				    		</div>
+					   	
+				  	
+				  	
+				  	<div class=" form-group row">
+				  	
+					  	<div class="col-6">
+							<label for="MotDePasse">Mot De Passe</label>
+					    	<input name="mdp" type="password" class="form-control" id="MotDePasse" >
+			   			</div>
+			   			
+			   			<div class="col-6">
+					   	 	<label for="Confirmation">Confirmation</label>
+					    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation" >
+					    	<label>${erreurConfirm} ${erreurMdp}</label>
+					  	</div>
+		  		</div>
+		  		
 		  	
-		  	<div class="form-group">
-				<label for="MotDePasse">Mot De Passe</label>
-		    	<input name="mdp" type="password" class="form-control" id="MotDePasse" >
-		    	
-		   	 	<label for="Confirmation">Confirmation</label>
-		    	<input name="confirmMdp" type="password" class="form-control" id="Confirmation" >
-		  	</div>
-		  	<label>${erreurConfirm} ${erreurMdp}</label>
-			
-			<button name="envoyer" type="submit" class="btn btn-success">Créer</button>
-			<button name="annuler" type="submit" class="btn btn-secondary">Annuler</button>
+			<button name="envoyer" type="submit" class="btn btn-success mr-3">Créer</button>
+			<button name="annuler" type="submit" class="btn btn-danger">Annuler</button>
 			
 		</form>
-	</div>
-	<div class="col-sm"></div>
-</div>	
+	  			
+	  				</div>
+	
+	
+		
 </body>
 </html>

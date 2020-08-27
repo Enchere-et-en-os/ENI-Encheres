@@ -12,7 +12,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-
+<p class="h3 display-3 text-center">Connexion</p>
 	<div class="row ">
 		<div class="col-4"></div>
 		<div class="col-4 text-center p-3 mb-2 bg-dark text-white rounded mt-5">
@@ -45,9 +45,9 @@
 					souvenir de moi </label>
 			</div>
 
-			<button type="submit" class="btn btn-primary">Connexion</button>
+			<button type="submit" class="btn btn-success mr-3">Connexion</button>
 			<a href="Inscription"><button type="button"
-					class="btn btn-primary">Créer un compte</button></a>
+					class="btn btn-danger">Créer un compte</button></a>
 		</form>
 	</div>
 			<div class="col-4"></div>
