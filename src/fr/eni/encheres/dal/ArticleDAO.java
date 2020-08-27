@@ -11,7 +11,7 @@ public interface ArticleDAO {
 
 	public List<Article> SelectAllArticlesAvecUtilisateurEtCategorie(int utilisateurId, int categorieId) throws DALException;
 	
-	public Article insertArticle (int utilisateurId, int categorieId, Article article) throws SQLException, DALException;
+	public void insertArticle (Article article, int utilisateurId, int categorieId) throws SQLException, DALException;
 	
 	public List<Categorie> SelectAllCategories() throws DALException;
 	

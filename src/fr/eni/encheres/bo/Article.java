@@ -91,16 +91,16 @@ public class Article {
 	this.categorieId = categorieId;
 }
 	
-	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAPrix,
-			 Retrait retrait) {
-		//new Article(nomArticle, description, miseAprix, debutEnchere, finEnchere, retrait ));
+	public Article(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAPrix) {
+
 		this.nom = nom;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
-		setRetrait(retrait);
+	
 	}
+	
 	public int getId() {
 		return id;
 	}

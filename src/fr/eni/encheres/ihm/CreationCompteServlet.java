@@ -32,7 +32,6 @@ public class CreationCompteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		
 		if (request.getParameter("annuler") != null) {
 			response.sendRedirect("Accueil");
 		}

@@ -94,6 +94,7 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 	}
+	
 
 	public Utilisateur(List<String> list) {
 		this.id = Integer.valueOf(list.get(0));
@@ -107,6 +108,8 @@ public class Utilisateur {
 		this.ville = list.get(8);
 		this.motDePasse = list.get(9);
 	}
+
+
 
 	public int getId() {
 		return id;
