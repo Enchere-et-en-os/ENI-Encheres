@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.DALException;
@@ -133,5 +134,10 @@ public class ArticleManager {
 			throw new BLLException();
 		}
 		return listeArticle;
+	}
+
+	public void insertRetrait(Retrait retrait) {
+		// TODO Auto-generated method stub
+		
 	}
 }

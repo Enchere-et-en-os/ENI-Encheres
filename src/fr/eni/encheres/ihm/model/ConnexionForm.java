@@ -19,7 +19,7 @@ public interface ConnexionForm {
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";
 	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8,15}$";
-	static final String REGEXInput = "^[-'\\w\\sיטךאגשח]+$";
+	static final String REGEXInput = "^[-\\w\\sיטךאגשח]$";
 
 	/*
 	 * @Author : Tanguy & Valentin
@@ -214,7 +214,7 @@ public interface ConnexionForm {
 			System.out.println(str);
 			return str;	
 		}
-		System.out.println(erreur);
 		return erreur;
-	}
+		}
+	
 }

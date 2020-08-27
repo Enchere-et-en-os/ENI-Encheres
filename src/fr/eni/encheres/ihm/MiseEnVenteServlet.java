@@ -86,6 +86,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 			
 			//attributs session
 			session.setAttribute("nomArticle", nomArticle);
+			System.out.println(nomArticle);
 			session.setAttribute("description", description);
 			session.setAttribute("miseaPrix", miseaPrix);
 			session.setAttribute("debutEnchere", debutEnchere);
