@@ -27,13 +27,13 @@
 	<br>
 	<br>
 
-	<p class="h3 display-3">Liste des enchères</p>
+	<p class="h3 display-3 text-center">Liste des enchères</p>
 
 
-	<div class="alert alert-info " role="alert">
+	<div class="alert alert-danger " role="alert">
 		Vous n'êtes pas connecté ! <a href="/ENI-Encheres/Connexion"
-			class="alert-link">Connectez-vous</a> pour profiter de milliers
-		d'articles à bas prix !
+			class="alert-link">Connectez-vous</a> pour profiter des milliers
+		d'articles échangés par la communauté ! &#128521;
 	</div>
 	<form method="POST" action="/ENI-Encheres/Accueil">
 
@@ -41,8 +41,8 @@
 			<div class="row mr-3 ml-3">
 				<div class="col-6 input-group mb-3">
 					<div class="input-group flex-nowrap">
-						<div class="input-group-prepend">
-							<span class="input-group-text " id="addon-wrapping">Recherche
+						<div class="input-group-prepend ">
+							<span class="input-group-text" id="addon-wrapping">Recherche
 								par article :</span>
 						</div>
 						<input type="text" class="form-control"
@@ -85,19 +85,19 @@
 			<c:set var="nbArticle" value="0" scope="page" />
 			<c:forEach var="article" items="${listeArticle}">
 				<c:set var="nbArticle" value="${nbArticle + 1}" scope="page" />
-				<div class="card mb-3 shadow p-3 mb-5 bg-white rounded col-6 "
+				<div class="card mb-3 shadow p-3 mb-5  bg-white border border-primary rounded-lg col-6 mr-5 ml-4"
 					style="max-width: 540px;">
 					<div class="row no-gutters">
 						<div class="col-md-4">
 							<img src="/ENI-Encheres/images/chapeau_paille.jpg"
-								class="card-img" alt="...">
+								class="card-img" alt="Image par article par défaut">
 						</div>
 
 						<div class="col-md-8">
 							<div class="card-body">
-								<h5 class="card-title">${article.nom}</h5>
+								<h5 class="card-title text-center">${article.nom}</h5>
 								<p class="card-text">Description : ${article.description}</p>
-								<p class="card-text">Prix : ${article.prixVente}€</p>
+								<p class="card-text">Prix : ${article.prixVente} points</p>
 								<p class="card-text">Fin de l'enchère :
 									${article.dateFinEncheres}</p>
 								<p class="card-text">Vendeur : ${article.utilisateurPseudo}</p>
@@ -109,7 +109,7 @@
 			</c:forEach>
 
 				<h4><c:out value="Nous avons ${nbArticle} article"/><c:out value="${nbArticle > 1 ? 's' : '' } à vous proposer"/></h4>	
-
+		
 
 
 		</div>
