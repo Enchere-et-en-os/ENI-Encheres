@@ -14,7 +14,7 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public interface ConnexionForm {
 
-	static final String REGEXGENERAL = "^[\\w\\sйк-]{3,}$";
+	static final String REGEXGENERAL = "^[\\w\\sйки-]{3,}$";
 	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";

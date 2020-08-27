@@ -104,20 +104,20 @@
  			    
           </div>
 		
-		<div class="input-group">
+		<%-- <div class="input-group">
 			<div class="input-group-prepend">
    			   	     <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
  			    </div>
   				<select class="custom-select" id="inputGroupSelect01" name="selectCategorie">
   					<option selected>Toutes</option>
   					 <c:forEach var="categorie" items="${listeCategorie}"> 
-  					<%--<c:set var="cat" value="${categorie.getLibelle()}"/>		NOT WORKING Code pour mettre la premiere lettre du libelle en MAJ
-  					<c:set var="libelle" value="${cat.substring(0, 1).toUpperCase() + cat.substring(1)}" /> --%>
+  					<c:set var="cat" value="${categorie.getLibelle()}"/>		NOT WORKING Code pour mettre la premiere lettre du libelle en MAJ
+  					<c:set var="libelle" value="${cat.substring(0, 1).toUpperCase() + cat.substring(1)}" />
 				    	 <option value="${categorie.libelle}"><c:out value="${categorie.libelle}"/></option>
 					</c:forEach>
                </select>
 		</div>
-	</div>
+	</div> --%>
 	<button name="recherche" type="submit" class="btn btn-success" >Recherche</button>
 	</form>
 

@@ -123,4 +123,15 @@ public class ArticleManager {
 		}
 		return listeArticle;
 	}
+	
+	public List<Article> SelectAllEncheresByEtat(int idUtilisateur, int etatVente) throws BLLException{
+		List<Article> listeArticle = null;
+		try {
+			listeArticle = articleDAO.SelectAllEncheresByEtat(idUtilisateur, etatVente);
+		} catch (DALException e) {
+			System.out.println("erreur manager SelectAllEncheresByEtat");
+			throw new BLLException();
+		}
+		return listeArticle;
+	}
 }

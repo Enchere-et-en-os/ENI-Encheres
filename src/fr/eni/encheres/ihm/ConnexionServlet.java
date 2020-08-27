@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.ihm.model.ConnexionForm;
 
 
 /**
@@ -67,11 +68,12 @@ public class ConnexionServlet extends HttpServlet {
 			 email = (String) request.getParameter("pseudo");
 			}
 			
+			
 			//filtre de recherche si pseudo ou si email existe dans la bdd et si ceux ci-correspondent au mot de passe enregistré en bdd
 			Utilisateur utilisateurConfirmeBDD = 
 				listeDutilisateur.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
 			       .findFirst().orElse(null);
-
+			
 			if (utilisateurConfirmeBDD != null) {
 				System.out.println("connecté");
 				listeDutilisateur.stream();
