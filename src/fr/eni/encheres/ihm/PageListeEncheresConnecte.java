@@ -34,18 +34,30 @@ public class PageListeEncheresConnecte extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		try {
-			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
-			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
-			System.out.println(articleManager.SelectAllArticles());
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			System.out.println("pas de session");
+			response.sendRedirect("Accueil");
+		}else {	
+			try {
+				request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
+				request.setAttribute("listeArticle", articleManager.SelectAllArticles());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getParameter("deconnexion") != null) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("Accueil");
+		}else {
+		
 		HttpSession session = request.getSession();
 		String pseudo = (String) session.getAttribute("pseudo");
 		List<Article> liste1 = new ArrayList<Article>();
@@ -229,5 +241,5 @@ public class PageListeEncheresConnecte extends HttpServlet {
 		request.setAttribute("listeArticle", listeArticle);
 		request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
-
+	}
 }

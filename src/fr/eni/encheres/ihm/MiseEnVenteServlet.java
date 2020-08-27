@@ -29,11 +29,20 @@ public class MiseEnVenteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Article article = null;
-		HttpSession session = request.getSession();
-		String pseudoDeLutilisateur = (String) session.getAttribute("pseudo");
-		int idProfilLutilisateur = (int) session.getAttribute("id");
-		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
+		
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			System.out.println("pas de session");
+			response.sendRedirect("Accueil");
+		}else {
+			Article article = null;
+			session = request.getSession();
+			
+//			String pseudoDeLutilisateur = (String) session.getAttribute("pseudo");
+//			int idProfilLutilisateur = (int) session.getAttribute("id");
+		
+			request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -42,7 +51,12 @@ public class MiseEnVenteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
-		
+		System.out.println(request.getParameter("annuler"));
+		if(request.getParameter("annuler") != null) {
+			System.out.println("retour");
+			response.sendRedirect("ListeEncheres");
+		}else {
+			
 		String erreur = null;
 		
 		int idProfilLutilisateur = (int) session.getAttribute("id");
@@ -114,5 +128,6 @@ public class MiseEnVenteServlet extends HttpServlet {
 		
 		
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
+		}
 	}
 }

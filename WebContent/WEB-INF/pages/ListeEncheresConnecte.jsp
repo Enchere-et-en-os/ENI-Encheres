@@ -21,11 +21,6 @@
 	
 	       <ul class="navbar-nav ml-auto"> 
 	           <li class="nav-item"> 
-	               <a class="nav-link" href="Connexion"> 
-	               Enchères
-	               </a> 
-	           </li> 
-	           <li class="nav-item"> 
 	               <a class="nav-link" href="MiseEnVente"> 
 	                Vendre un article
 	               </a> 
@@ -35,10 +30,12 @@
 	                 Mon profil
 	               </a> 
 	           </li>
-	            <li class="nav-item"> 
-	               <a class="nav-link" href="Connexion"> 
+	            <li class="nav-item" > 
+	            <form action="/ENI-Encheres/ListeEncheres" method="post">
+	               <button type="submit" class="nav-link"  name="deconnexion"> 
 	                 Déconnexion
-	               </a> 
+	               </button> 
+	               </form>
 	           </li> 
 	       </ul> 
 	   </nav> 

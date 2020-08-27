@@ -27,7 +27,7 @@
 
 			<div class="form-group">
 				<label for="nomArticle">Article :</label>
-				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle" required/>
+				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle"/>
 			</div>
 			<% if(request.getAttribute("erreur") != null) {%>
 			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -81,7 +81,7 @@
 		    	
 		    	<div class="form-group">
 					<label for="rue">Rue :</label>
-					<input value="" name="rue" type="text" class="form-control" id="rue" required/>
+					<input value="" name="rue" type="text" class="form-control" id="rue"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -89,7 +89,7 @@
 				
 				<div class="form-group">
 					<label for="codePostal">Code Postal :</label>
-					<input value="" name="codePostal" type="text" class="form-control" id="codePostal" required/>
+					<input value="" name="codePostal" type="text" class="form-control" id="codePostal"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -97,7 +97,7 @@
 				
 				<div class="form-group">
 					<label for="ville">Ville :</label>
-					<input value="" name="ville" type="text" class="form-control" id="ville" required/>
+					<input value="" name="ville" type="text" class="form-control" id="ville"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -105,7 +105,7 @@
 	  		</fieldset>
 
 				<button type="submit" class="btn btn-secondary">Enregistrer</button>
-				<button type="button" class="btn btn-secondary">Annuler</button>
+				<button name="annuler" type="submit" class="btn btn-secondary">Annuler</button>
 				
 		</form>
 	    </div>

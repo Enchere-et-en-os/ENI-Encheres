@@ -53,7 +53,6 @@ public class CreationCompteServlet extends HttpServlet {
 					
 			List<String> paramUser = ConnexionForm.checkForm(request, entries);
 			paramUser.add(0, "1");
-			System.out.println(paramUser);
 			
 			// Vérifie si une erreur à été générée
 			for (String entry : entries) {
@@ -61,20 +60,20 @@ public class CreationCompteServlet extends HttpServlet {
 				// TODO savoir si l'attribut erreurString retourne un objet non null
 				String n = (String) request.getAttribute(erreurString);
 				if(n != null){
-					System.out.println(request.getAttribute(erreurString));
 					erreur = true;
 				}
 			}
 			
 			if (!erreur) {
-				System.out.println(paramUser.get(paramUser.size() - 1).length());
 				Utilisateur newUser = new Utilisateur(paramUser);
 				try {
 					mgr.insertUtilisateur(newUser);
 					// Création de la session
 					HttpSession session = request.getSession( true );
 					session.setAttribute("pseudo", newUser.getPseudo());
-					request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
+					session.setAttribute("pseudo", newUser.getId());
+					response.sendRedirect("ListeEncheres");
+					//request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 				} catch (BLLException e) {
 					// TODO Faire les logs
 					e.printStackTrace();

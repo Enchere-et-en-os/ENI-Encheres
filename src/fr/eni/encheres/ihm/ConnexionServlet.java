@@ -88,7 +88,7 @@ public class ConnexionServlet extends HttpServlet {
 				session.setAttribute("id", utilisateurConfirmeBDD.getId());
 				
 				session.setAttribute("estConnecte", true);
-				request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
+				response.sendRedirect("ListeEncheres");
 				
 			} else {
 				
