@@ -12,7 +12,7 @@
 <title>Profil de ${pseudo}</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
+	
 
 	<p class="h3 display-3 text-center">Mon profil</p>
 

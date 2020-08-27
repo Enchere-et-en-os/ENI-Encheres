@@ -49,14 +49,14 @@ public class PageListeEncheresConnecte extends HttpServlet {
 		}
 	}
 
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		if(request.getParameter("deconnexion") != null) {
-//			HttpSession session = request.getSession();
-//			session.invalidate();
-//			response.sendRedirect("Accueil");
-//		}else {
-//		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getParameter("deconnexion") != null) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("Accueil");
+		}
+//		else {
 //		HttpSession session = request.getSession();
 //		String pseudo = (String) session.getAttribute("pseudo");
 //		List<Article> liste1 = new ArrayList<Article>();
@@ -238,5 +238,5 @@ public class PageListeEncheresConnecte extends HttpServlet {
 //	
 //	
 //		}
-//	}
+	}
 }

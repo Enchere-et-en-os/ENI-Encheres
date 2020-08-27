@@ -8,8 +8,9 @@
 <title>Modification de Profil</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
-	<h2 ><small>Mon Profil</small></h2>
+	
+	
+	<p class="h3 display-3 text-center">Modification du profil</p>
 	
 	<form action="/ENI-Encheres/ModificationProfil" method="post">
 	

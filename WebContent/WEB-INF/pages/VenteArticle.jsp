@@ -11,10 +11,10 @@
 </head>
 <body>
 
-	<h1>ENI-Enchères</h1>
+
 	
 	
-	<div class="container">
+	<div class="container mt-5">
 	
   <div class="row">
     <div class="col-sm col-lg-3 rounded">
