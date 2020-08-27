@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -17,6 +18,7 @@
 <title>ENI-Enchere</title>
 </head>
 <body>
+	
 	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="Accueil">ENI-Enchere</a>
 		<ul class="navbar-nav ml-auto">

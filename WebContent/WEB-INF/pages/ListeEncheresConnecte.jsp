@@ -30,13 +30,11 @@
 	                 Mon profil
 	               </a> 
 	           </li>
-	            <li class="nav-item" > 
-	            <form action="/ENI-Encheres/ListeEncheres" method="post">
-	               <button type="submit" class="nav-link"  name="deconnexion"> 
-	                 Déconnexion
-	               </button> 
-	               </form>
-	           </li> 
+	            <li class="nav-item" >
+	            <form action="/ENI-Encheres/ListeEncheres" method="POST">
+	           		 <button type="submit" class="btn btn-link"  name="deconnexion">Déconnexion</button>
+	            </form>
+	            </li>
 	       </ul> 
 	   </nav> 
 	<br><br>
