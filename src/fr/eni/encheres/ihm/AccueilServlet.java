@@ -32,7 +32,6 @@ public class AccueilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			
 			List<Article> listeArticle = articleManager.SelectAllArticles();
 			Utilisateur u = null;
 			String uPseudo = null;

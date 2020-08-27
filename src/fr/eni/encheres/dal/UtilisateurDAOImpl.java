@@ -15,7 +15,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	/**
 	 * Attributs de classe des requêtes sql
 	 */
-	private static final String SQL_SELECT_ALL_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
+	private static final String SQL_SELECT_ALL_USER = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs (pseudo, nom, prenom, email,"
 			+ " telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?)";
 	// Selection d'un utilisateur dans la BDD par son ID
@@ -45,7 +45,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 			Utilisateur utilisateur = null;
 			while (rs.next()) {
-				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+					utilisateur = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
 						rs.getInt("credit"));
@@ -127,7 +127,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			e.printStackTrace();
 			throw new DALException("Erreur lors de l'insertion", e);
 		}
-
 	}
 	
 	/*

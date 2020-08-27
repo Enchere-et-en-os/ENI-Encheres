@@ -12,6 +12,8 @@ import java.util.List;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Retrait;
+import fr.eni.encheres.bo.Utilisateur;
 
 public class ArticleDAOImpl implements ArticleDAO {
 
@@ -102,17 +104,13 @@ public class ArticleDAOImpl implements ArticleDAO {
 	 * @throws SQLException 
 	 * @throws DALException 
 	 */
-	public Article insertArticle (int utilisateurId, int categorieId, Article article) throws SQLException, DALException {
+	public void insertArticle (Article article, int utilisateurId, int categorieId ) throws SQLException, DALException {
 
-//		int utilisateurId = utilisateur.getId();
-//		int categorieId = categorie.getId();
 		try(Connection conn =  ConnectionProvider.getConnection()) {
+			
 		PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_INTO_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
-		/**
-		    nom_article , description , date_debut_encheres, date_fin_encheres ,prix_initial ,
-		     prix_vente, etatVente,  no_utilisateur  ,no_categorie 
-		 * **/
-		
+		System.out.println("art daoImpl : " + article);
+		Retrait retrait = new Retrait(null, null, null);
 		pstmt.setString(1, article.getNom());
 		pstmt.setString(2, article.getDescription());
 		pstmt.setDate(3, java.sql.Date.valueOf( article.getDateDebutEncheres()));
@@ -122,7 +120,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 		pstmt.setInt(7, article.getEtatVente());
 		pstmt.setInt(8, utilisateurId);
 		pstmt.setInt(9, categorieId);
-		
+		pstmt.setString(10, article.getRetrait().getCodePostal());
 		pstmt.executeUpdate();
 /**
  * new Article(article.setNom(rs.getString("nom_article")), article.setNom(rs.getString("description"))
@@ -149,8 +147,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 			e.printStackTrace();
 			throw new DALException("Echec de l'insertion d'un nouvel article", e); 
 		}
-
-		return article;
 
 	}
 

@@ -27,8 +27,10 @@
 		<form method="POST" action="/ENI-Encheres/MiseEnVente">
 
 			<div class="form-group">
+
 				<label for="nomArticle">Nom de l'article :</label>
 				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle" required/>
+
 			</div>
 			<% if(request.getAttribute("erreur") != null) {%>
 			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -85,7 +87,7 @@
 		    	
 		    	<div class="form-group">
 					<label for="rue">Rue :</label>
-					<input value="" name="rue" type="text" class="form-control" id="rue" required/>
+					<input value="" name="rue" type="text" class="form-control" id="rue"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -93,7 +95,7 @@
 				
 				<div class="form-group">
 					<label for="codePostal">Code Postal :</label>
-					<input value="" name="codePostal" type="text" class="form-control" id="codePostal" required/>
+					<input value="" name="codePostal" type="text" class="form-control" id="codePostal"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -101,7 +103,7 @@
 				
 				<div class="form-group">
 					<label for="ville">Ville :</label>
-					<input value="" name="ville" type="text" class="form-control" id="ville" required/>
+					<input value="" name="ville" type="text" class="form-control" id="ville"/>
 				</div>
 				<% if(request.getAttribute("erreur") != null) {%>
 				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
@@ -110,6 +112,7 @@
 
 				<button type="submit" class="btn btn-success mb-5">Enregistrer</button>
 				<button type="button" class="btn btn-danger mb-5">Annuler</button>
+
 				
 		</form>
 	    </div>

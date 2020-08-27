@@ -19,10 +19,15 @@
 		<form  method="POST" action="/ENI-Encheres/Connexion">
 
 			<div class="form-group ">
-				<label for="pseudo">Identifiant :${pseudo}</label> <input
-					type="text" class="form-control" name="pseudo" id="pseudo"
-					aria-describedby="emailHelp" value='${login}' required autofocus>
-				<input type="hidden" name="id" value='${id}'>
+
+				<label for="pseudo">Identifiant :${pseudo}</label> 
+				<input type="hidden" name="id" value="${utilisateur.id}">
+				<input type="text" class="form-control" name="pseudo"
+					id="pseudo" aria-describedby="emailHelp"
+					value='${login}' required autofocus
+				>
+				<input type="hidden"  name="id" value='${id}'>
+
 			</div>
 
 			<div class="form-group">
