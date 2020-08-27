@@ -32,7 +32,6 @@ public class AfficherProfilServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		if(session == null) {
-			System.out.println("pas de session");
 			session = request.getSession();
 			response.sendRedirect("Accueil");
 		}else {
@@ -73,7 +72,6 @@ public class AfficherProfilServlet extends HttpServlet {
 			request.setAttribute("credit", utilDemande.getCredit());
 			
 			request.setAttribute("memeProfil", memeProfil);
-			System.out.println(memeProfil);
 			request.getRequestDispatcher("/WEB-INF/pages/Profil.jsp").forward(request, response);
 		}
 	}
@@ -82,7 +80,6 @@ public class AfficherProfilServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		if(request.getParameter("annuler") != null) {
-			System.out.println("retour");
 			response.sendRedirect("ListeEncheres");
 		}else {
 			request.getRequestDispatcher("/WEB-INF/pages/ModifierProfil.jsp").forward(request, response);

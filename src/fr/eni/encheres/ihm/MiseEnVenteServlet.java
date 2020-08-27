@@ -49,10 +49,10 @@ public class MiseEnVenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		
 		request.setCharacterEncoding("UTF-8");
 		System.out.println(request.getParameter("annuler"));
 		if(request.getParameter("annuler") != null) {
-			System.out.println("retour");
 			response.sendRedirect("ListeEncheres");
 		}else {
 			
@@ -80,17 +80,17 @@ public class MiseEnVenteServlet extends HttpServlet {
 		try {
 
 			//vérification de la saisie
-			ConnexionForm.validateInput(nomArticle, erreur );
+			nomArticle = ConnexionForm.validateInput(nomArticle, erreur );
 			//erreur 
-			ConnexionForm.validateInput(description, erreur );
-			ConnexionForm.validateInput(miseAprix, erreur );
-			ConnexionForm.validateInput(debutEnchere, erreur );
-			ConnexionForm.validateInput(finEnchere, erreur );
+			description = ConnexionForm.validateInput(description, erreur );
+			miseAprix = ConnexionForm.validateInput(miseAprix, erreur );
+			debutEnchere = ConnexionForm.validateInput(debutEnchere, erreur );
+			finEnchere = ConnexionForm.validateInput(finEnchere, erreur );
 			//retrait
-			ConnexionForm.validateInput(rue, erreur );
-			ConnexionForm.validateInput(codePostal, erreur );
-			ConnexionForm.validateInput(ville, erreur );
-			
+			rue = ConnexionForm.validateInput(rue, erreur );
+			codePostal = ConnexionForm.validateInput(codePostal, erreur );
+			ville = ConnexionForm.validateInput(ville, erreur );
+			System.out.println(nomArticle + description + miseAprix + debutEnchere + finEnchere + rue + codePostal +ville);
 			//formatage de date et de la mise à prix pour la requête sql
 			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 			LocalDate dateDebut = LocalDate.parse(debutEnchere, format);
@@ -98,14 +98,14 @@ public class MiseEnVenteServlet extends HttpServlet {
 			int miseaPrix = Integer.parseInt(miseAprix);
 			
 			//attributs session
-			session.setAttribute("nomArticle", nomArticle);
-			session.setAttribute("description", description);
-			session.setAttribute("miseaPrix", miseaPrix);
-			session.setAttribute("debutEnchere", debutEnchere);
-			session.setAttribute("finEnchere", finEnchere);
-			session.setAttribute("rue", rue);
-			session.setAttribute("codePostal", codePostal);
-			session.setAttribute("ville", ville);
+//			session.setAttribute("nomArticle", nomArticle);
+//			session.setAttribute("description", description);
+//			session.setAttribute("miseaPrix", miseaPrix);
+//			session.setAttribute("debutEnchere", debutEnchere);
+//			session.setAttribute("finEnchere", finEnchere);
+//			session.setAttribute("rue", rue);
+//			session.setAttribute("codePostal", codePostal);
+//			session.setAttribute("ville", ville);
 			
 			 mger.insertArticle(
 					new Article(nomArticle, description, dateDebut , dateFin, miseaPrix), idProfilLutilisateur, categorie);

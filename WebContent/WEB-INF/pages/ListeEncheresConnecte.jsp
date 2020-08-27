@@ -32,7 +32,7 @@
 	           </li>
 	            <li class="nav-item" > 
 	            <form action="/ENI-Encheres/ListeEncheres" method="post">
-	               <button type="submit" class="nav-link"  name="deconnexion"> 
+	               <button type="submit" class="nav-link"  name="deconnexion" style="color:red;"> 
 	                 Déconnexion
 	               </button> 
 	               </form>
@@ -41,7 +41,7 @@
 	   </nav> 
 	<br><br>
 
-	
+	<!--  
 	<h2>Liste des enchères</h2>
 
 
@@ -117,7 +117,7 @@
 	</div> --%>
 	<button name="recherche" type="submit" class="btn btn-success" >Recherche</button>
 	</form>
-
+	-->
 
 
 	<c:forEach var="article" items="${listeArticle}">

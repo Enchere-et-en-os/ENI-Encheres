@@ -31,7 +31,6 @@ public class ModifierProfilServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		if(session == null) {
-			System.out.println("pas de session");
 			session = request.getSession();
 			response.sendRedirect("Accueil");
 		}else {
@@ -126,11 +125,12 @@ public class ModifierProfilServlet extends HttpServlet {
 		if (request.getParameter("supprimer") != null) {
 			try {
 				Utilisateur user = mgr.selectByPseudo((String) session.getAttribute("pseudo"));
+				System.out.println(user);
 				mgr.deleteById(user.getId());
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("/WEB-INF/pages/Accueil.jsp").forward(request, response);
+			response.sendRedirect("Accueil");
 		}
 	}
 

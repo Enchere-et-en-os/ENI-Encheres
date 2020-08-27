@@ -70,7 +70,7 @@ public class CreationCompteServlet extends HttpServlet {
 					// Création de la session
 					HttpSession session = request.getSession( true );
 					session.setAttribute("pseudo", newUser.getPseudo());
-					session.setAttribute("pseudo", newUser.getId());
+					session.setAttribute("id", newUser.getId());
 					response.sendRedirect("ListeEncheres");
 					//request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 				} catch (BLLException e) {

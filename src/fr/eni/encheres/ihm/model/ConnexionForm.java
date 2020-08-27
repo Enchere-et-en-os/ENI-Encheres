@@ -211,10 +211,10 @@ public interface ConnexionForm {
 		erreur = "erreur lors de la saisie";
 
 		if(str.matches(REGEXInput)) {
-			System.out.println(str);
+
 			return str;	
-		}
-		System.out.println(erreur);
+		}else
+
 		return erreur;
 	}
 }
