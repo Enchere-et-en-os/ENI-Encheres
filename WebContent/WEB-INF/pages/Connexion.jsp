@@ -27,8 +27,8 @@
 	
 				<label for="motDePasse">Mot de passe :</label> 
 			    <input type="password" class="form-control" 
-					   name="motDePasse" id="motDePasse"
-					   value='${password}' required
+					   name="mdp" id="motDePasse"
+					    required
 			    >
 			</div>
 			<% if(request.getAttribute("erreur") != null) {%>

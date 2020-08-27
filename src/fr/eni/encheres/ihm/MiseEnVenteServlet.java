@@ -24,7 +24,6 @@ import fr.eni.encheres.ihm.model.ConnexionForm;
 @WebServlet("/MiseEnVente")
 public class MiseEnVenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String REGEX = "^[-\\w\\s]+$";
 	private ArticleManager mger = new ArticleManager();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -65,6 +64,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 
 			//vérification de la saisie
 			ConnexionForm.validateInput(nomArticle, erreur );
+			System.out.println("nomArticle" +nomArticle);
 			ConnexionForm.validateInput(description, erreur );
 			System.out.println("description" +description);
 			ConnexionForm.validateInput(miseAprix, erreur );
@@ -115,8 +115,4 @@ public class MiseEnVenteServlet extends HttpServlet {
 		
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
 	}
-//	public static String testString(String str) {
-//	
-//		return (str.matches(REGEX)) ? str :"erreur";
-//	}
 }

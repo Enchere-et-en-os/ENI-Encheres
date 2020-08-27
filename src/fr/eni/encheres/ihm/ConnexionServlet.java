@@ -56,23 +56,28 @@ public class ConnexionServlet extends HttpServlet {
 		try {
 			//récupération de la liste des utilisateurs en bdd et de la saisie des inputs sur la page de connexion
 			List<Utilisateur> listeDutilisateur = mgr.getAllUtilisateur();
+			
 			String erreur = "erreur de saisie";
 			String pseudo = ConnexionForm.validateInput(request.getParameter("pseudo"), erreur ) ;
-			String motDePasse = ConnexionForm.validateInput(request.getParameter("motDePasse"), erreur);
-			String email = null;
+			String mdp = request.getParameter("mdp");
+			//vérification du mot de passe
+			ConnexionForm.regStringValeur( mdp, "mdp");
+			
 		
 			//création de la session
 			HttpSession session = request.getSession();
 			//vérif de la saisie utilisateur si pseudo est un mail ou un pseudo
 			//e t filtre la saisie pour la stocker dans le pseudo
 			if (pseudo.matches(EMAIL_PATTERN)) {
+			String email = null;
 			 email = (String) request.getParameter("pseudo");
 			}
 			
+			String  mdp1 = ConnexionForm.hashMdp(mdp);
 			//filtre de recherche si pseudo ou si email existe dans la bdd et si ceux ci-correspondent au mot de passe enregistré en bdd
 			Utilisateur utilisateurConfirmeBDD = 
 				listeDutilisateur.stream().filter(
-			u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
+			u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(mdp1))
 			       .findFirst().orElse(null);
 
 			if (utilisateurConfirmeBDD != null) {
