@@ -23,4 +23,6 @@ public interface ArticleDAO {
 	public List<Article> selectAllByEtatVenteUtilisateur(int etatVente, int idUtilisateur) throws DALException;
 	
 	public List<Article> selectAllByEtatVenteGagne(int etatVente, int idUtilisateur) throws DALException;
+	
+	public List<Article> SelectAllEncheresByEtat(int idUtilisateur, int etatVente) throws DALException;
 }

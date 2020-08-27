@@ -29,6 +29,9 @@
 				<label for="nomArticle">Article :</label>
 				<input value="" name="nomArticle" type="text" class="form-control" id="nomArticle" required/>
 			</div>
+			<% if(request.getAttribute("erreur") != null) {%>
+			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+			<%}%>
 			
 			<div class="form-group">
 				<label for="description">Description :</label>
@@ -36,6 +39,9 @@
 					Vous pouvez écrire votre description ici.
 				</textarea>
 			</div>
+			<% if(request.getAttribute("erreur") != null) {%>
+			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+			<%}%>
 			
 			<div class="form-group">
 				<label for="categorie">Catégorie :</label>
@@ -56,6 +62,9 @@
 				<label for="miseAprix">Mise à prix :</label>
 				<input type="number" id="miseAprix" name="miseAprix" min="0">
 			</div>
+			<% if(request.getAttribute("erreur") != null) {%>
+			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+			<%}%>
 			
 			<div class="form-group">
 				<label for="debutEnchere">Début de l'enchère :</label>
@@ -74,16 +83,25 @@
 					<label for="rue">Rue :</label>
 					<input value="" name="rue" type="text" class="form-control" id="rue" required/>
 				</div>
+				<% if(request.getAttribute("erreur") != null) {%>
+				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+				<%}%>
 				
 				<div class="form-group">
 					<label for="codePostal">Code Postal :</label>
 					<input value="" name="codePostal" type="text" class="form-control" id="codePostal" required/>
 				</div>
+				<% if(request.getAttribute("erreur") != null) {%>
+				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+				<%}%>
 				
 				<div class="form-group">
 					<label for="ville">Ville :</label>
 					<input value="" name="ville" type="text" class="form-control" id="ville" required/>
 				</div>
+				<% if(request.getAttribute("erreur") != null) {%>
+				    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+				<%}%>
 	  		</fieldset>
 
 				<button type="submit" class="btn btn-secondary">Enregistrer</button>

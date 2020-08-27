@@ -32,27 +32,12 @@ public class PageListeEncheresConnecte extends HttpServlet {
 	private ArticleManager articleManager = new ArticleManager();
 	private UtilisateurManager utilisateurManager = new UtilisateurManager();
 
-   //selectALL Utilisateur
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession();
-		Categorie cat = new Categorie(2,"Véhciule");
-		Utilisateur jean = new Utilisateur(21, "jeanJean", "jean", "dupont", "jean@dupont.com", "0123456789", "rue", "44000", "Nantes", "123456");
-		
 		
 		try {
 			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			request.setAttribute("listeArticle", articleManager.SelectAllArticlesAvecUtilisateurEtCategorie(jean.getId(), cat.getId()));
-			
+			request.setAttribute("listeArticle", articleManager.SelectAllArticles());
+			System.out.println(articleManager.SelectAllArticles());
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,9 +45,6 @@ public class PageListeEncheresConnecte extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String pseudo = (String) session.getAttribute("pseudo");
@@ -73,24 +55,28 @@ public class PageListeEncheresConnecte extends HttpServlet {
 		boolean filtres = false;
 		Utilisateur utilisateur= null;
 		String radio = request.getParameter("radio");
-		String categorieSelectionee = request.getParameter("selectCategorie");
+		//String categorieSelectionee = request.getParameter("selectCategorie");
 		
 		if(radio.contentEquals("achat")) {
 			String enchereOuverte = request.getParameter("enchereOuverte");
 			String enchereUtilisateur = request.getParameter("enchereUtilisateur");
 			String enchereGagne = request.getParameter("enchereGagne");
 			
-			
-			// Vérifie Partie Gagne
+			try {
+				utilisateur = utilisateurManager.selectByPseudo(pseudo);
+				System.out.println(utilisateur.getId());
+			} catch (BLLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			// Vérifie CheckBox Gagne
 			if(enchereGagne != null) {
 				filtres = true;
 				
 				System.out.println("je veux mes encheres gagnés !");	
 				try {
-					utilisateur = utilisateurManager.selectByPseudo(pseudo);
 					for (Article article : articleManager.selectAllByEtatVenteGagne(3,utilisateur.getId())) {
 						liste3.add(article);
-						
 					}
 					System.out.println("ma liste : " + liste3);
 				} catch (BLLException e) {
@@ -116,12 +102,11 @@ public class PageListeEncheresConnecte extends HttpServlet {
 				}	
 			}
 			
-			// Vérifie Partie Utilisateur
+			// Vérifie CheckBox Utilisateur
 			if(enchereUtilisateur != null) {
 				filtres = true;
 				
 				try {	
-					utilisateur = utilisateurManager.selectByPseudo(pseudo);
 					for (Article article : articleManager.selectAllByEtatVenteUtilisateur(2,utilisateur.getId())) {
 						liste2.add(article);
 						
@@ -137,8 +122,6 @@ public class PageListeEncheresConnecte extends HttpServlet {
 					System.out.println("je veux mes encheres gagnés !");
 					
 					try {
-						utilisateur = utilisateurManager.selectByPseudo(pseudo);
-						
 						for (Article article : articleManager.selectAllByEtatVenteGagne(3,utilisateur.getId())) {
 							liste3.add(article);	
 						}
@@ -176,23 +159,45 @@ public class PageListeEncheresConnecte extends HttpServlet {
 			String venteNonDebute = request.getParameter("venteNonDebut");
 			String venteTermine = request.getParameter("venteTermine");
 			
-//			if(venteEnCours != null) {
-//				listParam.add(venteEnCours);
-//				filtres = true;
-//			}
-//				
-//			if(venteNonDebute != null) {
-//				listParam.add(venteNonDebute);
-//				filtres = true;
-//			}
-//				
-//			if(venteTermine != null) {
-//				listParam.add(venteTermine);
-//				filtres = true;
-//			}	
-//			
-//			listParam.add(categorieSelectionee);
+			try {
+				utilisateur = utilisateurManager.selectByPseudo(pseudo);
+			} catch (BLLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
+			if(venteEnCours != null) {
+				filtres = true;
+				try {
+					liste1 = articleManager.SelectAllEncheresByEtat(utilisateur.getId(), 2);
+					System.out.println(liste2);
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+				
+			if(venteNonDebute != null) {
+				filtres = true;
+				try {
+					liste2 = articleManager.SelectAllEncheresByEtat(utilisateur.getId(), 1);
+					System.out.println(liste1);
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+				
+			if(venteTermine != null) {
+				filtres = true;
+				try {
+					liste3 = articleManager.SelectAllEncheresByEtat(utilisateur.getId(), 3);
+					System.out.println(liste3);
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
 		}
 		
 		if(!filtres) {
@@ -215,10 +220,12 @@ public class PageListeEncheresConnecte extends HttpServlet {
 			listeArticle.addAll(liste1);
 		}
 		
-		
-//		Utilisateur utilisateurConfirmeBDD = 
-//				listeDutilisateur.stream().filter(u -> (u.getPseudo().contains(pseudo) || u.getEmail().contains(pseudo)) && u.getMotDePasse().contains(motDePasse))
-//			       .findFirst().orElse(null);
+		try {
+			request.setAttribute("listeCategorie", articleManager.SelectAllCategories());
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute("listeArticle", listeArticle);
 		request.getRequestDispatcher("/WEB-INF/pages/ListeEncheresConnecte.jsp").forward(request, response);
 	}
