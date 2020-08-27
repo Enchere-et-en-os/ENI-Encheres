@@ -32,10 +32,8 @@ public class MiseEnVenteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Article article = null;
 		HttpSession session = request.getSession();
-		String identifiantDeLutilisateur = (String) session.getAttribute("pseudo");
-		String idProfilLutilisateur = (String) session.getAttribute("motDePasse");
-		System.out.println("identifiantDeLutilisateur :" + identifiantDeLutilisateur);
-		System.out.println("motDePasseDeLutilisateur :" + idProfilLutilisateur );
+		String pseudoDeLutilisateur = (String) session.getAttribute("pseudo");
+		int idProfilLutilisateur = (int) session.getAttribute("id");
 		request.getRequestDispatcher("/WEB-INF/pages/VenteArticle.jsp").forward(request, response);
 	}
 
@@ -44,11 +42,12 @@ public class MiseEnVenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		
 		String erreur = null;
-		Utilisateur u = null;
-	
-		int utilisateurId = u.getId();
-	
+		
+		int idProfilLutilisateur = (int) session.getAttribute("id");
+		System.out.println("id dans le post :" + idProfilLutilisateur);
 		//récupération des saisies 
 		String nomArticle = request.getParameter("nomArticle");
 		String description = request.getParameter("description");
@@ -67,6 +66,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 			//vérification de la saisie
 			ConnexionForm.validateInput(nomArticle, erreur );
 			ConnexionForm.validateInput(description, erreur );
+			System.out.println("description" +description);
 			ConnexionForm.validateInput(miseAprix, erreur );
 			ConnexionForm.validateInput(debutEnchere, erreur );
 			ConnexionForm.validateInput(finEnchere, erreur );
@@ -109,7 +109,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 //			Article article = mger.insertArticle(utilisateurId, categorieId, 
 //					new Article(nomArticle, description, miseAprix, debutEnchere, finEnchere, retrait));
 		} catch (Exception e) {
-			// TODO: handle exception
+			session.setAttribute("erreur", "erreur de saisie");
 		}
 		
 		

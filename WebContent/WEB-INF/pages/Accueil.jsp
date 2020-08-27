@@ -44,10 +44,9 @@
 						<input type="text" class="form-control"
 							placeholder= "Le nom de l'article contient ..." value ="${barreRechercheArticle}" aria-label="Username"
 							aria-describedby="addon-wrapping" name="barreRechercheArticle">
+							
 					</div>
 				</div>
-			
-			
 			
 			<div class="input-group mb-3">
  			    <div class="input-group-prepend">
@@ -65,6 +64,9 @@
 		
 	</form>
 
+			<% if(request.getAttribute("erreur") != null) {%>
+			    <div class="text-danger">Une erreur a été rencontrée: <%=request.getAttribute("erreur")%></div>
+			<%}%>
 
 <div class="container-fluid">
 	<div class="row">

@@ -14,12 +14,12 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public interface ConnexionForm {
 
-	static final String REGEXGENERAL = "^[\\w\\sיך-]{3,}$";
+	static final String REGEXGENERAL = "^[\\w\\sיטךאגשח-]{3,}$";
 	static final String REGEXEMAIL = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
 	static final String REGEXTEL = "^[0-9]{10}$";
 	static final String REGEXPOST = "^[0-9]{5}$";
 	static final String REGEXPASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$/.,-_!]).{8,15}$";
-	static final String REGEXInput = "^[-'\\w\\sיך]+$";
+	static final String REGEXInput = "^[-'\\w\\sיטךאגשח]+$";
 
 	/*
 	 * @Author : Tanguy & Valentin
