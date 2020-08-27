@@ -125,7 +125,6 @@ public class ModifierProfilServlet extends HttpServlet {
 		if (request.getParameter("supprimer") != null) {
 			try {
 				Utilisateur user = mgr.selectByPseudo((String) session.getAttribute("pseudo"));
-				System.out.println(user);
 				mgr.deleteById(user.getId());
 			} catch (BLLException e) {
 				e.printStackTrace();

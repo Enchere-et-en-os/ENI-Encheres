@@ -33,7 +33,6 @@ public class MiseEnVenteServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		if(session == null) {
-			System.out.println("pas de session");
 			response.sendRedirect("Accueil");
 		}else {
 			session = request.getSession();
@@ -51,7 +50,6 @@ public class MiseEnVenteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		request.setCharacterEncoding("UTF-8");
-		System.out.println(request.getParameter("annuler"));
 		if(request.getParameter("annuler") != null) {
 			response.sendRedirect("ListeEncheres");
 		}else {
@@ -76,7 +74,7 @@ public class MiseEnVenteServlet extends HttpServlet {
 		retrait.setRue(rue);
 		retrait.setCodePostal(codePostal);
 		retrait.setVille(ville);
-		System.out.println("retrait :" + retrait);
+
 		try {
 
 			//vérification de la saisie
