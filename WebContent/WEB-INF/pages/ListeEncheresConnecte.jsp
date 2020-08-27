@@ -30,11 +30,13 @@
 	                 Mon profil
 	               </a> 
 	           </li>
+
 	            <li class="nav-item" >
 	            <form action="/ENI-Encheres/ListeEncheres" method="POST">
 	           		 <button type="submit" class="btn btn-link"  name="deconnexion">Déconnexion</button>
 	            </form>
 	            </li>
+
 	       </ul> 
 	   </nav> 
 	<br><br>
@@ -47,6 +49,7 @@
 	</div>
 
 
+<!--  
 	<label for="basic-url">Filtre :</label>
 	<div class="input-group mb-3">
 		<div class="input-group flex-nowrap">
@@ -119,7 +122,7 @@
 	</div> --%>
 	<button name="recherche" type="submit" class="btn btn-success" >Recherche</button>
 	</form>
-
+	-->
 
 
 	<c:forEach var="article" items="${listeArticle}">
