@@ -146,9 +146,7 @@ public interface ConnexionForm {
 				}
 				
 				mdp = hashMdp(request.getParameter(entry).trim());
-				
-				// vérifie si le mot de passe existe en bdd
-				// TODO make it work
+
 				try {
 					listCheckUsers = mgr.getAllUtilisateur();
 				} catch (BLLException e) {
@@ -156,7 +154,7 @@ public interface ConnexionForm {
 					e.printStackTrace();
 				}
 				for (Utilisateur utilisateur : listCheckUsers) {
-					if (utilisateur.getMotDePasse() == mdp) {
+					if (utilisateur.getMotDePasse().contains(mdp)) {
 						request.setAttribute(erreur , "Choissisez un autre Mot de Passe");
 					}
 

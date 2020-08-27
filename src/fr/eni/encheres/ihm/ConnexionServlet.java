@@ -74,7 +74,7 @@ public class ConnexionServlet extends HttpServlet {
 			}
 		
 			String  mdp1 = ConnexionForm.hashMdp(mdp);
-		
+
 			//filtre de recherche si pseudo ou si email existe dans la bdd et si ceux ci-correspondent au mot de passe enregistré en bdd
 			Utilisateur utilisateurConfirmeBDD = 
 				listeDutilisateur.stream().filter(
